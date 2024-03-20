@@ -1,0 +1,33 @@
+[build-system]
+build-backend = "hatchling.build"
+requires = [
+    "hatchling==1.22.3",
+]
+
+[project]
+name = "sml-user-docs"
+version = "1.0.0"
+authors = [ { name = "KP Labs" } ]
+classifiers = [
+    "Private :: KP Labs",
+
+    "License :: Other/Proprietary License",
+    "Operating System :: OS Independent",
+]
+description = "SML user documentation"
+requires-python = ">=3.12"
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "Sphinx==7.2.6",
+    "sphinx-immaterial==0.11.11",
+]
+
+[tool.hatch.envs.dev]
+python = "3.12"
+skip-install = true
+features = [ "dev" ]
+
+[tool.hatch.envs.dev.scripts]
+build = "sphinx-build -b html --jobs auto -n -d build/.doctrees {args:} src/ build/html"
