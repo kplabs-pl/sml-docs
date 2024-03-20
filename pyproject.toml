@@ -22,6 +22,8 @@ dependencies = []
 dev = [
     "Sphinx==7.2.6",
     "sphinx-immaterial==0.11.11",
+    "sphinx-lint==0.9.1",
+    "vale==3.3.0",
 ]
 
 [tool.hatch.envs.dev]
@@ -31,3 +33,12 @@ features = [ "dev" ]
 
 [tool.hatch.envs.dev.scripts]
 build = "sphinx-build -b html --jobs auto -n -d build/.doctrees {args:} src/ build/html"
+run-sphinx-lint = "sphinx-lint src/ {args:}"
+run-vale = [
+    "vale sync",
+    "vale src/ {args:}",
+]
+check = [
+    "run-sphinx-lint",
+    "run-vale",
+]

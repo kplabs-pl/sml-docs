@@ -1,3 +1,6 @@
 .vscode
 .local
 build
+
+vale_styles/*
+!vale_styles/config/
