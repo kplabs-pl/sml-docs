@@ -1,0 +1,46 @@
+[build-system]
+build-backend = "hatchling.build"
+requires = [
+    "hatchling==1.22.3",
+]
+
+[project]
+name = "sml-user-docs"
+version = "1.0.0"
+authors = [ { name = "KP Labs" } ]
+classifiers = [
+    "Private :: KP Labs",
+
+    "License :: Other/Proprietary License",
+    "Operating System :: OS Independent",
+]
+description = "SML user documentation"
+requires-python = ">=3.12"
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "Sphinx==7.2.6",
+    "sphinx-immaterial==0.11.11",
+    "sphinx-autobuild==2024.2.4",
+    "sphinx-lint==0.9.1",
+    "vale==3.3.0",
+]
+
+[tool.hatch.envs.dev]
+python = "3.12"
+skip-install = true
+features = [ "dev" ]
+
+[tool.hatch.envs.dev.scripts]
+build = "sphinx-build -b html --jobs auto -n -d build/.doctrees {args:} src/ build/html"
+watch = "sphinx-autobuild -b html -n -d build/.doctrees {args:} src/ build/html"
+run-sphinx-lint = "sphinx-lint src/ {args:}"
+run-vale = [
+    "vale sync",
+    "vale src/ {args:}",
+]
+check = [
+    "run-sphinx-lint",
+    "run-vale",
+]
