@@ -6,3 +6,6 @@ VPN
 SML
 OpenVPN
 Smart Mission Lab
+DPU
+SPI
+EGSE
