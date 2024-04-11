@@ -9,3 +9,7 @@ Smart Mission Lab
 DPU
 SPI
 EGSE
+Vivado Lab Edition
+Vivado
+XSCT
+bootloader
