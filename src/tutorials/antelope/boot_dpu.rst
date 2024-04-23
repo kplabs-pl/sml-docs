@@ -1,0 +1,71 @@
+Booting DPU
+===========
+
+Prerequisites
+-------------
+
+* Access to Antelope through Smart Mission Lab
+* Reference design loaded to SPI Flash memory (See :doc:`/tutorials/antelope/load_reference_design_spi`)
+
+Steps
+-----
+
+1. Connect to EGSE Host with Antelope board
+    .. code-block:: shell
+
+        my-machine$ ssh customer@egse-my-egse.egse.sml.lan
+        customer@egse-my-egse:~$
+2. Start ``minicom`` to access DPU's serial port
+
+    .. code-block:: shell
+
+        customer@egse-my-egse:~$ minicom -D /dev/sml/antelope-dpu-uart
+3. Leave terminal with ``minicom`` connected and open another one. In new terminal connect to the same EGSE Host
+    .. code-block:: shell
+
+        my-machine$ ssh customer@egse-my-egse.egse.sml.lan
+        customer@egse-my-egse:~$
+4. Power on Antelope board
+    .. code-block:: shell
+
+        customer@egse-my-egse:~$ sml power on
+        Powering on...Success
+5. Power on DPU
+    .. code-block:: shell
+
+        customer@egse-my-egse:~$ sml dpu power on
+        Powering on...Success
+6. Release DPU from reset
+    .. code-block:: shell
+
+        customer@egse-my-egse:~$ sml dpu reset off
+        Bringing DPU out of reset...Success
+7. Go back to terminal with ``minicom``. After releasing DPU from reset, boot process shall start with output visible through serial port
+    .. note:: Exact output may vary depending on the reference design used
+
+    .. code-block:: text
+
+        Xilinx Zynq MP First Stage Boot Loader
+        ...
+        U-Boot 2021.01 (Oct 12 2021 - 09:28:42 +0000)
+
+        CPU:   ZynqMP
+        Silicon: v3
+        Board: Xilinx ZynqMP
+        DRAM:  8 GiB
+        PMUFW:  v1.1
+        EL Level:       EL2
+        Chip ID:        zu4cg
+        NAND:  4096 MiB
+        ...
+        ## Executing script at 20000000
+        ...
+        Starting kernel ...
+
+        [    0.000000] Booting Linux on physical CPU 0x0000000000 [0x410fd034]
+        ...
+        INIT: version 2.97 booting
+        ...
+        root@antelope:~#
+
+8. With DPU booted, you can now interact with it through terminal with ``minicom``
