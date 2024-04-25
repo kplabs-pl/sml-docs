@@ -13,3 +13,4 @@ Vivado Lab Edition
 Vivado
 XSCT
 bootloader
+GUI

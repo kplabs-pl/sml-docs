@@ -1,5 +1,5 @@
-Tutorials: Antelope
-===================
+Board: Antelope
+===============
 
 .. toctree::
     :maxdepth: 1
