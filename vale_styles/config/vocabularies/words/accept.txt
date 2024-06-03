@@ -14,3 +14,8 @@ Vivado
 XSCT
 bootloader
 GUI
+EGSE Hosts?
+[gG]rafana
+Network Attached Storage
+VPN Gateway
+JTAG
