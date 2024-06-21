@@ -19,3 +19,22 @@ EGSE Hosts?
 Network Attached Storage
 VPN Gateway
 JTAG
+Vitis
+Zynq
+AMD
+MIO
+NAND
+QSPI
+GEM
+DDR
+DRAM
+ECC
+[bB]itstream
+UART
+GPIO
+RTL
+MBits
+HDL
+auto-update
+Disabled
+Master
