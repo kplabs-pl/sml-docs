@@ -21,10 +21,10 @@ dependencies = []
 [project.optional-dependencies]
 dev = [
     "Sphinx==7.3.7",
-    "sphinx-immaterial==0.11.13",
+    "sphinx-immaterial==0.11.14",
     "sphinx-autobuild==2024.4.16",
     "sphinx-lint==0.9.1",
-    "vale==3.4.1",
+    "vale==3.6.0.0",
 ]
 
 [tool.hatch.envs.dev]
