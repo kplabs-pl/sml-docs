@@ -38,3 +38,8 @@ HDL
 auto-update
 Disabled
 Master
+Yocto
+Xilinx
+XSA
+DHCP
+TFTP
