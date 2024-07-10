@@ -43,3 +43,5 @@ Xilinx
 XSA
 DHCP
 TFTP
+AXI
+IPs
