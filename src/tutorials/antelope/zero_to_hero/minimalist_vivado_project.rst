@@ -3,21 +3,34 @@ Create minimalist Vivado project
 
 Goal
 ----
-
 The goal of this tutorial is to create minimalist Vivado project for Antelope that you can use for building Linux distribution.
+
+A bit of background
+-------------------
+Building Linux distribution for Zynq UltraScale+ device (such as Antelope DPU) requires **hardware definition file** (``.xsa``). That file includes essential configuration such as:
+
+* DDR memory
+* Clocks
+* Enabled peripherals
+* I/O pins, in particular how peripherals connect to physical pins of chip
+* Connectivity between Processing System (PS) and Programmable Logic (PL)
+
+Vivado lets you to configure all these settings and export them in form of ``.xsa`` file. Simplest way to create Vivado project is by using **block design** which offers graphical way to layout IP cores, customize them and connect together.
 
 Prerequisites
 -------------
-
 * AMD Vivado Design Suite
 
   * Free Standard Edition can be download from https://www.xilinx.com/products/design-tools/vivado.html
   * Enable support for Zynq UltraScale+ MPSoC during installation
+
+    * During installation when selecting devices support make sure to select **Zynq** UltraScale+ MPSoC in SoC group. Just UltraScale+ is different family of devices.
+    * Both 'Vitis' and 'Vivado' selections include Vivado. You can use either of them but using 'Vitis' installs additional tools.
+
   * This tutorial uses 2024.1 version. Other versions might also work correctly but it's possible that exact steps will be different.
 
 Create project
 --------------
-
 .. note:: Antelope User Manual describes all configuration values used in these steps.
 
 1. Start Vivado and create new project. In new project wizard select following options:
@@ -67,5 +80,4 @@ Create project
 
 Summary
 -------
-
 In this tutorial you walked through creating minimalist Vivado project for Antelope. Configuration enables only minimal set of peripherals (UART, Ethernet and flash memories) and doesn't provide support of usage of Programmable Logic. In the next step you can use exported ``.xsa`` as base of building Linux distribution for Antelope.

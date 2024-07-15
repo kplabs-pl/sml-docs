@@ -45,3 +45,5 @@ DHCP
 TFTP
 AXI
 IPs
+BitBake
+FPGA

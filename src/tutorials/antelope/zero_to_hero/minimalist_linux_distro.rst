@@ -3,25 +3,35 @@ Minimalist Linux distribution
 
 Goal
 ----
-
 In this tutorial you will:
   * create Linux distribution using Yocto (along with support firmware) based on Vivado project created earlier
-  * boot Linux on Antelope DPU
+  * boot Linux on Antelope DPU through EGSE Host
+
+A bit of background
+-------------------
+Running Linux on device like Antelope DPU requires set of artifacts
+
+* Boot firmware (in particular *first stage bootloader* and U-Boot)
+* Linux kernel
+* Device tree
+* Root filesystem
+
+Yocto can build these items automatically. Developers construct project using Yocto from **layers** coming from Yocto project itself, hardware manufactures and their own. Each layer contributes series of **recipes** that are describing how to build particular components of Linux distribution. **BitBake** tool manages all dependencies between recipes and hides build complexity.
+
+After building all required artifacts you can use Antelope DPU boot capabilities to load boot firmware into persistent memory and load Linux kernel and root filesystem from network.
 
 Prerequisites
 -------------
-
-* ``.xsa`` file with platform configuration
+* ``.xsa`` file with platform configuration from :doc:`./minimalist_vivado_project`
 * Machine with Linux edition supported by Yocto
 * Tools installed on machine:
 
-  * Git
-  * ``libtinfo5``
-  * Yocto requirements (``build-essential``, ``chrpath``, ``diffstat``, ``gawk``, ``lz4``)
+  * ``libtinfo5`` (required by Xilinx layers)
+  * Yocto requirements (https://docs.yoctoproject.org/ref-manual/system-requirements.html#required-packages-for-the-build-host)
+* At least 60GB free space for Yocto build
 
 Create project
 --------------
-
 1. Create new directory for Yocto project and navigate to it.
 
    .. code-block:: shell-session
@@ -81,7 +91,6 @@ Create project
 
 Add layers
 ----------
-
 1. Clone Xilinx layers:
 
    .. code-block:: shell-session
@@ -98,6 +107,15 @@ Add layers
        machine:~/antelope-linux-1/build$ bitbake-layers add-layer ../sources/meta-xilinx/meta-xilinx-standalone
        machine:~/antelope-linux-1/build$ bitbake-layers add-layer ../sources/meta-xilinx-tools
 
+
+   .. note::
+
+        After adding Xilinx layers, BitBake might report warning
+
+            The ZynqMP pmu-rom is not enabled (...) To enable this you must add 'xilinx' to the LICENSE_FLAGS_ACCEPTED to indicate you accept the software license.
+
+        This is for informational purposes only and you can ignore it.
+
 3. Retrieve KP Labs-provided layers
 4. Add set of required layers from KP Labs repositories:
 
@@ -108,7 +126,6 @@ Add layers
 
 Create layer for customizations
 -------------------------------
-
 1. Create empty layer
 
    .. code-block:: shell-session
@@ -147,7 +164,6 @@ Create layer for customizations
 
 Configure project
 -----------------
-
 1. Edit ``~/antelope-linux-1/build/conf/local.conf`` and add following lines at the beginning:
 
    .. code-block::
@@ -162,8 +178,8 @@ Configure project
 
        machine:~/antelope-linux-1/build$ recipetool newappend --wildcard-version ../sources/meta-local/ external-hdf
 
-3. Copy ``.xsa`` file with Antelope configuration as ``~/antelope-linux-1/sources/meta-local/recipes-bsp/hdf/external-hdf/top_bd_wrapper.xsa``
-4. Write recipe append setting XSA file
+3. Create directory ``~/antelope-linux-1/sources/meta-local/recipes-bsp/hdf/external-hdf`` and copy ``top_bd_wrapper.xsa`` to it.
+4. Edit recipe append ````~/antelope-linux-1/sources/meta-local/recipes-bsp/hdf/external-hdf.bb`` and set path XSA file
 
    .. code-block::
 
@@ -175,7 +191,6 @@ Configure project
 
 Build project
 -------------
-
 1. Build project artifacts:
 
    .. code-block:: shell-session
@@ -199,7 +214,6 @@ Build project
 
 Booting Linux on DPU
 --------------------
-
 1. Verify that all necessary artifacts are present on EGSE Host:
 
    .. code-block:: shell-session

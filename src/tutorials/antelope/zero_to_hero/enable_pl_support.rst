@@ -1,42 +1,69 @@
 Enable programmable logic support
 =================================
 
-
 Goal
 ----
 This tutorial you will
-    - Enable programmable logic support in the Antelope DPU
+    - Expand Vivado project from :doc:`/tutorials/antelope/zero_to_hero/minimalist_vivado_project` for Antelope DPU with support for Programmable Logic
     - Build bitstream with two UART peripherals connected together
+
+A bit of background
+-------------------
+Antelope DPU configuration that you created in :doc:`/tutorials/antelope/zero_to_hero/minimalist_vivado_project` tutorial has support only for Processing System. Usage of **Programmable Logic** part of Zynq UltraScale+ requires following capabilities from Processing System side:
+
+* Clock for programmable logic
+* Interrupt lines between Processing System and Programmable Logic
+* Memory interface between Processing System and Programmable Logic
+
+Zynq UltraScale+ IP block (the same block that you used to configure base settings like DDR memory or I/O pins) configures these options. All Vivado projects describing different "content" of Programmable Logic must use the same base settings. Vivado provides **preset** mechanism to transfer processing system configuration between projects.
+
+.. figure:: ./enable_pl_support/vivado_presets_share.drawio.png
+    :align: center
+
+    Multiple Vivado projects sharing Processing System configuration using presets and producing different ``.xsa`` files.
+
+Building content for programmable logic involves putting different IP blocks on block design, connecting them together using memory interfaces, interrupts, and clocks. To be usable from Linux distribution, IPs connect to "extension points" provided by Processing System.
+
+Vivado stores content for Programmable Logic in ``.xsa`` file in form called **bitstream**. Using running Linux operating system you can use **FPGA Manager** to load different bitstreams to Programmable Logic.
 
 Prerequisites
 -------------
-* Base Antelope DPU project
-* Base Yocto project for Antelope DPU
-* EGSE Host prepared to boot Antelope DPU from network
+* Base Antelope DPU project from :doc:`/tutorials/antelope/zero_to_hero/minimalist_vivado_project`
+* Base Yocto project for Antelope DPU from :doc:`/tutorials/antelope/zero_to_hero/minimalist_linux_distro`
+* EGSE Host prepared to boot Antelope DPU from network as described in :doc:`/tutorials/antelope/zero_to_hero/minimalist_linux_distro`
 
 Enable programmable logic support
 ---------------------------------
-1. Open Antelope DPU project in Vivado
-2. Modify Zynq UltraScale+ block
+1. Open Antelope DPU project from :doc:`/tutorials/antelope/zero_to_hero/minimalist_vivado_project` in Vivado
+2. Use 'Open Block Design' option to open ``top_bd`` block design
+3. Customize Zynq UltraScale+ block by double-clicking on it
 
    * Enable PL to PS interrupts ``IRQ0[0-7]``
    * Enable PS to PL Master interface ``AXI HPM0 FPD``
-   * Enable PL fabric clock ``PL0``
    * Enable Fabric Reset Enable
+   * Enable PL fabric clock ``PL0`` in Output clocks section
    * Set Number of Fabric Resets to 1
+
 3. In ``top_bd`` block design connect ``maxihpm0_fpd_aclk`` to ``pl0_clk``
-4. Open Zynq UltraScale+ IP block and export preset by selecting ``Presets`` -> ``Save configuration``
+4. At this point block design should contain single IP block with single connection
+
+   .. figure:: ./enable_pl_support/pl_support_enabled.png
+      :align: center
+
+      Block design with Zynq UltraScale+ IP block configured to support Programmable Logic
+
+5. Open customization of Zynq UltraScale+ IP block and export preset by selecting ``Presets`` -> ``Save configuration``
 
    * Use ``antelope-minimalistic-with-pl`` as preset name
    * Save to ``antelope-minimalistic-with-pl.tcl`` file
 
-5. Generate bitstream
-6. Export hardware without bitstream. Use ``antelope-minimalistic-pl-base.xsa`` for output file name.
+6. Generate bitstream
+7. Export hardware without bitstream. Use ``antelope-minimalistic-pl-base.xsa`` for output file name.
 
-Create 2xUART bitstream
------------------------
+Create double UART bitstream
+----------------------------
 
-1. Create new project in Vivado
+1. Create new project in Vivado in the same way as in :doc:`/tutorials/antelope/zero_to_hero/minimalist_vivado_project` tutorial
 
    * Project type: RTL Project
 
@@ -44,9 +71,12 @@ Create 2xUART bitstream
      * Don't select 'Project is an extensible Vitis platform'
 
    * Part: ``xczu4cg-sfvc784-1L-i``
-2. Create block design with name ``double_uart_bd``.
-3. Place Zynq UltraScale+ IP block in the block design.
-4. Open Zynq UltraScale+ IP customization and apply previously exported preset by selecting ``Presets`` -> ``Apply configuration`` and select ``antelope-minimalistic-with-pl.tcl`` file.
+2. Create top-level block design by using 'Create Block Design' in Flow Navigator. Use ``double_uart_bd`` as name.
+3. In block design diagram editor add Zynq UltraScale+ MPSoC IP block.
+4. Start customization of Zynq UltraScale+ MPSoC IP block by double-clicking on it.
+
+   1. Apply previously exported preset by selecting ``Presets`` -> ``Apply configuration`` and select ``antelope-minimalistic-with-pl.tcl`` file.
+
 5. In ``double_uart_bd`` block design connect ``maxihpm0_fpd_aclk`` to ``pl0_clk``.
 6. Place two AXI Uartlite IPs on block design
 7. Cross-connect UARTs by connecting ``axu_uartlite1`` TX to ``axu_uartlite0`` RX and vice versa.
@@ -59,12 +89,15 @@ Create 2xUART bitstream
 
     .. figure:: ./enable_pl_support/double_uart_bd.png
        :align: center
+
+       Block design with double UARTs connected together and available to Processing System
+
 14. In Sources view select Design Sources -> ``double_uart_bd`` and click 'Create HDL Wrapper' in context menu. Use 'Let Vivado manage wrapper and auto-update' option.
 15. Generate bitstream
 16. Export hardware including bitstream to file ``antelope-double-uart.xsa``
 
-Add double UART bitstream to Linux distribution
------------------------------------------------
+Enable programmable logic support in boot firmware
+--------------------------------------------------
 1. Add ``antelope-minimalistic-pl-base.xsa`` to ``sources/meta-local/recipes-bsp/hdf/external-hdf/`` directory.
 2. Modify ``sources/meta-local/recipes-bsp/hdf/external-hdf_%.bbappend`` to use new XSA file.
 
@@ -73,7 +106,11 @@ Add double UART bitstream to Linux distribution
         HDF_BASE = "file://"
         HDF_PATH = "antelope-minimalistic-pl-base.xsa"
 
-3. Create new recipe ``sources/meta-local/recipes-example/bitstreams/double-uart.bb`` that will install bitstream with double UART.
+
+Add double UART bitstream to Linux distribution
+-----------------------------------------------
+1. Create directory ``sources/meta-local/recipes-example/bitstreams/double-uart/`` and copy ``antelope-double-uart.xsa`` to it.
+2. Create new recipe ``sources/meta-local/recipes-example/bitstreams/double-uart.bb`` that will install bitstream with double UART.
 
    .. code-block::
 
@@ -84,8 +121,7 @@ Add double UART bitstream to Linux distribution
         SRC_URI += "file://antelope-double-uart.xsa"
         BITSTREAM_HDF_FILE = "${WORKDIR}/antelope-double-uart.xsa"
 
-4. Add ``antelope-double-uart.xsa`` to ``sources/meta-local/recipes-example/bitstreams/double-uart/`` directory.
-5. Create append for ``core-image-minimal`` recipe
+3. Create append for ``core-image-minimal`` recipe
 
    .. code-block:: shell-session
 
@@ -100,7 +136,7 @@ Add double UART bitstream to Linux distribution
 
         Summary: There was 1 WARNING message.
         ~/antelope-linux-1/sources/meta-local/recipes-core/images/core-image-minimal.bbappend created
-6. Add new packages into Linux image by editing ``sources/meta-local/recipes-core/images/core-image-minimal.bbappend``
+4. Add new packages into Linux image by editing ``sources/meta-local/recipes-core/images/core-image-minimal.bbappend``
 
    .. code-block::
 
@@ -109,13 +145,13 @@ Add double UART bitstream to Linux distribution
             double-uart \
         "
 
-7. Build firmware and image
+5. Build firmware and image
 
     .. code-block:: shell-session
 
         machine:~/antelope-linux-1$ bitbake core-image-minimal bootbin-firmware boot-script-pins virtual/kernel device-tree
 
-8. Prepare build artifacts for transfer to EGSE Host
+6. Prepare build artifacts for transfer to EGSE Host
 
    .. code-block:: shell-session
 
@@ -126,7 +162,7 @@ Add double UART bitstream to Linux distribution
         machine:~/antelope-linux-1$ cp build/tmp/deploy/images/antelope/Image ./egse-host-transfer/
         machine:~/antelope-linux-1$ cp build/tmp/deploy/images/antelope/core-image-minimal-antelope.rootfs.cpio.gz.u-boot ./egse-host-transfer/
 
-9. Transfer content of ``egse-host-transfer`` directory to EGSE Host and place it in ``/var/tftp/tutorial`` directory
+7. Transfer content of ``egse-host-transfer`` directory to EGSE Host and place it in ``/var/tftp/tutorial`` directory
 
 Loading double UART bitstream on DPU
 ------------------------------------
