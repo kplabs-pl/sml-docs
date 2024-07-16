@@ -37,7 +37,8 @@ MBits
 HDL
 auto-update
 Disabled
-Master
+[mM]aster
+[sS]lave
 Yocto
 Xilinx
 XSA
@@ -47,3 +48,6 @@ AXI
 IPs
 BitBake
 FPGA
+Deep-learning Processor Unit
+Kria
+automations

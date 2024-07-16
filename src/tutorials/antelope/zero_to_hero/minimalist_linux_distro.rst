@@ -203,7 +203,7 @@ Build project
 
    .. code-block:: shell-session
 
-        machine:~/antelope-linux-1$ mkdir ./egse-host-transfer
+        machine:~/antelope-linux-1$ mkdir -p ./egse-host-transfer
         machine:~/antelope-linux-1$ cp build/tmp/deploy/images/antelope/bootbins/boot-firmware.bin ./egse-host-transfer/
         machine:~/antelope-linux-1$ cp build/tmp/deploy/images/antelope/u-boot-scripts/boot-script-pins/boot-pins.scr ./egse-host-transfer/
         machine:~/antelope-linux-1$ cp build/tmp/deploy/images/antelope/system.dtb ./egse-host-transfer/

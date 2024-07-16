@@ -39,26 +39,34 @@ Enable programmable logic support
 3. Customize Zynq UltraScale+ block by double-clicking on it
 
    * Enable PL to PS interrupts ``IRQ0[0-7]``
-   * Enable PS to PL Master interface ``AXI HPM0 FPD``
+   * Enable PS-PL Master interface ``AXI HPM0 FPD``
+   * Enable PL-PS Slave interface ``AXI HPC0 FPD``
    * Enable Fabric Reset Enable
-   * Enable PL fabric clock ``PL0`` in Output clocks section
+   * Enable PL fabric clocks in Output clocks tab
+
+     * Enable ``PL0`` and set it to 100MHz
+     * Enable ``PL1`` and set it to 200MHz
+
    * Set Number of Fabric Resets to 1
 
 3. In ``top_bd`` block design connect ``maxihpm0_fpd_aclk`` to ``pl0_clk``
-4. At this point block design should contain single IP block with single connection
+4. In ``top_bd`` block design connect ``saxihpc0_fpd_aclk`` to ``pl0_clk``
+5. At this point block design should contain single IP block with single connection
 
    .. figure:: ./enable_pl_support/pl_support_enabled.png
       :align: center
 
       Block design with Zynq UltraScale+ IP block configured to support Programmable Logic
 
-5. Open customization of Zynq UltraScale+ IP block and export preset by selecting ``Presets`` -> ``Save configuration``
+6. Open customization of Zynq UltraScale+ IP block and export preset by selecting ``Presets`` -> ``Save configuration``
 
    * Use ``antelope-minimalistic-with-pl`` as preset name
    * Save to ``antelope-minimalistic-with-pl.tcl`` file
 
-6. Generate bitstream
-7. Export hardware without bitstream. Use ``antelope-minimalistic-pl-base.xsa`` for output file name.
+7. Generate bitstream
+8. Export hardware without bitstream. Use ``antelope-minimalistic-pl-base.xsa`` for output file name.
+
+.. note:: Selected Zynq UltraScale+ configuration covers needs of programmable logic content in this tutorial and next ones.
 
 Create double UART bitstream
 ----------------------------
