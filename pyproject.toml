@@ -20,8 +20,8 @@ dependencies = []
 
 [project.optional-dependencies]
 dev = [
-    "Sphinx==7.4.7",
-    "sphinx-immaterial==0.12.1",
+    "Sphinx==8.0.2",
+    "sphinx-immaterial==0.12.2",
     "sphinx-autobuild==2024.4.16",
     "sphinx-lint==0.9.1",
     "vale==3.7.0.0",

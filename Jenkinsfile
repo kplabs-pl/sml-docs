@@ -19,6 +19,9 @@ pipeline {
         }
         stage('Build') {
             steps {
+                dir('src/build') {
+                    deleteDir()
+                }
                 dir('src') {
                     withPipxInstalled('3.12', ['hatch==1.9.4']) {
                         sh('hatch run dev:build -W -a -E')
