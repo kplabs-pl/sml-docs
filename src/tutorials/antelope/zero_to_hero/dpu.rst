@@ -19,14 +19,14 @@ Prerequisites
 
 Download Deep-learning Processor Unit repository :tutorial-machine:`Vivado`
 ---------------------------------------------------------------------------
-1. On machine with Vivado create ``dpu-ip-repo`` directory.
+1. On machine with Vivado create :file:`dpu-ip-repo` directory.
 2. Download DPU IP block from https://xilinx.github.io/Vitis-AI/3.5/html/docs/workflow-system-integration.html#ip-and-reference-designs.
 
    * Use 'IP-only download' link for 'MPSoC & Kria K26' platform.
 
-3. Unpack downloaded archive to ``dpu-ip-repo`` directory.
+3. Unpack downloaded archive to :file:`dpu-ip-repo` directory.
 
-   * Make sure that after extracting, directory ``DPUCZDX8G_v4_1_0`` is directly in ``dpu-ip-repo``.
+   * Make sure that after extracting, directory ``DPUCZDX8G_v4_1_0`` is directly in :file:`dpu-ip-repo`.
 
 Create bitstream with Deep-learning Processor Unit :tutorial-machine:`Vivado`
 -----------------------------------------------------------------------------
@@ -42,7 +42,7 @@ Create bitstream with Deep-learning Processor Unit :tutorial-machine:`Vivado`
 
    1. Open settings by clicking on :menuselection:`Settings` in :menuselection:`Flow Navigator`.
    2. Go to :menuselection:`Project Settings --> IP --> Repository`.
-   3. Add ``dpu-ip-repo`` directory to list of repositories.
+   3. Add :file:`dpu-ip-repo` directory to list of repositories.
 
       Vivado will show confirmation message and list :menuselection:`Deep-learning Process Unit` as newly added IP.
 
@@ -50,7 +50,7 @@ Create bitstream with Deep-learning Processor Unit :tutorial-machine:`Vivado`
 4. In block design diagram editor add Zynq UltraScale+ MPSoC IP block.
 5. Start customization of Zynq UltraScale+ MPSoC IP block by double-clicking on it.
 
-   1. Apply previously exported preset by selecting :menuselection:`Presets --> Apply configuration` and select ``antelope-minimalistic-with-pl.tcl`` file.
+   1. Apply previously exported preset by selecting :menuselection:`Presets --> Apply configuration` and select :file:`antelope-minimalistic-with-pl.tcl` file.
 
 6. Add Deep-learning Process Unit IP block to block design.
 7. Customize Deep-learning Process Unit block by double-clicking on it.
@@ -90,12 +90,12 @@ Create bitstream with Deep-learning Processor Unit :tutorial-machine:`Vivado`
 
        Block design with Deep-learning Processor Unit
 
-14. In Sources view select Design Sources -> ``dpu_bd`` and click 'Create HDL Wrapper' in context menu. Use 'Let Vivado manage wrapper and auto-update' option.
+14. In Sources view select :menuselection:`Sources --> dpu_bd` and click 'Create HDL Wrapper' in context menu. Use 'Let Vivado manage wrapper and auto-update' option.
 15. Generate bitstream
 
     .. warning:: Compared to previous tutorials, generating bitstream might take significantly longer time.
 
-16. Export hardware including bitstream to file ``antelope-dpu-bd.xsa``
+16. Export hardware including bitstream to file :file:`antelope-dpu-bd.xsa`
 
 Add Vitis layers to Yocto Project :tutorial-machine:`Yocto`
 -----------------------------------------------------------
@@ -111,7 +111,7 @@ Add Vitis layers to Yocto Project :tutorial-machine:`Yocto`
 
        machine:~/antelope-linux-1/build$ git clone -b rel-v2024.1 https://github.com/Xilinx/meta-vitis.git ../sources/meta-vitis
 
-2. Retrieve KP Labs-provided ``meta-kp-vitis-ai`` layer and save it as ``~/antelope-linux-1/sources/meta-kp-vitis-ai``.
+2. Retrieve KP Labs-provided ``meta-kp-vitis-ai`` layer and save it as :file:`~/antelope-linux-1/sources/meta-kp-vitis-ai`.
 3. Apply patches to ``meta-vitis`` that fix support for ``nanbield`` Yocto version
 
    .. code-block:: shell-session
@@ -129,7 +129,7 @@ Add Vitis layers to Yocto Project :tutorial-machine:`Yocto`
       machine:~/antelope-linux-1/build$ bitbake-layers add-layer ../sources/meta-vitis
       machine:~/antelope-linux-1/build$ bitbake-layers add-layer ../sources/meta-kp-vitis-ai
 
-5. Change recipe providing ``opencl-icd`` by adding configuarion option to ``~/antelope-linux-1/build/conf/local.conf``.
+5. Change recipe providing ``opencl-icd`` by adding configuarion option to :file:`~/antelope-linux-1/build/conf/local.conf`.
 
    .. code-block::
 
@@ -139,8 +139,8 @@ Add Vitis layers to Yocto Project :tutorial-machine:`Yocto`
 
 Add Deep-learning Processor Unit bitstream to Linux image :tutorial-machine:`Yocto`
 -----------------------------------------------------------------------------------
-1. Create directory ``~/antelope-linux-1/sources/meta-local/recipes-example/bitstreams/antelope-dpu/`` and copy ``antelope-dpu-bd.xsa`` to it.
-2. Create new recipe ``~/antelope-linux-1/sources/meta-local/recipes-example/bitstreams/antelope-dpu.bb`` that will install bitstream with double UART.
+1. Create directory :file:`~/antelope-linux-1/sources/meta-local/recipes-example/bitstreams/antelope-dpu/` and copy :file:`antelope-dpu-bd.xsa` to it.
+2. Create new recipe :file:`~/antelope-linux-1/sources/meta-local/recipes-example/bitstreams/antelope-dpu.bb` that will install bitstream with double UART.
 
    .. code-block::
 
@@ -157,14 +157,14 @@ Add Deep-learning Processor Unit bitstream to Linux image :tutorial-machine:`Yoc
 
        machine:~/antelope-linux-1/build$ recipetool newappend --wildcard-version ../sources/meta-local/ linux-xlnx
 
-4. Create directory ``~/antelope-linux-1/sources/meta-local/recipes-kernel/linux/linux-xlnx``.
-5. Enable Xilinx DPU kernel driver module by creating file ``~/antelope-linux-1/sources/meta-local/recipes-kernel/linux/linux-xlnx/xlnx-dpu.cfg`` with content
+4. Create directory :file:`~/antelope-linux-1/sources/meta-local/recipes-kernel/linux/linux-xlnx`.
+5. Enable Xilinx DPU kernel driver module by creating file :file:`~/antelope-linux-1/sources/meta-local/recipes-kernel/linux/linux-xlnx/xlnx-dpu.cfg` with content
 
    .. code-block::
 
       CONFIG_XILINX_DPU=m
 
-6. Enable kernel configuration fragment by adding it to ``~/antelope-linux-1/sources/meta-local/recipes-kernel/linux/linux-xlnx/linux-xlnx_%.bbappend``
+6. Enable kernel configuration fragment by adding it to :file:`~/antelope-linux-1/sources/meta-local/recipes-kernel/linux/linux-xlnx/linux-xlnx_%.bbappend`
 
    .. code-block::
 
@@ -172,7 +172,7 @@ Add Deep-learning Processor Unit bitstream to Linux image :tutorial-machine:`Yoc
 
       SRC_URI += "file://xlnx-dpu.cfg"
 
-3. Add new packages into Linux image by editing ``~/antelope-linux-1/sources/meta-local/recipes-core/images/core-image-minimal.bbappend``
+3. Add new packages into Linux image by editing :file:`~/antelope-linux-1/sources/meta-local/recipes-core/images/core-image-minimal.bbappend`
 
    .. code-block::
 
@@ -203,7 +203,7 @@ Add Deep-learning Processor Unit bitstream to Linux image :tutorial-machine:`Yoc
         machine:~/antelope-linux-1$ cp build/tmp/deploy/images/antelope/Image ./egse-host-transfer/
         machine:~/antelope-linux-1$ cp build/tmp/deploy/images/antelope/core-image-minimal-antelope.rootfs.cpio.gz.u-boot ./egse-host-transfer/
 
-7. Transfer content of ``egse-host-transfer`` directory to EGSE Host and place it in ``/var/tftp/tutorial`` directory
+7. Transfer content of :file:`egse-host-transfer` directory to EGSE Host and place it in :file:`/var/tftp/tutorial` directory
 
 
 Run model on Deep-learning Processor Unit :tutorial-machine:`EGSE Host`

@@ -84,7 +84,7 @@ Create double UART bitstream :tutorial-machine:`Vivado`
 3. In block design diagram editor add Zynq UltraScale+ MPSoC IP block.
 4. Start customization of Zynq UltraScale+ MPSoC IP block by double-clicking on it.
 
-   1. Apply previously exported preset by selecting :menuselection:`Presets --> Apply configuration` and select ``antelope-minimalistic-with-pl.tcl`` file.
+   1. Apply previously exported preset by selecting :menuselection:`Presets --> Apply configuration` and select :file:`antelope-minimalistic-with-pl.tcl` file.
 
 5. In ``double_uart_bd`` block design connect ``maxihpm0_fpd_aclk`` to ``pl0_clk``.
 6. Place two AXI Uartlite IPs on block design
@@ -107,8 +107,8 @@ Create double UART bitstream :tutorial-machine:`Vivado`
 
 Enable programmable logic support in boot firmware :tutorial-machine:`Yocto`
 ----------------------------------------------------------------------------
-1. Add ``antelope-minimalistic-pl-base.xsa`` to ``sources/meta-local/recipes-bsp/hdf/external-hdf/`` directory.
-2. Modify ``sources/meta-local/recipes-bsp/hdf/external-hdf_%.bbappend`` to use new XSA file.
+1. Add :file:`antelope-minimalistic-pl-base.xsa` to :file:`sources/meta-local/recipes-bsp/hdf/external-hdf/` directory.
+2. Modify :file:`sources/meta-local/recipes-bsp/hdf/external-hdf_%.bbappend` to use new XSA file.
 
    .. code-block::
 
@@ -118,8 +118,8 @@ Enable programmable logic support in boot firmware :tutorial-machine:`Yocto`
 
 Add double UART bitstream to Linux distribution :tutorial-machine:`Yocto`
 -------------------------------------------------------------------------
-1. Create directory ``sources/meta-local/recipes-example/bitstreams/double-uart/`` and copy ``antelope-double-uart.xsa`` to it.
-2. Create new recipe ``sources/meta-local/recipes-example/bitstreams/double-uart.bb`` that will install bitstream with double UART.
+1. Create directory :file:`sources/meta-local/recipes-example/bitstreams/double-uart/` and copy :file:`antelope-double-uart.xsa` to it.
+2. Create new recipe :file:`sources/meta-local/recipes-example/bitstreams/double-uart.bb` that will install bitstream with double UART.
 
    .. code-block::
 
@@ -145,7 +145,7 @@ Add double UART bitstream to Linux distribution :tutorial-machine:`Yocto`
 
         Summary: There was 1 WARNING message.
         ~/antelope-linux-1/sources/meta-local/recipes-core/images/core-image-minimal.bbappend created
-4. Add new packages into Linux image by editing ``sources/meta-local/recipes-core/images/core-image-minimal.bbappend``
+4. Add new packages into Linux image by editing :file:`sources/meta-local/recipes-core/images/core-image-minimal.bbappend`
 
    .. code-block::
 
@@ -171,7 +171,7 @@ Add double UART bitstream to Linux distribution :tutorial-machine:`Yocto`
         machine:~/antelope-linux-1$ cp build/tmp/deploy/images/antelope/Image ./egse-host-transfer/
         machine:~/antelope-linux-1$ cp build/tmp/deploy/images/antelope/core-image-minimal-antelope.rootfs.cpio.gz.u-boot ./egse-host-transfer/
 
-7. Transfer content of ``egse-host-transfer`` directory to EGSE Host and place it in ``/var/tftp/tutorial`` directory
+7. Transfer content of :file:`egse-host-transfer` directory to EGSE Host and place it in :file:`/var/tftp/tutorial` directory
 
 Loading double UART bitstream on DPU :tutorial-machine:`EGSE Host`
 ------------------------------------------------------------------

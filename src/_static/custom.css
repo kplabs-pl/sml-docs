@@ -12,3 +12,9 @@
     margin-bottom: 0.2em;
     cursor: help;
 }
+
+span.menuselection {
+    border: dashed var(--md-default-fg-color--light) thin;
+    background-color: var(--md-default-fg-color--lightest);
+    padding: 2px;
+}

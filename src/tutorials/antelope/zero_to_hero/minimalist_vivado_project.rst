@@ -37,12 +37,12 @@ Create project :tutorial-machine:`Vivado`
 
    * Project type: RTL Project
 
-     * Select 'Don't specify sources at this time'
-     * Don't select 'Project is an extensible Vitis platform'
+     * Select :menuselection:`Don't specify sources at this time`
+     * Don't select :menuselection:`Project is an extensible Vitis platform`
 
    * Part: ``xczu4cg-sfvc784-1L-i``
 
-2. Create top-level block design by using 'Create Block Design' in Flow Navigator. Use ``top_bd`` as name.
+2. Create top-level block design by using :menuselection:`Create Block Design` in Flow Navigator. Use ``top_bd`` as name.
 3. In block design diagram editor add Zynq UltraScale+ MPSoC IP block.
 4. Start customization of Zynq UltraScale+ MPSoC IP block by double-clicking on it.
 

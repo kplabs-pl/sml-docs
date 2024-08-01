@@ -138,7 +138,7 @@ Create layer for customizations :tutorial-machine:`Yocto`
 
        machine:~/antelope-linux-1/build$ bitbake-layers add-layer ../sources/meta-local
 
-3. Verify set of layers enabled in project by opening ``~/antelope-linux-1/build/conf/bblayers.conf`` and checking its contents:
+3. Verify set of layers enabled in project by opening :file:`~/antelope-linux-1/build/conf/bblayers.conf` and checking its contents:
 
    .. code-block::
 
@@ -164,7 +164,7 @@ Create layer for customizations :tutorial-machine:`Yocto`
 
 Configure project :tutorial-machine:`Yocto`
 -------------------------------------------
-1. Edit ``~/antelope-linux-1/build/conf/local.conf`` and add following lines at the beginning:
+1. Edit :file:`~/antelope-linux-1/build/conf/local.conf` and add following lines at the beginning:
 
    .. code-block::
 
@@ -178,8 +178,8 @@ Configure project :tutorial-machine:`Yocto`
 
        machine:~/antelope-linux-1/build$ recipetool newappend --wildcard-version ../sources/meta-local/ external-hdf
 
-3. Create directory ``~/antelope-linux-1/sources/meta-local/recipes-bsp/hdf/external-hdf`` and copy ``top_bd_wrapper.xsa`` to it.
-4. Edit recipe append ````~/antelope-linux-1/sources/meta-local/recipes-bsp/hdf/external-hdf.bb`` and set path XSA file
+3. Create directory :file:`~/antelope-linux-1/sources/meta-local/recipes-bsp/hdf/external-hdf` and copy :file:`top_bd_wrapper.xsa` to it.
+4. Edit recipe append :file:`~/antelope-linux-1/sources/meta-local/recipes-bsp/hdf/external-hdf.bb` and set path XSA file
 
    .. code-block::
 
@@ -210,7 +210,7 @@ Build project :tutorial-machine:`Yocto`
         machine:~/antelope-linux-1$ cp build/tmp/deploy/images/antelope/Image ./egse-host-transfer/
         machine:~/antelope-linux-1$ cp build/tmp/deploy/images/antelope/core-image-minimal-antelope.rootfs.cpio.gz.u-boot ./egse-host-transfer/
 
-3. Transfer content of ``egse-host-transfer`` directory to EGSE Host and place it in ``/var/tftp/tutorial`` directory
+3. Transfer content of :file:`~/antelope-linux-1/egse-host-transfer` directory to EGSE Host and place it in :file:`/var/tftp/tutorial` directory
 
 Booting Linux on DPU :tutorial-machine:`EGSE Host`
 --------------------------------------------------
@@ -260,7 +260,7 @@ Booting Linux on DPU :tutorial-machine:`EGSE Host`
        Erasing     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00 ?
        Programming ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00 63.9 MB/s
 
-6. Prepare U-Boot script for booting from network by writing following content to ``/var/tftp/antelope-boot.cmd``
+6. Prepare U-Boot script for booting from network by writing following content to :file:`/var/tftp/antelope-boot.cmd`
 
    .. code-block:: bash
 
