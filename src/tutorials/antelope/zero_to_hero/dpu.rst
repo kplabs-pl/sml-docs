@@ -16,8 +16,8 @@ Prerequisites
 * Preset with Processing System configuration from :doc:`/tutorials/antelope/zero_to_hero/enable_pl_support`
 * Yocto project with Programmable Logic support from :doc:`/tutorials/antelope/zero_to_hero/enable_pl_support`
 
-Download Deep-learning Processor Unit repository
-------------------------------------------------
+Download Deep-learning Processor Unit repository :tutorial-machine:`Vivado`
+---------------------------------------------------------------------------
 1. On machine with Vivado create ``dpu-ip-repo`` directory.
 2. Download DPU IP block from https://xilinx.github.io/Vitis-AI/3.5/html/docs/workflow-system-integration.html#ip-and-reference-designs.
 
@@ -27,8 +27,8 @@ Download Deep-learning Processor Unit repository
 
    * Make sure that after extracting, directory ``DPUCZDX8G_v4_1_0`` is directly in ``dpu-ip-repo``.
 
-Create bitstream with Deep-learning Processor Unit
----------------------------------------------------
+Create bitstream with Deep-learning Processor Unit :tutorial-machine:`Vivado`
+-----------------------------------------------------------------------------
 1. Start Vivado and create new project. In new project wizard select following options:
 
    * Project type: RTL Project
@@ -96,8 +96,8 @@ Create bitstream with Deep-learning Processor Unit
 
 16. Export hardware including bitstream to file ``antelope-dpu-bd.xsa``
 
-Add Vitis layers to Yocto Project
----------------------------------
+Add Vitis layers to Yocto Project :tutorial-machine:`Yocto`
+-----------------------------------------------------------
 1. Clone ``meta-oe`` layer
 
    .. code-block:: shell-session
@@ -136,8 +136,8 @@ Add Vitis layers to Yocto Project
 
    .. note:: ``meta-vitis`` layer requires particular project configuration
 
-Add Deep-learning Processor Unit bitstream to Linux image
----------------------------------------------------------
+Add Deep-learning Processor Unit bitstream to Linux image :tutorial-machine:`Yocto`
+-----------------------------------------------------------------------------------
 1. Create directory ``~/antelope-linux-1/sources/meta-local/recipes-example/bitstreams/antelope-dpu/`` and copy ``antelope-dpu-bd.xsa`` to it.
 2. Create new recipe ``~/antelope-linux-1/sources/meta-local/recipes-example/bitstreams/antelope-dpu.bb`` that will install bitstream with double UART.
 
@@ -205,8 +205,8 @@ Add Deep-learning Processor Unit bitstream to Linux image
 7. Transfer content of ``egse-host-transfer`` directory to EGSE Host and place it in ``/var/tftp/tutorial`` directory
 
 
-Run model on Deep-learning Processor Unit
------------------------------------------
+Run model on Deep-learning Processor Unit :tutorial-machine:`EGSE Host`
+-----------------------------------------------------------------------
 1. Verify that all necessary artifacts are present on EGSE Host:
 
    .. code-block:: shell-session

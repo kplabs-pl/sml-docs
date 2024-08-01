@@ -29,8 +29,8 @@ Prerequisites
 
   * This tutorial uses 2024.1 version. Other versions might also work correctly but it's possible that exact steps will be different.
 
-Create project
---------------
+Create project :tutorial-machine:`Vivado`
+-----------------------------------------
 .. note:: Antelope User Manual describes all configuration values used in these steps.
 
 1. Start Vivado and create new project. In new project wizard select following options:

@@ -32,8 +32,8 @@ Prerequisites
 * Base Yocto project for Antelope DPU from :doc:`/tutorials/antelope/zero_to_hero/minimalist_linux_distro`
 * EGSE Host prepared to boot Antelope DPU from network as described in :doc:`/tutorials/antelope/zero_to_hero/minimalist_linux_distro`
 
-Enable programmable logic support
----------------------------------
+Enable programmable logic support :tutorial-machine:`Vivado`
+------------------------------------------------------------
 1. Open Antelope DPU project from :doc:`/tutorials/antelope/zero_to_hero/minimalist_vivado_project` in Vivado
 2. Use 'Open Block Design' option to open ``top_bd`` block design
 3. Customize Zynq UltraScale+ block by double-clicking on it
@@ -68,8 +68,8 @@ Enable programmable logic support
 
 .. note:: Selected Zynq UltraScale+ configuration covers needs of programmable logic content in this tutorial and next ones.
 
-Create double UART bitstream
-----------------------------
+Create double UART bitstream :tutorial-machine:`Vivado`
+-------------------------------------------------------
 
 1. Create new project in Vivado in the same way as in :doc:`/tutorials/antelope/zero_to_hero/minimalist_vivado_project` tutorial
 
@@ -104,8 +104,8 @@ Create double UART bitstream
 15. Generate bitstream
 16. Export hardware including bitstream to file ``antelope-double-uart.xsa``
 
-Enable programmable logic support in boot firmware
---------------------------------------------------
+Enable programmable logic support in boot firmware :tutorial-machine:`Yocto`
+----------------------------------------------------------------------------
 1. Add ``antelope-minimalistic-pl-base.xsa`` to ``sources/meta-local/recipes-bsp/hdf/external-hdf/`` directory.
 2. Modify ``sources/meta-local/recipes-bsp/hdf/external-hdf_%.bbappend`` to use new XSA file.
 
@@ -115,8 +115,8 @@ Enable programmable logic support in boot firmware
         HDF_PATH = "antelope-minimalistic-pl-base.xsa"
 
 
-Add double UART bitstream to Linux distribution
------------------------------------------------
+Add double UART bitstream to Linux distribution :tutorial-machine:`Yocto`
+-------------------------------------------------------------------------
 1. Create directory ``sources/meta-local/recipes-example/bitstreams/double-uart/`` and copy ``antelope-double-uart.xsa`` to it.
 2. Create new recipe ``sources/meta-local/recipes-example/bitstreams/double-uart.bb`` that will install bitstream with double UART.
 
@@ -172,8 +172,8 @@ Add double UART bitstream to Linux distribution
 
 7. Transfer content of ``egse-host-transfer`` directory to EGSE Host and place it in ``/var/tftp/tutorial`` directory
 
-Loading double UART bitstream on DPU
-------------------------------------
+Loading double UART bitstream on DPU :tutorial-machine:`EGSE Host`
+------------------------------------------------------------------
 
 1. Verify that all necessary artifacts are present on EGSE Host:
 

@@ -10,6 +10,7 @@ language = 'en'
 
 extensions = [
     'sphinx_immaterial',
+    'sml_docs',
 ]
 
 html_theme = 'sphinx_immaterial'

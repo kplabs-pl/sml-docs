@@ -30,8 +30,8 @@ Prerequisites
   * Yocto requirements (https://docs.yoctoproject.org/ref-manual/system-requirements.html#required-packages-for-the-build-host)
 * At least 60GB free space for Yocto build
 
-Create project
---------------
+Create project :tutorial-machine:`Yocto`
+----------------------------------------
 1. Create new directory for Yocto project and navigate to it.
 
    .. code-block:: shell-session
@@ -89,8 +89,8 @@ Create project
        - 'oe-pkgdata-util' handles common target package tasks
        machine:~/antelope-linux-1/build$
 
-Add layers
-----------
+Add layers :tutorial-machine:`Yocto`
+------------------------------------
 1. Clone Xilinx layers:
 
    .. code-block:: shell-session
@@ -124,8 +124,8 @@ Add layers
        machine:~/antelope-linux-1/build$ bitbake-layers add-layer ../sources/meta-kp-classes/meta-kp-classes/
        machine:~/antelope-linux-1/build$ bitbake-layers add-layer ../sources/meta-kp-antelope
 
-Create layer for customizations
--------------------------------
+Create layer for customizations :tutorial-machine:`Yocto`
+---------------------------------------------------------
 1. Create empty layer
 
    .. code-block:: shell-session
@@ -162,8 +162,8 @@ Create layer for customizations
        ~/antelope-linux-1/sources/meta-local \
        "
 
-Configure project
------------------
+Configure project :tutorial-machine:`Yocto`
+-------------------------------------------
 1. Edit ``~/antelope-linux-1/build/conf/local.conf`` and add following lines at the beginning:
 
    .. code-block::
@@ -189,8 +189,8 @@ Configure project
        HDF_PATH = "top_bd_wrapper.xsa"
 
 
-Build project
--------------
+Build project :tutorial-machine:`Yocto`
+---------------------------------------
 1. Build project artifacts:
 
    .. code-block:: shell-session
@@ -212,8 +212,8 @@ Build project
 
 3. Transfer content of ``egse-host-transfer`` directory to EGSE Host and place it in ``/var/tftp/tutorial`` directory
 
-Booting Linux on DPU
---------------------
+Booting Linux on DPU :tutorial-machine:`EGSE Host`
+--------------------------------------------------
 1. Verify that all necessary artifacts are present on EGSE Host:
 
    .. code-block:: shell-session

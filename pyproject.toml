@@ -27,9 +27,11 @@ dev = [
     "vale==3.7.0.0",
 ]
 
+[tool.hatch.build.targets.wheel]
+packages  = ["extensions/sml_docs"]
+
 [tool.hatch.envs.dev]
 python = "3.12"
-skip-install = true
 features = [ "dev" ]
 
 [tool.hatch.envs.dev.scripts]
