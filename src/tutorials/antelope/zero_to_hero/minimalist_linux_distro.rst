@@ -289,7 +289,7 @@ Booting Linux on DPU :tutorial-machine:`EGSE Host`
 
        customer@egse-host:~$ minicom -D /dev/sml/antelope-dpu-uart
 
-    Leave this terminal open and get back to SSH connection used in previous steps.
+   Leave this terminal open and get back to SSH connection used in previous steps.
 
 9. Release DPU from reset
 

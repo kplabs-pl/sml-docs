@@ -3,7 +3,7 @@ Enable programmable logic support
 
 Goal
 ----
-This tutorial you will
+In this tutorial you will
     - Expand Vivado project from :doc:`/tutorials/antelope/zero_to_hero/minimalist_vivado_project` for Antelope DPU with support for Programmable Logic
     - Build bitstream with two UART peripherals connected together
 
@@ -35,7 +35,7 @@ Prerequisites
 Enable programmable logic support :tutorial-machine:`Vivado`
 ------------------------------------------------------------
 1. Open Antelope DPU project from :doc:`/tutorials/antelope/zero_to_hero/minimalist_vivado_project` in Vivado
-2. Use 'Open Block Design' option to open ``top_bd`` block design
+2. Use :menuselection:`Open Block Design` option to open ``top_bd`` block design
 3. Customize Zynq UltraScale+ block by double-clicking on it
 
    * Enable PL to PS interrupts ``IRQ0[0-7]``
@@ -58,7 +58,7 @@ Enable programmable logic support :tutorial-machine:`Vivado`
 
       Block design with Zynq UltraScale+ IP block configured to support Programmable Logic
 
-6. Open customization of Zynq UltraScale+ IP block and export preset by selecting ``Presets`` -> ``Save configuration``
+6. Open customization of Zynq UltraScale+ IP block and export preset by selecting  :menuselection:`Presets --> Save configuration`
 
    * Use ``antelope-minimalistic-with-pl`` as preset name
    * Save to ``antelope-minimalistic-with-pl.tcl`` file
@@ -71,19 +71,20 @@ Enable programmable logic support :tutorial-machine:`Vivado`
 Create double UART bitstream :tutorial-machine:`Vivado`
 -------------------------------------------------------
 
-1. Create new project in Vivado in the same way as in :doc:`/tutorials/antelope/zero_to_hero/minimalist_vivado_project` tutorial
+1. Start Vivado and create new project. In new project wizard select following options:
 
    * Project type: RTL Project
 
-     * Select 'Don't specify sources at this time'
-     * Don't select 'Project is an extensible Vitis platform'
+     * Select :menuselection:`Don't specify sources at this time`
+     * Don't select :menuselection:`Project is an extensible Vitis platform`
 
    * Part: ``xczu4cg-sfvc784-1L-i``
-2. Create top-level block design by using 'Create Block Design' in Flow Navigator. Use ``double_uart_bd`` as name.
+
+2. Create top-level block design by using :menuselection:`Create Block Design` in Flow Navigator. Use ``double_uart_bd`` as name.
 3. In block design diagram editor add Zynq UltraScale+ MPSoC IP block.
 4. Start customization of Zynq UltraScale+ MPSoC IP block by double-clicking on it.
 
-   1. Apply previously exported preset by selecting ``Presets`` -> ``Apply configuration`` and select ``antelope-minimalistic-with-pl.tcl`` file.
+   1. Apply previously exported preset by selecting :menuselection:`Presets --> Apply configuration` and select ``antelope-minimalistic-with-pl.tcl`` file.
 
 5. In ``double_uart_bd`` block design connect ``maxihpm0_fpd_aclk`` to ``pl0_clk``.
 6. Place two AXI Uartlite IPs on block design
@@ -100,7 +101,7 @@ Create double UART bitstream :tutorial-machine:`Vivado`
 
        Block design with double UARTs connected together and available to Processing System
 
-14. In Sources view select Design Sources -> ``double_uart_bd`` and click 'Create HDL Wrapper' in context menu. Use 'Let Vivado manage wrapper and auto-update' option.
+14. In Sources view select :menuselection:`Design Sources --> double_uart_bd` and click 'Create HDL Wrapper' in context menu. Use 'Let Vivado manage wrapper and auto-update' option.
 15. Generate bitstream
 16. Export hardware including bitstream to file ``antelope-double-uart.xsa``
 
@@ -155,9 +156,9 @@ Add double UART bitstream to Linux distribution :tutorial-machine:`Yocto`
 
 5. Build firmware and image
 
-    .. code-block:: shell-session
+   .. code-block:: shell-session
 
-        machine:~/antelope-linux-1$ bitbake core-image-minimal bootbin-firmware boot-script-pins virtual/kernel device-tree
+       machine:~/antelope-linux-1$ bitbake core-image-minimal bootbin-firmware boot-script-pins virtual/kernel device-tree
 
 6. Prepare build artifacts for transfer to EGSE Host
 

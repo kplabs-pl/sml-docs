@@ -3,8 +3,9 @@ Deep-learning Processor Unit
 
 Goal
 ----
-
-.. note:: TODO
+In this tutorial you will
+   - Build bitstream with Deep-learning Processor Unit
+   - Include Vitis AI libraries in Yocto project
 
 A bit of background
 -------------------
@@ -33,55 +34,55 @@ Create bitstream with Deep-learning Processor Unit :tutorial-machine:`Vivado`
 
    * Project type: RTL Project
 
-     * Select 'Don't specify sources at this time'
-     * Don't select 'Project is an extensible Vitis platform'
+     * Select :menuselection:`Don't specify sources at this time`
+     * Don't select :menuselection:`Project is an extensible Vitis platform`
 
    * Part: ``xczu4cg-sfvc784-1L-i``
 2. Add DPU IP repository to project
 
-   1. Open settings by clicking on 'Settings' in 'Flow Navigator'.
-   2. Go to 'Project Settings' -> 'IP' -> 'Repository'.
+   1. Open settings by clicking on :menuselection:`Settings` in :menuselection:`Flow Navigator`.
+   2. Go to :menuselection:`Project Settings --> IP --> Repository`.
    3. Add ``dpu-ip-repo`` directory to list of repositories.
 
-      Vivado will show confirmation message and list 'Deep-learning Process Unit' as newly added IP.
+      Vivado will show confirmation message and list :menuselection:`Deep-learning Process Unit` as newly added IP.
 
-3. Create top-level block design by using 'Create Block Design' in Flow Navigator. Use ``dpu_bd`` as name.
+3. Create top-level block design by using :menuselection:`Create Block Design` in Flow Navigator. Use ``dpu_bd`` as name.
 4. In block design diagram editor add Zynq UltraScale+ MPSoC IP block.
 5. Start customization of Zynq UltraScale+ MPSoC IP block by double-clicking on it.
 
-   1. Apply previously exported preset by selecting ``Presets`` -> ``Apply configuration`` and select ``antelope-minimalistic-with-pl.tcl`` file.
+   1. Apply previously exported preset by selecting :menuselection:`Presets --> Apply configuration` and select ``antelope-minimalistic-with-pl.tcl`` file.
 
 6. Add Deep-learning Process Unit IP block to block design.
 7. Customize Deep-learning Process Unit block by double-clicking on it.
 
-   1. On 'Arch' tab set 'Arch of DPU' to 'B1024'
+   1. On :menuselection:`Arch` tab set :menuselection:`Arch of DPU` to 'B1024'
 
 8. Add AXI SmartConnect IP to block design
 9. Customize AXI SmartConnect IP by double-clicking on it.
 
-   1. Set 'Number of slave interfaces' to '3'
-   2. Set 'Number of master interfaces' to '1'
+   1. Set :menuselection:`Number of slave interfaces` to '3'
+   2. Set :menuselection:`Number of master interfaces` to '1'
 
 10. Connect output pin ``dpu0_interrupt`` of DPU IP block to input pin ``pl_ps_irq`` of Zynq UltraScale+ MPSoC IP block.
 11. Connect ``DPU0_M_AXI_DATA0`` output port to ``S00_AXI`` input port of AXI SmartConnect IP block.
 12. Connect ``DPU0_M_AXI_DATA1`` output port to ``S01_AXI`` input port of AXI SmartConnect IP block.
 13. Connect ``DPU0_M_AXI_INSTR`` output port to ``S02_AXI`` input port of AXI SmartConnect IP block.
-14. Click 'Run connection automation' to fill out missing connections
+14. Click :menuselection:`Run connection automation` to fill out missing connections
 
-    1. Enable all detected automations by checking checkbox for 'All automation'
-    2. Select 'All automation' / 'dpuczdx8g_0' / 'dpu_2x_clk' and change settings:
+    1. Enable all detected automations by checking checkbox for :menuselection:`All automation`
+    2. Select :menuselection:`All automation --> dpuczdx8g_0 --> dpu_2x_clk` and change settings:
 
-       * Set 'Clock source' to '/zynq_ultra_ps_e_0/pl_clk1'
+       * Set :menuselection:`Clock source` to ``/zynq_ultra_ps_e_0/pl_clk1``
 
-    3. Select 'All automation' / 'dpuczdx8g_0' / 'm_axi_dpu_aclk' and change settings:
+    3. Select :menuselection:`All automation --> dpuczdx8g_0 --> m_axi_dpu_aclk` and change settings:
 
-       * Set 'Clock source' to '/zynq_ultra_ps_e_0/pl_clk0'
+       * Set :menuselection:`Clock source` to ``/zynq_ultra_ps_e_0/pl_clk0``
 
-    3. Select 'All automation' / 'dpuczdx8g_0' / 'S_AXI' and change settings:
+    3. Select :menuselection:`All automation --> dpuczdx8g_0 --> S_AXI` and change settings:
 
-       * Set 'Clock source for driving Bridge IP' to '/zynq_ultra_ps_e_0/pl_clk0'
-       * Set 'Clock source for driving Slave interface' to '/zynq_ultra_ps_e_0/pl_clk0'
-       * Set 'Clock source for driving Master interface' to '/zynq_ultra_ps_e_0/pl_clk0'
+       * Set :menuselection:`Clock source for driving Bridge IP` to ``/zynq_ultra_ps_e_0/pl_clk0``
+       * Set :menuselection:`Clock source for driving Slave interface` to ``/zynq_ultra_ps_e_0/pl_clk0``
+       * Set :menuselection:`Clock source for driving Master interface` to ``/zynq_ultra_ps_e_0/pl_clk0``
 15. Final block design should look like this:
 
     .. figure:: ./DPU/dpu_bd.png
@@ -92,7 +93,7 @@ Create bitstream with Deep-learning Processor Unit :tutorial-machine:`Vivado`
 14. In Sources view select Design Sources -> ``dpu_bd`` and click 'Create HDL Wrapper' in context menu. Use 'Let Vivado manage wrapper and auto-update' option.
 15. Generate bitstream
 
-   .. warning:: Compared to previous tutorials, generating bitstream might take significantly longer time.
+    .. warning:: Compared to previous tutorials, generating bitstream might take significantly longer time.
 
 16. Export hardware including bitstream to file ``antelope-dpu-bd.xsa``
 
@@ -277,7 +278,7 @@ Run model on Deep-learning Processor Unit :tutorial-machine:`EGSE Host`
 
 12. Load DPU bitstream
 
-   .. code-block::
+    .. code-block:: shell-session
 
         root@antelope:~# fpgautil -o /lib/firmware/antelope-dpu/overlay.dtbo
 
