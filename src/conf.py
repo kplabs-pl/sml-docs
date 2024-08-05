@@ -13,6 +13,11 @@ extensions = [
 ]
 
 html_theme = 'sphinx_immaterial'
+html_logo = 'images/logo-kplabs.png'
+html_static_path = ['_static']
+html_css_files = [
+    'custom.css',
+]
 html_theme_options = {
     'features': [
         'toc.follow',
@@ -21,7 +26,6 @@ html_theme_options = {
         {
             'media': '(prefers-color-scheme: light)',
             'scheme': 'default',
-            'primary': 'teal',
             'toggle': {
                 'icon': 'material/toggle-switch-off-outline',
                 'name': 'Switch to dark mode',
@@ -30,7 +34,6 @@ html_theme_options = {
         {
             'media': '(prefers-color-scheme: dark)',
             'scheme': 'slate',
-            'primary': 'teal',
             'toggle': {
                 'icon': 'material/toggle-switch',
                 'name': 'Switch to light mode',

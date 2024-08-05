@@ -15,7 +15,7 @@ Customers can download OpenVPN configuration from Smart Mission Lab website.
 1. Go to Subscriptions page of your account on Smart Mission Lab website (https://sml.kplabs.space/subscriptions).
 2. Click "Download VPN configuration" link and save downloaded file.
 
-    .. image:: images/subscription_download_vpn_config.png
+   .. image:: images/subscription_download_vpn_config.png
 
 .. note::
 
@@ -31,11 +31,11 @@ Windows with OpenVPN GUI
 
 1. Using context menu of OpenVPN GUI icon in notification area select ``Import`` → ``Import file...`` option.
 
-    .. image:: images/openvpn_gui_import.png
+   .. image:: images/openvpn_gui_import.png
 
 2. After importing connection file, establish connection using ``Connect`` (only one connection configured) or ``<configuration name>`` → ``Connect`` (multiple connections configured) option.
 
-    .. image:: images/openvpn_gui_connect.png
+   .. image:: images/openvpn_gui_connect.png
 
 
 3. OpenVPN GUI status window will be visible while connecting to SML server and close automatically after success.
