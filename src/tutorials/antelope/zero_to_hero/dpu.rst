@@ -131,7 +131,7 @@ Add Vitis layers to Yocto Project :tutorial-machine:`Yocto`
 
 5. Change recipe providing ``opencl-icd`` by adding configuarion option to :file:`~/antelope-linux-1/build/conf/local.conf`.
 
-   .. code-block::
+   .. code-block:: bitbake
 
        PREFERRED_PROVIDER_virtual/opencl-icd = "ocl-icd"
 
@@ -142,7 +142,7 @@ Add Deep-learning Processor Unit bitstream to Linux image :tutorial-machine:`Yoc
 1. Create directory :file:`~/antelope-linux-1/sources/meta-local/recipes-example/bitstreams/antelope-dpu/` and copy :file:`antelope-dpu-bd.xsa` to it.
 2. Create new recipe :file:`~/antelope-linux-1/sources/meta-local/recipes-example/bitstreams/antelope-dpu.bb` that will install bitstream with double UART.
 
-   .. code-block::
+   .. code-block:: bitbake
 
         LICENSE = "CLOSED"
 
@@ -160,13 +160,13 @@ Add Deep-learning Processor Unit bitstream to Linux image :tutorial-machine:`Yoc
 4. Create directory :file:`~/antelope-linux-1/sources/meta-local/recipes-kernel/linux/linux-xlnx`.
 5. Enable Xilinx DPU kernel driver module by creating file :file:`~/antelope-linux-1/sources/meta-local/recipes-kernel/linux/linux-xlnx/xlnx-dpu.cfg` with content
 
-   .. code-block::
+   .. code-block:: kconfig
 
       CONFIG_XILINX_DPU=m
 
 6. Enable kernel configuration fragment by adding it to :file:`~/antelope-linux-1/sources/meta-local/recipes-kernel/linux/linux-xlnx/linux-xlnx_%.bbappend`
 
-   .. code-block::
+   .. code-block:: bitbake
 
       FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
 
@@ -174,7 +174,7 @@ Add Deep-learning Processor Unit bitstream to Linux image :tutorial-machine:`Yoc
 
 3. Add new packages into Linux image by editing :file:`~/antelope-linux-1/sources/meta-local/recipes-core/images/core-image-minimal.bbappend`
 
-   .. code-block::
+   .. code-block:: bitbake
 
         IMAGE_INSTALL += "\
             fpga-manager-script \
@@ -271,7 +271,7 @@ Run model on Deep-learning Processor Unit :tutorial-machine:`EGSE Host`
 10. DPU boot process should be visible in ``minicom`` terminal
 11. Log in to DPU using ``root`` user
 
-    .. code-block::
+    .. code-block:: shell-session
 
       antelope login: root
       root@antelope:~#

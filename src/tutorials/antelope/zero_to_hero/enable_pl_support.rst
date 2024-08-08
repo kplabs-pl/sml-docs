@@ -110,7 +110,7 @@ Enable programmable logic support in boot firmware :tutorial-machine:`Yocto`
 1. Add :file:`antelope-minimalistic-pl-base.xsa` to :file:`sources/meta-local/recipes-bsp/hdf/external-hdf/` directory.
 2. Modify :file:`sources/meta-local/recipes-bsp/hdf/external-hdf_%.bbappend` to use new XSA file.
 
-   .. code-block::
+   .. code-block:: bitbake
 
         HDF_BASE = "file://"
         HDF_PATH = "antelope-minimalistic-pl-base.xsa"
@@ -121,7 +121,7 @@ Add double UART bitstream to Linux distribution :tutorial-machine:`Yocto`
 1. Create directory :file:`sources/meta-local/recipes-example/bitstreams/double-uart/` and copy :file:`antelope-double-uart.xsa` to it.
 2. Create new recipe :file:`sources/meta-local/recipes-example/bitstreams/double-uart.bb` that will install bitstream with double UART.
 
-   .. code-block::
+   .. code-block:: bitbake
 
         LICENSE = "CLOSED"
 
@@ -147,7 +147,7 @@ Add double UART bitstream to Linux distribution :tutorial-machine:`Yocto`
         ~/antelope-linux-1/sources/meta-local/recipes-core/images/core-image-minimal.bbappend created
 4. Add new packages into Linux image by editing :file:`sources/meta-local/recipes-core/images/core-image-minimal.bbappend`
 
-   .. code-block::
+   .. code-block:: bitbake
 
         IMAGE_INSTALL += "\
             fpga-manager-script \
@@ -239,14 +239,14 @@ Loading double UART bitstream on DPU :tutorial-machine:`EGSE Host`
 10. DPU boot process should be visible in ``minicom`` terminal
 11. Log in to DPU using ``root`` user
 
-    .. code-block::
+    .. code-block:: shell-session
 
       antelope login: root
       root@antelope:~#
 
 12. Load double UART bitstream
 
-    .. code-block::
+    .. code-block:: shell-session
 
         root@antelope:~# fpgautil -o /lib/firmware/double-uart/overlay.dtbo
         [   17.334051] fpga_manager fpga0: writing double-uart/bitstream.bit.bin to Xilinx ZynqMP FPGA Manager

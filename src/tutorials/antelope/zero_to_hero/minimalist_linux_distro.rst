@@ -140,7 +140,7 @@ Create layer for customizations :tutorial-machine:`Yocto`
 
 3. Verify set of layers enabled in project by opening :file:`~/antelope-linux-1/build/conf/bblayers.conf` and checking its contents:
 
-   .. code-block::
+   .. code-block:: bitbake
 
        # POKY_BBLAYERS_CONF_VERSION is increased each time build/conf/bblayers.conf
        # changes incompatibly
@@ -166,7 +166,7 @@ Configure project :tutorial-machine:`Yocto`
 -------------------------------------------
 1. Edit :file:`~/antelope-linux-1/build/conf/local.conf` and add following lines at the beginning:
 
-   .. code-block::
+   .. code-block:: bitbake
 
        MACHINE = "antelope"
        DISTRO = "kplabs-dpu"
@@ -181,7 +181,7 @@ Configure project :tutorial-machine:`Yocto`
 3. Create directory :file:`~/antelope-linux-1/sources/meta-local/recipes-bsp/hdf/external-hdf` and copy :file:`top_bd_wrapper.xsa` to it.
 4. Edit recipe append :file:`~/antelope-linux-1/sources/meta-local/recipes-bsp/hdf/external-hdf.bb` and set path XSA file
 
-   .. code-block::
+   .. code-block:: bitbake
 
        FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
@@ -303,7 +303,7 @@ Booting Linux on DPU :tutorial-machine:`EGSE Host`
 
 11. Log in to DPU using ``root`` user
 
-    .. code-block::
+    .. code-block:: shell-session
 
       antelope login: root
       root@antelope:~#
