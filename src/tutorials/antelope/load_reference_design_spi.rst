@@ -12,29 +12,29 @@ Steps
 -----
 
 1. Connect to EGSE Host with Antelope board
-    .. code-block:: shell
+    .. code-block:: shell-session
 
         my-machine$ ssh customer@egse-my-egse.egse.sml.lan
         customer@egse-my-egse:~$
 
 2. Power on Antelope board
-    .. code-block:: shell
+    .. code-block:: shell-session
 
         customer@egse-my-egse:~$ sml power on
         Powering on...Success
 3. Power on DPU but don't release it from reset
-    .. code-block:: shell
+    .. code-block:: shell-session
 
         customer@egse-my-egse:~$ sml dpu power on
         Powering on...Success
 4. Unpack reference design files
-    .. code-block:: shell
+    .. code-block:: shell-session
 
         customer@egse-my-egse:~$ mkdir reference-design
         customer@egse-my-egse:~$ cd reference-design
         customer@egse-my-egse:~/reference-design$ tar xvf /path/to/reference_design.tar.gz
 5. List files in reference design directory
-    .. code-block:: shell
+    .. code-block:: shell-session
 
         customer@egse-my-egse:~/reference-design$ ls -lh
         total 14M
@@ -43,7 +43,7 @@ Steps
         -rw-rw-r-- 1 customer customer  12M Apr 11 07:14 linux.fitimg
         -rw-rw-r-- 1 customer customer   58 Apr 11 07:17 spi-flash-layout.txt
 6. Check expected layout of reference design files in SPI flash memory
-    .. code-block:: shell
+    .. code-block:: shell-session
 
         customer@egse-my-egse:~/reference-design$ cat spi-flash-layout.txt
         0x000000 boot.bin
@@ -52,7 +52,7 @@ Steps
 7. Program SPI flash memory with reference design files at specified addresses
     .. note:: These operations might take several minutes depending on the size of the files
 
-    .. code-block:: shell
+    .. code-block:: shell-session
 
         customer@egse-my-egse:~/reference-design$ sml dpu boot-flash write 0 ./boot.bin
         Uploading   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00 48.0 MB/s

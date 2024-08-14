@@ -90,7 +90,7 @@ Create bitstream with Deep-learning Processor Unit :tutorial-machine:`Vivado`
 
        Block design with Deep-learning Processor Unit
 
-14. In Sources view select :menuselection:`Sources --> dpu_bd` and click 'Create HDL Wrapper' in context menu. Use 'Let Vivado manage wrapper and auto-update' option.
+14. In Sources view select :menuselection:`Design Sources --> dpu_bd` and click 'Create HDL Wrapper' in context menu. Use 'Let Vivado manage wrapper and auto-update' option.
 15. Generate bitstream
 
     .. warning:: Compared to previous tutorials, generating bitstream might take significantly longer time.

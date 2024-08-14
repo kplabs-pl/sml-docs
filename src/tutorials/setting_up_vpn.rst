@@ -29,7 +29,7 @@ Exact steps needed to connect to VPN depends on operating system and OpenVPN cli
 Windows with OpenVPN GUI
 ++++++++++++++++++++++++
 
-1. Using context menu of OpenVPN GUI icon in notification area select :menuselection:`Import --> Import file...` option.
+1. Using context menu of OpenVPN GUI icon in notification area select :menuselection:`Import --> Import file..` option.
 
    .. image:: images/openvpn_gui_import.png
 
