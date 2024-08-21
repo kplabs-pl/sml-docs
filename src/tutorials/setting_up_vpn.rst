@@ -13,13 +13,13 @@ Getting OpenVPN configuration file
 Customers can download OpenVPN configuration from Smart Mission Lab website.
 
 1. Go to Subscriptions page of your account on Smart Mission Lab website (https://sml.kplabs.space/subscriptions).
-2. Click "Download VPN configuration" link and save downloaded file.
+2. Click :menuselection:`Download VPN configuration` link and save downloaded file.
 
    .. image:: images/subscription_download_vpn_config.png
 
 .. note::
 
-    If "Download VPN configuration" link isn't active, your subscription is still in preparation. Wait for a while and try again later.
+    If :menuselection:`Download VPN configuration` link isn't active, your subscription is still in preparation. Wait for a while and try again later.
 
 Connecting to VPN
 -----------------
@@ -29,11 +29,11 @@ Exact steps needed to connect to VPN depends on operating system and OpenVPN cli
 Windows with OpenVPN GUI
 ++++++++++++++++++++++++
 
-1. Using context menu of OpenVPN GUI icon in notification area select ``Import`` → ``Import file...`` option.
+1. Using context menu of OpenVPN GUI icon in notification area select :menuselection:`Import --> Import file..` option.
 
    .. image:: images/openvpn_gui_import.png
 
-2. After importing connection file, establish connection using ``Connect`` (only one connection configured) or ``<configuration name>`` → ``Connect`` (multiple connections configured) option.
+2. After importing connection file, establish connection using :menuselection:`Connect` (only one connection configured) or :menuselection:`<configuration name> --> Connect` (multiple connections configured) option.
 
    .. image:: images/openvpn_gui_connect.png
 

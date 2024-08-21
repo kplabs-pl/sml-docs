@@ -15,7 +15,7 @@ Smart Mission Lab network provides access to three kinds of resources:
 VPN Gateway
 -----------
 
-Customer gains access to Smart Mission Lab network through VPN Gateway using OpenVPN. Connection profile (``.ovpn`` file) is available on Smart Mission Lab website. After downloading, customer can use any OpenVPN-compatible client to establish connection (see :doc:`/tutorials/setting_up_vpn`).
+Customer gains access to Smart Mission Lab network through VPN Gateway using OpenVPN. Connection profile (:file:`.ovpn` file) is available on Smart Mission Lab website. After downloading, customer can use any OpenVPN-compatible client to establish connection (see :doc:`/tutorials/setting_up_vpn`).
 
 Customer gets access to VPN with start of first subscription. The same configuration profile gives access to all active subscriptions. After last active subscription ends, VPN access expires. There is no guarantee that the same configuration profile will remain unchanged for future subscriptions, so it's advised to download it again.
 

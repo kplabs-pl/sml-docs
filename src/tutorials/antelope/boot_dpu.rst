@@ -11,39 +11,45 @@ Steps
 -----
 
 1. Connect to EGSE Host with Antelope board
-    .. code-block:: shell
+
+   .. code-block:: shell-session
 
         my-machine$ ssh customer@egse-my-egse.egse.sml.lan
         customer@egse-my-egse:~$
 2. Start ``minicom`` to access DPU's serial port
 
-    .. code-block:: shell
+   .. code-block:: shell-session
 
         customer@egse-my-egse:~$ minicom -D /dev/sml/antelope-dpu-uart
 3. Leave terminal with ``minicom`` connected and open another one. In new terminal connect to the same EGSE Host
-    .. code-block:: shell
+
+   .. code-block:: shell-session
 
         my-machine$ ssh customer@egse-my-egse.egse.sml.lan
         customer@egse-my-egse:~$
 4. Power on Antelope board
-    .. code-block:: shell
+
+   .. code-block:: shell-session
 
         customer@egse-my-egse:~$ sml power on
         Powering on...Success
 5. Power on DPU
-    .. code-block:: shell
+
+   .. code-block:: shell-session
 
         customer@egse-my-egse:~$ sml dpu power on
         Powering on...Success
 6. Release DPU from reset
-    .. code-block:: shell
+
+   .. code-block:: shell-session
 
         customer@egse-my-egse:~$ sml dpu reset off
         Bringing DPU out of reset...Success
 7. Go back to terminal with ``minicom``. After releasing DPU from reset, boot process shall start with output visible through serial port
-    .. note:: Exact output may vary depending on the reference design used
 
-    .. code-block:: text
+   .. note:: Exact output may vary depending on the reference design used
+
+   .. code-block:: text
 
         Xilinx Zynq MP First Stage Boot Loader
         ...

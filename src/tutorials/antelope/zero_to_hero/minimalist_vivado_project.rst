@@ -29,36 +29,36 @@ Prerequisites
 
   * This tutorial uses 2024.1 version. Other versions might also work correctly but it's possible that exact steps will be different.
 
-Create project
---------------
+Create project :tutorial-machine:`Vivado`
+-----------------------------------------
 .. note:: Antelope User Manual describes all configuration values used in these steps.
 
 1. Start Vivado and create new project. In new project wizard select following options:
 
    * Project type: RTL Project
 
-     * Select 'Don't specify sources at this time'
-     * Don't select 'Project is an extensible Vitis platform'
+     * Select :menuselection:`Don't specify sources at this time`
+     * Don't select :menuselection:`Project is an extensible Vitis platform`
 
    * Part: ``xczu4cg-sfvc784-1L-i``
 
-2. Create top-level block design by using 'Create Block Design' in Flow Navigator. Use ``top_bd`` as name.
+2. Create top-level block design by using :menuselection:`Create Block Design` in Flow Navigator. Use ``top_bd`` as name.
 3. In block design diagram editor add Zynq UltraScale+ MPSoC IP block.
 4. Start customization of Zynq UltraScale+ MPSoC IP block by double-clicking on it.
 
    1. Go to I/O Configuration and set following options:
 
       * MIO Voltage Standard on all I/O Banks: LVCMOS18
-      * Low Speed -> Memory Interfaces -> QSPI: Single, x4, **without** feedback clock
-      * Low Speed -> Memory Interfaces -> NAND: Single Ready/busy on MIO10, Data strobe on MIO12
-      * Low Speed -> I/O Peripherals -> UART -> UART0: on MIO46..47, no modem signals
-      * Low Speed -> I/O Peripherals -> GPIO -> GPIO1 MIO: on MIO26..51
-      * High Speed -> GEM -> GEM3: on MIO 64..75, enable MDIO3 on MIO76..77
+      * :menuselection:`Low Speed --> Memory Interfaces --> QSPI`: Single, x4, **without** feedback clock
+      * :menuselection:`Low Speed --> Memory Interfaces --> NAND`: Single Ready/busy on MIO10, Data strobe on MIO12
+      * :menuselection:`Low Speed --> I/O Peripherals --> UART --> UART0`: on MIO46..47, no modem signals
+      * :menuselection:`Low Speed --> I/O Peripherals --> GPIO --> GPIO1 MIO`: on MIO26..51
+      * :menuselection:`High Speed --> GEM --> GEM3`: on MIO 64..75, enable MDIO3 on MIO76..77
 
    2. Go to Clock Configuration and set following options:
 
-      * Input -> Input Reference Frequency -> PSS_REF_CLK: 33.3333 MHz
-      * Output -> Low Power Domain Clocks -> PL Fabric Clocks: disable all clocks
+      * :menuselection:`Input --> Input Reference Frequency --> PSS_REF_CLK`: 33.3333 MHz
+      * :menuselection:`Output --> Low Power Domain Clocks --> PL Fabric Clocks`: disable all clocks
 
    3. Go to DDR Configuration and set following options:
 
@@ -71,12 +71,12 @@ Create project
 
    4. Go to PS-PL Configuration and set following options:
 
-      * General -> Fabric Reset Enable: Disable
-      * PS-PL Interfaces -> Master Interface: Disable all interfaces
+      * :menuselection:`General --> Fabric Reset Enable`: Disable
+      * :menuselection:`PS-PL Interfaces --> Master Interface`: Disable all interfaces
 
-5. In Sources view select Design Sources -> ``top_bd`` and click 'Create HDL Wrapper' in context menu. Use 'Let Vivado manage wrapper and auto-update' option.
+5. In Sources view select :menuselection:`Design Sources --> top_bd` and click 'Create HDL Wrapper' in context menu. Use 'Let Vivado manage wrapper and auto-update' option.
 6. Click 'Generate Bitstream' in Flow Navigator to finalize design and generate outputs.
-7. Export hardware by clicking File -> Export -> Export Hardware. Don't include bitstream. Save exported ``.xsa`` file in known place for next tutorials.
+7. Export hardware by clicking :menuselection:`File --> Export --> Export Hardware`. Don't include bitstream. Save exported ``.xsa`` file in known place for next tutorials.
 
 Summary
 -------

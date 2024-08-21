@@ -6,3 +6,15 @@
 [data-md-color-scheme="default"] {
     --md-primary-fg-color:        #00A99D;
 }
+
+.md-tag.tutorial-machine {
+    line-height: 1.4em;
+    margin-bottom: 0.2em;
+    cursor: help;
+}
+
+span.menuselection {
+    border: dashed var(--md-default-fg-color--light) thin;
+    background-color: var(--md-default-fg-color--lightest);
+    padding: 2px;
+}

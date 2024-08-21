@@ -30,8 +30,8 @@ Prerequisites
   * Yocto requirements (https://docs.yoctoproject.org/ref-manual/system-requirements.html#required-packages-for-the-build-host)
 * At least 60GB free space for Yocto build
 
-Create project
---------------
+Create project :tutorial-machine:`Yocto`
+----------------------------------------
 1. Create new directory for Yocto project and navigate to it.
 
    .. code-block:: shell-session
@@ -89,8 +89,8 @@ Create project
        - 'oe-pkgdata-util' handles common target package tasks
        machine:~/antelope-linux-1/build$
 
-Add layers
-----------
+Add layers :tutorial-machine:`Yocto`
+------------------------------------
 1. Clone Xilinx layers:
 
    .. code-block:: shell-session
@@ -124,8 +124,8 @@ Add layers
        machine:~/antelope-linux-1/build$ bitbake-layers add-layer ../sources/meta-kp-classes/meta-kp-classes/
        machine:~/antelope-linux-1/build$ bitbake-layers add-layer ../sources/meta-kp-antelope
 
-Create layer for customizations
--------------------------------
+Create layer for customizations :tutorial-machine:`Yocto`
+---------------------------------------------------------
 1. Create empty layer
 
    .. code-block:: shell-session
@@ -138,9 +138,9 @@ Create layer for customizations
 
        machine:~/antelope-linux-1/build$ bitbake-layers add-layer ../sources/meta-local
 
-3. Verify set of layers enabled in project by opening ``~/antelope-linux-1/build/conf/bblayers.conf`` and checking its contents:
+3. Verify set of layers enabled in project by opening :file:`~/antelope-linux-1/build/conf/bblayers.conf` and checking its contents:
 
-   .. code-block::
+   .. code-block:: bitbake
 
        # POKY_BBLAYERS_CONF_VERSION is increased each time build/conf/bblayers.conf
        # changes incompatibly
@@ -162,11 +162,11 @@ Create layer for customizations
        ~/antelope-linux-1/sources/meta-local \
        "
 
-Configure project
------------------
-1. Edit ``~/antelope-linux-1/build/conf/local.conf`` and add following lines at the beginning:
+Configure project :tutorial-machine:`Yocto`
+-------------------------------------------
+1. Edit :file:`~/antelope-linux-1/build/conf/local.conf` and add following lines at the beginning:
 
-   .. code-block::
+   .. code-block:: bitbake
 
        MACHINE = "antelope"
        DISTRO = "kplabs-dpu"
@@ -178,10 +178,10 @@ Configure project
 
        machine:~/antelope-linux-1/build$ recipetool newappend --wildcard-version ../sources/meta-local/ external-hdf
 
-3. Create directory ``~/antelope-linux-1/sources/meta-local/recipes-bsp/hdf/external-hdf`` and copy ``top_bd_wrapper.xsa`` to it.
-4. Edit recipe append ````~/antelope-linux-1/sources/meta-local/recipes-bsp/hdf/external-hdf.bb`` and set path XSA file
+3. Create directory :file:`~/antelope-linux-1/sources/meta-local/recipes-bsp/hdf/external-hdf` and copy :file:`top_bd_wrapper.xsa` to it.
+4. Edit recipe append :file:`~/antelope-linux-1/sources/meta-local/recipes-bsp/hdf/external-hdf.bb` and set path XSA file
 
-   .. code-block::
+   .. code-block:: bitbake
 
        FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
@@ -189,8 +189,8 @@ Configure project
        HDF_PATH = "top_bd_wrapper.xsa"
 
 
-Build project
--------------
+Build project :tutorial-machine:`Yocto`
+---------------------------------------
 1. Build project artifacts:
 
    .. code-block:: shell-session
@@ -210,10 +210,10 @@ Build project
         machine:~/antelope-linux-1$ cp build/tmp/deploy/images/antelope/Image ./egse-host-transfer/
         machine:~/antelope-linux-1$ cp build/tmp/deploy/images/antelope/core-image-minimal-antelope.rootfs.cpio.gz.u-boot ./egse-host-transfer/
 
-3. Transfer content of ``egse-host-transfer`` directory to EGSE Host and place it in ``/var/tftp/tutorial`` directory
+3. Transfer content of :file:`~/antelope-linux-1/egse-host-transfer` directory to EGSE Host and place it in :file:`/var/tftp/tutorial` directory
 
-Booting Linux on DPU
---------------------
+Booting Linux on DPU :tutorial-machine:`EGSE Host`
+--------------------------------------------------
 1. Verify that all necessary artifacts are present on EGSE Host:
 
    .. code-block:: shell-session
@@ -260,7 +260,7 @@ Booting Linux on DPU
        Erasing     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00 ?
        Programming ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00 63.9 MB/s
 
-6. Prepare U-Boot script for booting from network by writing following content to ``/var/tftp/antelope-boot.cmd``
+6. Prepare U-Boot script for booting from network by writing following content to :file:`/var/tftp/antelope-boot.cmd`
 
    .. code-block:: bash
 
@@ -289,7 +289,7 @@ Booting Linux on DPU
 
        customer@egse-host:~$ minicom -D /dev/sml/antelope-dpu-uart
 
-    Leave this terminal open and get back to SSH connection used in previous steps.
+   Leave this terminal open and get back to SSH connection used in previous steps.
 
 9. Release DPU from reset
 
@@ -303,7 +303,7 @@ Booting Linux on DPU
 
 11. Log in to DPU using ``root`` user
 
-    .. code-block::
+    .. code-block:: shell-session
 
       antelope login: root
       root@antelope:~#

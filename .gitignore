@@ -1,6 +1,7 @@
 .vscode
 .local
 build
+__pycache__
 
 vale_styles/*
 !vale_styles/config/

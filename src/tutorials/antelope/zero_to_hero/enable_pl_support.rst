@@ -3,7 +3,7 @@ Enable programmable logic support
 
 Goal
 ----
-This tutorial you will
+In this tutorial you will
     - Expand Vivado project from :doc:`/tutorials/antelope/zero_to_hero/minimalist_vivado_project` for Antelope DPU with support for Programmable Logic
     - Build bitstream with two UART peripherals connected together
 
@@ -32,10 +32,10 @@ Prerequisites
 * Base Yocto project for Antelope DPU from :doc:`/tutorials/antelope/zero_to_hero/minimalist_linux_distro`
 * EGSE Host prepared to boot Antelope DPU from network as described in :doc:`/tutorials/antelope/zero_to_hero/minimalist_linux_distro`
 
-Enable programmable logic support
----------------------------------
+Enable programmable logic support :tutorial-machine:`Vivado`
+------------------------------------------------------------
 1. Open Antelope DPU project from :doc:`/tutorials/antelope/zero_to_hero/minimalist_vivado_project` in Vivado
-2. Use 'Open Block Design' option to open ``top_bd`` block design
+2. Use :menuselection:`Open Block Design` option to open ``top_bd`` block design
 3. Customize Zynq UltraScale+ block by double-clicking on it
 
    * Enable PL to PS interrupts ``IRQ0[0-7]``
@@ -58,7 +58,7 @@ Enable programmable logic support
 
       Block design with Zynq UltraScale+ IP block configured to support Programmable Logic
 
-6. Open customization of Zynq UltraScale+ IP block and export preset by selecting ``Presets`` -> ``Save configuration``
+6. Open customization of Zynq UltraScale+ IP block and export preset by selecting  :menuselection:`Presets --> Save configuration`
 
    * Use ``antelope-minimalistic-with-pl`` as preset name
    * Save to ``antelope-minimalistic-with-pl.tcl`` file
@@ -68,22 +68,23 @@ Enable programmable logic support
 
 .. note:: Selected Zynq UltraScale+ configuration covers needs of programmable logic content in this tutorial and next ones.
 
-Create double UART bitstream
-----------------------------
+Create double UART bitstream :tutorial-machine:`Vivado`
+-------------------------------------------------------
 
-1. Create new project in Vivado in the same way as in :doc:`/tutorials/antelope/zero_to_hero/minimalist_vivado_project` tutorial
+1. Start Vivado and create new project. In new project wizard select following options:
 
    * Project type: RTL Project
 
-     * Select 'Don't specify sources at this time'
-     * Don't select 'Project is an extensible Vitis platform'
+     * Select :menuselection:`Don't specify sources at this time`
+     * Don't select :menuselection:`Project is an extensible Vitis platform`
 
    * Part: ``xczu4cg-sfvc784-1L-i``
-2. Create top-level block design by using 'Create Block Design' in Flow Navigator. Use ``double_uart_bd`` as name.
+
+2. Create top-level block design by using :menuselection:`Create Block Design` in Flow Navigator. Use ``double_uart_bd`` as name.
 3. In block design diagram editor add Zynq UltraScale+ MPSoC IP block.
 4. Start customization of Zynq UltraScale+ MPSoC IP block by double-clicking on it.
 
-   1. Apply previously exported preset by selecting ``Presets`` -> ``Apply configuration`` and select ``antelope-minimalistic-with-pl.tcl`` file.
+   1. Apply previously exported preset by selecting :menuselection:`Presets --> Apply configuration` and select :file:`antelope-minimalistic-with-pl.tcl` file.
 
 5. In ``double_uart_bd`` block design connect ``maxihpm0_fpd_aclk`` to ``pl0_clk``.
 6. Place two AXI Uartlite IPs on block design
@@ -100,27 +101,27 @@ Create double UART bitstream
 
        Block design with double UARTs connected together and available to Processing System
 
-14. In Sources view select Design Sources -> ``double_uart_bd`` and click 'Create HDL Wrapper' in context menu. Use 'Let Vivado manage wrapper and auto-update' option.
+14. In Sources view select :menuselection:`Design Sources --> double_uart_bd` and click 'Create HDL Wrapper' in context menu. Use 'Let Vivado manage wrapper and auto-update' option.
 15. Generate bitstream
 16. Export hardware including bitstream to file ``antelope-double-uart.xsa``
 
-Enable programmable logic support in boot firmware
---------------------------------------------------
-1. Add ``antelope-minimalistic-pl-base.xsa`` to ``sources/meta-local/recipes-bsp/hdf/external-hdf/`` directory.
-2. Modify ``sources/meta-local/recipes-bsp/hdf/external-hdf_%.bbappend`` to use new XSA file.
+Enable programmable logic support in boot firmware :tutorial-machine:`Yocto`
+----------------------------------------------------------------------------
+1. Add :file:`antelope-minimalistic-pl-base.xsa` to :file:`sources/meta-local/recipes-bsp/hdf/external-hdf/` directory.
+2. Modify :file:`sources/meta-local/recipes-bsp/hdf/external-hdf_%.bbappend` to use new XSA file.
 
-   .. code-block::
+   .. code-block:: bitbake
 
         HDF_BASE = "file://"
         HDF_PATH = "antelope-minimalistic-pl-base.xsa"
 
 
-Add double UART bitstream to Linux distribution
------------------------------------------------
-1. Create directory ``sources/meta-local/recipes-example/bitstreams/double-uart/`` and copy ``antelope-double-uart.xsa`` to it.
-2. Create new recipe ``sources/meta-local/recipes-example/bitstreams/double-uart.bb`` that will install bitstream with double UART.
+Add double UART bitstream to Linux distribution :tutorial-machine:`Yocto`
+-------------------------------------------------------------------------
+1. Create directory :file:`sources/meta-local/recipes-example/bitstreams/double-uart/` and copy :file:`antelope-double-uart.xsa` to it.
+2. Create new recipe :file:`sources/meta-local/recipes-example/bitstreams/double-uart.bb` that will install bitstream with double UART.
 
-   .. code-block::
+   .. code-block:: bitbake
 
         LICENSE = "CLOSED"
 
@@ -144,9 +145,9 @@ Add double UART bitstream to Linux distribution
 
         Summary: There was 1 WARNING message.
         ~/antelope-linux-1/sources/meta-local/recipes-core/images/core-image-minimal.bbappend created
-4. Add new packages into Linux image by editing ``sources/meta-local/recipes-core/images/core-image-minimal.bbappend``
+4. Add new packages into Linux image by editing :file:`sources/meta-local/recipes-core/images/core-image-minimal.bbappend`
 
-   .. code-block::
+   .. code-block:: bitbake
 
         IMAGE_INSTALL += "\
             fpga-manager-script \
@@ -155,9 +156,9 @@ Add double UART bitstream to Linux distribution
 
 5. Build firmware and image
 
-    .. code-block:: shell-session
+   .. code-block:: shell-session
 
-        machine:~/antelope-linux-1$ bitbake core-image-minimal bootbin-firmware boot-script-pins virtual/kernel device-tree
+       machine:~/antelope-linux-1$ bitbake core-image-minimal bootbin-firmware boot-script-pins virtual/kernel device-tree
 
 6. Prepare build artifacts for transfer to EGSE Host
 
@@ -170,10 +171,10 @@ Add double UART bitstream to Linux distribution
         machine:~/antelope-linux-1$ cp build/tmp/deploy/images/antelope/Image ./egse-host-transfer/
         machine:~/antelope-linux-1$ cp build/tmp/deploy/images/antelope/core-image-minimal-antelope.rootfs.cpio.gz.u-boot ./egse-host-transfer/
 
-7. Transfer content of ``egse-host-transfer`` directory to EGSE Host and place it in ``/var/tftp/tutorial`` directory
+7. Transfer content of :file:`egse-host-transfer` directory to EGSE Host and place it in :file:`/var/tftp/tutorial` directory
 
-Loading double UART bitstream on DPU
-------------------------------------
+Loading double UART bitstream on DPU :tutorial-machine:`EGSE Host`
+------------------------------------------------------------------
 
 1. Verify that all necessary artifacts are present on EGSE Host:
 
@@ -238,14 +239,14 @@ Loading double UART bitstream on DPU
 10. DPU boot process should be visible in ``minicom`` terminal
 11. Log in to DPU using ``root`` user
 
-    .. code-block::
+    .. code-block:: shell-session
 
       antelope login: root
       root@antelope:~#
 
 12. Load double UART bitstream
 
-    .. code-block::
+    .. code-block:: shell-session
 
         root@antelope:~# fpgautil -o /lib/firmware/double-uart/overlay.dtbo
         [   17.334051] fpga_manager fpga0: writing double-uart/bitstream.bit.bin to Xilinx ZynqMP FPGA Manager
