@@ -6,5 +6,6 @@ Smart Mission Lab
     :hidden:
 
     tutorials/index
+    how_to/index
     explain/index
     reference/index
