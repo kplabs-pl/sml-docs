@@ -51,3 +51,6 @@ FPGA
 Deep-learning Processor Unit
 Kria
 automations
+TCP
+UDP
+nftables
