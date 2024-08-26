@@ -57,7 +57,7 @@ Create project :tutorial-machine:`Vivado`
 
    2. Go to Clock Configuration and set following options:
 
-      * :menuselection:`Input --> Input Reference Frequency --> PSS_REF_CLK`: 33.3333 MHz
+      * :menuselection:`Input --> Input Reference Frequency --> PSS_REF_CLK`: 33.3333 MHz (make sure it's set to this exact value)
       * :menuselection:`Output --> Low Power Domain Clocks --> PL Fabric Clocks`: disable all clocks
 
    3. Go to DDR Configuration and set following options:
