@@ -129,15 +129,15 @@ Create bitstream with Deep-learning Processor Unit :tutorial-machine:`Vivado`
 
 #. Final block design should look like this:
 
-    .. figure:: ./DPU/dpu_bd.png
-       :align: center
+   .. figure:: ./DPU/dpu_bd.png
+      :align: center
 
-       Block design with Deep-learning Processor Unit
+      Block design with Deep-learning Processor Unit
 
-#. In Sources view select :menuselection:`Design Sources --> dpu_bd` and click 'Create HDL Wrapper' in context menu. Use 'Let Vivado manage wrapper and auto-update' option.
+#. In Sources view select :menuselection:`Design Sources --> dpu_bd` and click :menuselection:`Create HDL Wrapper`` in context menu. Use :menuselection:`Let Vivado manage wrapper and auto-update` option.
 #. Generate bitstream
 
-    .. warning:: Compared to previous tutorials, generating bitstream might take significantly longer time.
+   .. warning:: Compared to previous tutorials, generating bitstream might take significantly longer time.
 
 #. Export hardware including bitstream to file :file:`antelope-dpu-bd.xsa`
 

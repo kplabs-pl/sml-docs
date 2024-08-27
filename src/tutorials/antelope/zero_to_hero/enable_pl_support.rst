@@ -105,7 +105,7 @@ Create double UART bitstream :tutorial-machine:`Vivado`
 
        Block design with double UARTs connected together and available to Processing System
 
-14. In Sources view select :menuselection:`Design Sources --> double_uart_bd` and click 'Create HDL Wrapper' in context menu. Use 'Let Vivado manage wrapper and auto-update' option.
+14. In Sources view select :menuselection:`Design Sources --> double_uart_bd` and click :menuselection:`Create HDL Wrapper`` in context menu. Use :menuselection:`Let Vivado manage wrapper and auto-update` option.
 15. Generate bitstream
 16. Export hardware including bitstream to file ``antelope-double-uart.xsa``
 

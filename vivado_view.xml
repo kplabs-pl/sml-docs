@@ -1,0 +1,146 @@
+<preferences>
+    <EMOTIONAL_VIEWS>
+        <VIEW NAME="BeestColored">
+            <DEFAULT_LAYERS>
+                <LAYER NAME="Pin tie offs" value="false"/>
+                <LAYER NAME="Pins without parameter propagation" value="false"/>
+                <LAYER NAME="Mark debug" value="true"/>
+                <LAYER NAME="Display pins of hidden nets and interfaces" value="true"/>
+                <LAYER NAME="System ILA IP and related connections" value="true"/>
+                <LAYER NAME="Interface Connections" value="true"/>
+                <LAYER NAME="Nets" value="true"/>
+                <LAYER NAME="Display hardened connections" value="false"/>
+                <LAYER NAME="AXI4-Memory Map" value="true"/>
+                <LAYER NAME="AXI4-Memory Map Lite" value="true"/>
+                <LAYER NAME="xilinx.com:interface:bram_rtl:1.0" value="true"/>
+                <LAYER NAME="xilinx.com:interface:gpio_rtl:1.0" value="true"/>
+                <LAYER NAME="Clock Nets" value="true"/>
+                <LAYER NAME="Reset Nets" value="true"/>
+                <LAYER NAME="Interrupt Nets" value="true"/>
+                <LAYER NAME="Attributes" value="partial"/>
+            </DEFAULT_LAYERS>
+            <LAYERS>
+                <LAYER NAME="Pin tie offs" value="false"/>
+                <LAYER NAME="Pins without parameter propagation" value="false"/>
+                <LAYER NAME="Mark debug" value="true"/>
+                <LAYER NAME="Display pins of hidden nets and interfaces" value="true"/>
+                <LAYER NAME="System ILA IP and related connections" value="true"/>
+                <LAYER NAME="Interface Connections" value="true"/>
+                <LAYER NAME="Nets" value="true"/>
+                <LAYER NAME="Display hardened connections" value="false"/>
+                <LAYER NAME="AXI4-Memory Map" value="true"/>
+                <LAYER NAME="AXI4-Memory Map Lite" value="true"/>
+                <LAYER NAME="xilinx.com:interface:bram_rtl:1.0" value="true"/>
+                <LAYER NAME="xilinx.com:interface:gpio_rtl:1.0" value="true"/>
+                <LAYER NAME="Clock Nets" value="true"/>
+                <LAYER NAME="Reset Nets" value="true"/>
+                <LAYER NAME="Interrupt Nets" value="true"/>
+                <LAYER NAME="Attributes" value="partial"/>
+            </LAYERS>
+            <DEFAULT_GENERAL_PROPERTIES>
+                <GENERAL_PROPERTY NAME="RSB_SHOW_HIERARCHY_NAVIGATION_BAR" value="false"/>
+                <GENERAL_PROPERTY NAME="RSB_ALLOW_MOVING_PINNED_OBJ" value="true"/>
+                <GENERAL_PROPERTY NAME="RSB_FLEXIBLE_PIN_GAPS" value="true"/>
+                <GENERAL_PROPERTY NAME="RSB_BUNDLE_NETS" value="false"/>
+                <GENERAL_PROPERTY NAME="RSB_BUNDLE_NETS_BY_PIN_DIRECTION" value="true"/>
+                <GENERAL_PROPERTY NAME="RSB_BUNDLE_NETS_BY_TYPE" value="true"/>
+                <GENERAL_PROPERTY NAME="RSB_BUNDLE_HARDENED_CONNECTIONS" value="false"/>
+                <GENERAL_PROPERTY NAME="RSB_AVOID_LOOPS" value="true"/>
+                <GENERAL_PROPERTY NAME="IPI_ELIDE_LONG_TEXT" value="false"/>
+                <GENERAL_PROPERTY NAME="SHOW_DISPLAY_STRING_NAMES" value="false"/>
+                <GENERAL_PROPERTY NAME="DISPLAY_SIGNAL_NAMES" value="false"/>
+                <GENERAL_PROPERTY NAME="RSB_SHOW_BLOCKS_WITHOUT_ADDRESSING" value="true"/>
+                <GENERAL_PROPERTY NAME="RSB_SHOW_BLOCKS_WITHOUT_INTERFACES" value="true"/>
+                <GENERAL_PROPERTY NAME="RSB_SHOW_BLOCKS_WITHOUT_CONNECTIONS" value="true"/>
+                <GENERAL_PROPERTY NAME="RSB_SHOW_SUB_BLOCKS_WITHOUT_CONNECTIONS" value="true"/>
+                <GENERAL_PROPERTY NAME="RSB_SHOW_EXTERNAL_PORTS_WITHOUT_CONNECTIONS" value="true"/>
+                <GENERAL_PROPERTY NAME="RSB_SHOW_UNCONNECTED_BLOCK_PINS" value="true"/>
+                <GENERAL_PROPERTY NAME="RSB_SHOW_EXTERNAL_INTERFACES_WITHOUT_CONNECTIONS" value="true"/>
+            </DEFAULT_GENERAL_PROPERTIES>
+            <GENERAL_PROPERTIES>
+                <GENERAL_PROPERTY NAME="RSB_SHOW_HIERARCHY_NAVIGATION_BAR" value="false"/>
+                <GENERAL_PROPERTY NAME="RSB_ALLOW_MOVING_PINNED_OBJ" value="true"/>
+                <GENERAL_PROPERTY NAME="RSB_FLEXIBLE_PIN_GAPS" value="true"/>
+                <GENERAL_PROPERTY NAME="RSB_BUNDLE_NETS" value="false"/>
+                <GENERAL_PROPERTY NAME="RSB_BUNDLE_NETS_BY_PIN_DIRECTION" value="true"/>
+                <GENERAL_PROPERTY NAME="RSB_BUNDLE_NETS_BY_TYPE" value="true"/>
+                <GENERAL_PROPERTY NAME="RSB_BUNDLE_HARDENED_CONNECTIONS" value="false"/>
+                <GENERAL_PROPERTY NAME="RSB_AVOID_LOOPS" value="true"/>
+                <GENERAL_PROPERTY NAME="IPI_ELIDE_LONG_TEXT" value="false"/>
+                <GENERAL_PROPERTY NAME="SHOW_DISPLAY_STRING_NAMES" value="false"/>
+                <GENERAL_PROPERTY NAME="DISPLAY_SIGNAL_NAMES" value="false"/>
+                <GENERAL_PROPERTY NAME="RSB_SHOW_BLOCKS_WITHOUT_ADDRESSING" value="true"/>
+                <GENERAL_PROPERTY NAME="RSB_SHOW_BLOCKS_WITHOUT_INTERFACES" value="true"/>
+                <GENERAL_PROPERTY NAME="RSB_SHOW_BLOCKS_WITHOUT_CONNECTIONS" value="true"/>
+                <GENERAL_PROPERTY NAME="RSB_SHOW_SUB_BLOCKS_WITHOUT_CONNECTIONS" value="true"/>
+                <GENERAL_PROPERTY NAME="RSB_SHOW_EXTERNAL_PORTS_WITHOUT_CONNECTIONS" value="true"/>
+                <GENERAL_PROPERTY NAME="RSB_SHOW_UNCONNECTED_BLOCK_PINS" value="true"/>
+                <GENERAL_PROPERTY NAME="RSB_SHOW_EXTERNAL_INTERFACES_WITHOUT_CONNECTIONS" value="true"/>
+            </GENERAL_PROPERTIES>
+            <DEFAULT_COLORS>
+                <COLOR NAME="RSB_BACKGROUND" value="ffffff"/>
+                <COLOR NAME="RSB_SELECTION" value="fd862b"/>
+                <COLOR NAME="RSB_INSTANCE_TEXT" value="0"/>
+                <COLOR NAME="RSB_INSTANCE_BORDER" value="41619f"/>
+                <COLOR NAME="RSB_INSTANCE_NO_GRADIENT_FILL" value="edf6fe"/>
+                <COLOR NAME="RSB_HIERARCHY_FILL" value="aac4f7"/>
+                <COLOR NAME="RSB_EXPANDED_HIERARCHY_FILL" value="fafdfe"/>
+                <COLOR NAME="RSB_PIN_TEXT" value="0"/>
+                <COLOR NAME="RSB_PORT_TEXT" value="0"/>
+                <COLOR NAME="RSB_CLOCK_NET" value="ff0000"/>
+                <COLOR NAME="RSB_RESET_NET" value="339966"/>
+                <COLOR NAME="RSB_INTERRUPT_NET" value="102235"/>
+                <COLOR NAME="RSB_CLOCK_ENABLE_NET" value="102235"/>
+                <COLOR NAME="RSB_DATA_NET" value="102235"/>
+                <COLOR NAME="RSB_NET" value="102235"/>
+                <COLOR NAME="RSB_AXI4MM_CONNECTION" value="41619f"/>
+                <COLOR NAME="RSB_AXI4LITE_CONNECTION" value="41619f"/>
+                <COLOR NAME="RSB_AXI4STREAM_CONNECTION" value="41619f"/>
+                <COLOR NAME="RSB_AXI3_CONNECTION" value="41619f"/>
+                <COLOR NAME="RSB_AXIINI_CONNECTION" value="41619f"/>
+                <COLOR NAME="RSB_INTERFACE_CONNECTION" value="41619f"/>
+                <COLOR NAME="RSB_BUS" value="469cb9"/>
+                <COLOR NAME="RSB_PORT" value="102235"/>
+                <COLOR NAME="RSB_PORT_FILL" value="ddd4d0"/>
+                <COLOR NAME="RSB_INTERFACE_PORT" value="2a5e6f"/>
+                <COLOR NAME="RSB_INTERFACE_PORT_FILL" value="ddd4d0"/>
+                <COLOR NAME="RSB_MOVE_INSTANCE_COLOR" value="c89900"/>
+                <COLOR NAME="RSB_COMMENT_BORDER" value="0"/>
+                <COLOR NAME="RSB_COMMENT_TEXT" value="0"/>
+            </DEFAULT_COLORS>
+            <COLORS>
+                <COLOR NAME="RSB_BACKGROUND" value="ffffff"/>
+                <COLOR NAME="RSB_SELECTION" value="fd862b"/>
+                <COLOR NAME="RSB_INSTANCE_TEXT" value="0"/>
+                <COLOR NAME="RSB_INSTANCE_BORDER" value="41619f"/>
+                <COLOR NAME="RSB_INSTANCE_NO_GRADIENT_FILL" value="edf6fe"/>
+                <COLOR NAME="RSB_HIERARCHY_FILL" value="aac4f7"/>
+                <COLOR NAME="RSB_EXPANDED_HIERARCHY_FILL" value="fafdfe"/>
+                <COLOR NAME="RSB_PIN_TEXT" value="0"/>
+                <COLOR NAME="RSB_PORT_TEXT" value="0"/>
+                <COLOR NAME="RSB_CLOCK_NET" value="ff0000"/>
+                <COLOR NAME="RSB_RESET_NET" value="339966"/>
+                <COLOR NAME="RSB_INTERRUPT_NET" value="102235"/>
+                <COLOR NAME="RSB_CLOCK_ENABLE_NET" value="102235"/>
+                <COLOR NAME="RSB_DATA_NET" value="102235"/>
+                <COLOR NAME="RSB_NET" value="102235"/>
+                <COLOR NAME="RSB_AXI4MM_CONNECTION" value="41619f"/>
+                <COLOR NAME="RSB_AXI4LITE_CONNECTION" value="41619f"/>
+                <COLOR NAME="RSB_AXI4STREAM_CONNECTION" value="41619f"/>
+                <COLOR NAME="RSB_AXI3_CONNECTION" value="41619f"/>
+                <COLOR NAME="RSB_AXIINI_CONNECTION" value="41619f"/>
+                <COLOR NAME="RSB_INTERFACE_CONNECTION" value="41619f"/>
+                <COLOR NAME="RSB_BUS" value="469cb9"/>
+                <COLOR NAME="RSB_PORT" value="102235"/>
+                <COLOR NAME="RSB_PORT_FILL" value="ddd4d0"/>
+                <COLOR NAME="RSB_INTERFACE_PORT" value="2a5e6f"/>
+                <COLOR NAME="RSB_INTERFACE_PORT_FILL" value="ddd4d0"/>
+                <COLOR NAME="RSB_MOVE_INSTANCE_COLOR" value="c89900"/>
+                <COLOR NAME="RSB_COMMENT_BORDER" value="0"/>
+                <COLOR NAME="RSB_COMMENT_TEXT" value="0"/>
+            </COLORS>
+            <DEFAULT_OTHER_PROPERTIES/>
+            <OTHER_PROPERTIES/>
+        </VIEW>
+    </EMOTIONAL_VIEWS>
+</preferences>
