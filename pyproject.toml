@@ -27,7 +27,7 @@ dev = [
     "sphinx-immaterial==0.12.2",
     "sphinx-autobuild==2024.4.16",
     "sphinx-lint==0.9.1",
-    "vale==3.7.0.0",
+    "vale==3.7.1.0",
     # Fork, as upstream is not maintained
     'pygments-bitbake @ git+https://github.com/avnet-embedded/pygments-bitbake.git@5b84cf596d8bafb6ce4d36171518116712a6fc20',
 ]

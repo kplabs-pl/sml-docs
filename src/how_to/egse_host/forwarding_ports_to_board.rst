@@ -4,7 +4,7 @@ Forwarding TCP/UDP ports to board
 A bit of background
 -------------------
 
-Board isn't connected directly to Smart Mission Lab network which means that you can't access any network services (e.g. Web server) on it from your workstation. EGSE Host supports forwarding TCP and UDP ports to Board allowing almost-drect to services exposed by Board. System uses `nftables <https://wiki.nftables.org/wiki-nftables/index.php/Main_Page>`_ to configure port forwarding.
+Board isn't connected directly to Smart Mission Lab network which means that you can't access any network services (for example: Web server) on it from your workstation. EGSE Host supports forwarding TCP and UDP ports to Board allowing almost-drect to services exposed by Board. System uses `nftables <https://wiki.nftables.org/wiki-nftables/index.php/Main_Page>`_ to configure port forwarding.
 
 Steps
 -----
