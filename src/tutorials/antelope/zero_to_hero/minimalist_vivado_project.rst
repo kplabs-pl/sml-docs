@@ -57,7 +57,7 @@ Create project :tutorial-machine:`Vivado`
 
    2. Go to Clock Configuration and set following options:
 
-      * :menuselection:`Input --> Input Reference Frequency --> PSS_REF_CLK`: 33.3333 MHz
+      * :menuselection:`Input --> Input Reference Frequency --> PSS_REF_CLK`: 33.3333 MHz (make sure it's set to this exact value)
       * :menuselection:`Output --> Low Power Domain Clocks --> PL Fabric Clocks`: disable all clocks
 
    3. Go to DDR Configuration and set following options:
@@ -74,7 +74,7 @@ Create project :tutorial-machine:`Vivado`
       * :menuselection:`General --> Fabric Reset Enable`: Disable
       * :menuselection:`PS-PL Interfaces --> Master Interface`: Disable all interfaces
 
-5. In Sources view select :menuselection:`Design Sources --> top_bd` and click 'Create HDL Wrapper' in context menu. Use 'Let Vivado manage wrapper and auto-update' option.
+5. In Sources view select :menuselection:`Design Sources --> top_bd` and click :menuselection:`Create HDL Wrapper`` in context menu. Use :menuselection:`Let Vivado manage wrapper and auto-update` option.
 6. Click 'Generate Bitstream' in Flow Navigator to finalize design and generate outputs.
 7. Export hardware by clicking :menuselection:`File --> Export --> Export Hardware`. Don't include bitstream. Save exported ``.xsa`` file in known place for next tutorials.
 

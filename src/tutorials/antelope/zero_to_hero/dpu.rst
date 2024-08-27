@@ -30,7 +30,7 @@ Download Deep-learning Processor Unit repository :tutorial-machine:`Vivado`
 
 Create bitstream with Deep-learning Processor Unit :tutorial-machine:`Vivado`
 -----------------------------------------------------------------------------
-1. Start Vivado and create new project. In new project wizard select following options:
+#. Start Vivado and create new project. In new project wizard select following options:
 
    * Project type: RTL Project
 
@@ -38,7 +38,8 @@ Create bitstream with Deep-learning Processor Unit :tutorial-machine:`Vivado`
      * Don't select :menuselection:`Project is an extensible Vitis platform`
 
    * Part: ``xczu4cg-sfvc784-1L-i``
-2. Add DPU IP repository to project
+
+#. Add DPU IP repository to project
 
    1. Open settings by clicking on :menuselection:`Settings` in :menuselection:`Flow Navigator`.
    2. Go to :menuselection:`Project Settings --> IP --> Repository`.
@@ -46,56 +47,99 @@ Create bitstream with Deep-learning Processor Unit :tutorial-machine:`Vivado`
 
       Vivado will show confirmation message and list :menuselection:`Deep-learning Process Unit` as newly added IP.
 
-3. Create top-level block design by using :menuselection:`Create Block Design` in Flow Navigator. Use ``dpu_bd`` as name.
-4. In block design diagram editor add Zynq UltraScale+ MPSoC IP block.
-5. Start customization of Zynq UltraScale+ MPSoC IP block by double-clicking on it.
+#. Create top-level block design by using :menuselection:`Create Block Design` in Flow Navigator. Use ``dpu_bd`` as name.
+#. In block design diagram editor add Zynq UltraScale+ MPSoC IP block.
+#. Start customization of Zynq UltraScale+ MPSoC IP block by double-clicking on it.
 
    1. Apply previously exported preset by selecting :menuselection:`Presets --> Apply configuration` and select :file:`antelope-minimalistic-with-pl.tcl` file.
+   2. :menuselection:`PS-PL Configuration --> PS-PL Interfaces --> Master Interface AXI HPM0 FPD`: Set Data Width to 32.
 
-6. Add Deep-learning Process Unit IP block to block design.
-7. Customize Deep-learning Process Unit block by double-clicking on it.
+#. Add "Processor System Reset" IP block to block design. In Block properties name it :menuselection:`rst_gen_pl_clk0`.
+#. Connect :menuselection:`rst_gen_pl_clk0` IP block inputs:
+
+   1. Connect ``slowest_sync_clk`` to ``pl_clk0`` output port of Zynq UltraScale+ MPSoC IP block.
+   2. Connect ``ext_reset_in`` to ``pl_resetn0`` output port of Zynq UltraScale+ MPSoC IP block.
+
+#. Add "Clocking Wizard" IP block to block design.
+#. Customize Clocking Wizard block by double-clicking on it.
+
+   1. In Clocking Options, set :menuselection:`Primitve` to "Auto"
+   2. On Output Clocks:
+
+      * Set :menuselection:`Port Name` of 'clk_out1' to 'clk_2x_dpu'
+      * Set :menuselection:`clk_out1` to '200.000 MHz'
+      * Enable :menuselection:`clk_out2`
+      * Set :menuselection:`Port Name` of 'clk_out2' to 'clk_dpu'
+      * Set :menuselection:`clk_out2` to '100.000 MHz'
+      * Enable :menuselection:`Matched Routing` for both clocks
+      * Enable :menuselection:`reset` input
+      * Select :menuselection:`Reset Type` to 'Active Low'
+
+#. Connect :menuselection:`rst_gen_pl_clk0` IP block inputs:
+
+   1. Connect ``slowest_sync_clk`` to ``pl_clk0`` output port of Zynq UltraScale+ MPSoC IP block.
+   2. Connect ``ext_reset_in`` to ``pl_resetn0`` output port of Zynq UltraScale+ MPSoC IP block.
+
+#. Connect Clocking Wizard IP block inputs:
+
+   1. Connect ``clk_in1`` to ``pl_clk0`` output port of Zynq UltraScale+ MPSoC IP block.
+   2. Connect ``resetn`` to ``peripheral_aresetn[0:0]`` output port of :menuselection:`rst_gen_pl_clk0` IP block.
+
+#. Add another "Processor System Reset" IP block to block design. In Block properties name it rst_gen_2x_dpu_clk.
+#. Connect :menuselection:`rst_gen_2x_dpu_clk` IP block inputs:
+
+   1. Connect ``slowest_sync_clk`` to ``clk_2x_dpu`` output port of Clocking Wizard IP block.
+   2. Connect ``ext_reset_in`` to ``peripheral_aresetn[0:0]`` output port of :menuselection:`rst_gen_pl_clk0` IP block.
+
+#. Add another "Processor System Reset" IP block to block design. In Block properties name it rst_gen_dpu_clk.
+#. Connect :menuselection:`rst_gen_dpu_clk` IP block inputs:
+
+   1. Connect ``slowest_sync_clk`` to ``clk_dpu`` output port of Clocking Wizard IP block.
+   2. Connect ``ext_reset_in`` to ``peripheral_aresetn[0:0]`` output port of :menuselection:`rst_gen_pl_clk0` IP block.
+
+#. Add Deep learning Processing Unit IP block to block design.
+#. Customize Deep-learning Process Unit block by double-clicking on it.
 
    1. On :menuselection:`Arch` tab set :menuselection:`Arch of DPU` to 'B1024'
 
-8. Add AXI SmartConnect IP to block design
-9. Customize AXI SmartConnect IP by double-clicking on it.
+#. Connect Deep-learning Process Unit IP block inputs:
 
-   1. Set :menuselection:`Number of slave interfaces` to '3'
-   2. Set :menuselection:`Number of master interfaces` to '1'
+   1. Connect ``S_AXI`` to ``M_AXI_HPM0_FPD`` output port of Zynq UltraScale+ MPSoC IP block.
+   2. Connect ``s_axi_aclk`` to ``pl_clk0`` output port of Zynq UltraScale+ MPSoC IP block.
+   3. Connect ``s_axi_aresetn`` to ``peripheral_aresetn[0:0]`` output port of :menuselection:`rst_gen_pl_clk0` IP block.
+   4. Connect ``dpu_2x_clk`` to ``clk_2x_dpu`` output port of Clocking Wizard IP block.
+   5. Connect ``dpu_2x_resetn`` to ``peripheral_aresetn[0:0]`` output port of :menuselection:`rst_gen_2x_dpu_clk` IP block.
+   6. connect ``m_axi_dpu_aclk`` to ``clk_dpu`` output port of Clocking Wizard IP block.
+   7. Connect ``m_axi_dpu_aresetn`` to ``peripheral_aresetn[0:0]`` output port of :menuselection:`rst_gen_dpu_clk` IP block.
 
-10. Connect output pin ``dpu0_interrupt`` of DPU IP block to input pin ``pl_ps_irq`` of Zynq UltraScale+ MPSoC IP block.
-11. Connect ``DPU0_M_AXI_DATA0`` output port to ``S00_AXI`` input port of AXI SmartConnect IP block.
-12. Connect ``DPU0_M_AXI_DATA1`` output port to ``S01_AXI`` input port of AXI SmartConnect IP block.
-13. Connect ``DPU0_M_AXI_INSTR`` output port to ``S02_AXI`` input port of AXI SmartConnect IP block.
-14. Click :menuselection:`Run connection automation` to fill out missing connections
+#. Connect Zynq UltraScale+ MPSoC IP block inputs:
 
-    1. Enable all detected automations by checking checkbox for :menuselection:`All automation`
-    2. Select :menuselection:`All automation --> dpuczdx8g_0 --> dpu_2x_clk` and change settings:
+   1. Connect ``S_ACI_HPC0_FPD`` to ``DPU0_M_AXI_DATA0`` output port of Deep-learning Process Unit IP block.
+   2. Connect ``S_ACI_HPC1_FPD`` to ``DPU0_M_AXI_DATA1`` output port of Deep-learning Process Unit IP block.
+   3. Connect ``S_ACI_LPD`` to ``DPU0_M_AXI_INSTR`` output port of Deep-learning Process Unit IP block.
+   4. Connect ``maxihpm0_fpd`` to ``pl_clk0`` output port of Zynq UltraScale+ MPSoC IP block.
+   5. Connect ``saxihpc0_fpd_aclk`` to ``clk_dpu`` output port of Clocking Wizard IP block.
+   6. Connect ``saxihpc1_fpd_aclk`` to ``clk_dpu`` output port of Clocking Wizard IP block.
+   7. Connect ``saxi_lpd_aclk`` to ``clk_dpu`` output port of Clocking Wizard IP block.
+   8. Connect ``pl_ps_irq0`` to ``dpu0_interrupt`` output port of Deep-learning Process Unit IP block.
 
-       * Set :menuselection:`Clock source` to ``/zynq_ultra_ps_e_0/pl_clk1``
 
-    3. Select :menuselection:`All automation --> dpuczdx8g_0 --> m_axi_dpu_aclk` and change settings:
+#. Run :menuselection:`Tools --> Validate Design`. When asked about auto assigning address segments, answer "Yes."
 
-       * Set :menuselection:`Clock source` to ``/zynq_ultra_ps_e_0/pl_clk0``
 
-    3. Select :menuselection:`All automation --> dpuczdx8g_0 --> S_AXI` and change settings:
+#. Final block design should look like this:
 
-       * Set :menuselection:`Clock source for driving Bridge IP` to ``/zynq_ultra_ps_e_0/pl_clk0``
-       * Set :menuselection:`Clock source for driving Slave interface` to ``/zynq_ultra_ps_e_0/pl_clk0``
-       * Set :menuselection:`Clock source for driving Master interface` to ``/zynq_ultra_ps_e_0/pl_clk0``
-15. Final block design should look like this:
+   .. figure:: ./DPU/dpu_bd.png
+      :align: center
 
-    .. figure:: ./DPU/dpu_bd.png
-       :align: center
+      Block design with Deep-learning Processor Unit
 
-       Block design with Deep-learning Processor Unit
+#. In Sources view select :menuselection:`Design Sources --> dpu_bd` and click :menuselection:`Create HDL Wrapper`` in context menu. Use :menuselection:`Let Vivado manage wrapper and auto-update` option.
+#. Generate bitstream
 
-14. In Sources view select :menuselection:`Design Sources --> dpu_bd` and click 'Create HDL Wrapper' in context menu. Use 'Let Vivado manage wrapper and auto-update' option.
-15. Generate bitstream
+   .. warning:: Compared to previous tutorials, generating bitstream might take significantly longer time.
 
-    .. warning:: Compared to previous tutorials, generating bitstream might take significantly longer time.
-
-16. Export hardware including bitstream to file :file:`antelope-dpu-bd.xsa`
+#. Export hardware including bitstream to file :file:`antelope-dpu-bd.xsa`
 
 Add Vitis layers to Yocto Project :tutorial-machine:`Yocto`
 -----------------------------------------------------------

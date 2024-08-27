@@ -40,14 +40,18 @@ Enable programmable logic support :tutorial-machine:`Vivado`
 
    * Enable PL to PS interrupts ``IRQ0[0-7]``
    * Enable PS-PL Master interface ``AXI HPM0 FPD``
-   * Enable PL-PS Slave interface ``AXI HPC0 FPD``
+   * Enable PL-PS Slave interfaces
+
+     * Enable ``AXI HPC0 FPD``
+     * Enable ``AXI HPC1 FPD``
+     * Enable ``AXI LPD``, set Data Width to 32 bits
+
    * Enable Fabric Reset Enable
-   * Enable PL fabric clocks in Output clocks tab
+   * Set Number of Fabric Resets to 1
+   * Enable PL fabric clock in Output clocks tab
 
      * Enable ``PL0`` and set it to 100MHz
-     * Enable ``PL1`` and set it to 200MHz
 
-   * Set Number of Fabric Resets to 1
 
 3. In ``top_bd`` block design connect ``maxihpm0_fpd_aclk`` to ``pl0_clk``
 4. In ``top_bd`` block design connect ``saxihpc0_fpd_aclk`` to ``pl0_clk``
@@ -101,7 +105,7 @@ Create double UART bitstream :tutorial-machine:`Vivado`
 
        Block design with double UARTs connected together and available to Processing System
 
-14. In Sources view select :menuselection:`Design Sources --> double_uart_bd` and click 'Create HDL Wrapper' in context menu. Use 'Let Vivado manage wrapper and auto-update' option.
+14. In Sources view select :menuselection:`Design Sources --> double_uart_bd` and click :menuselection:`Create HDL Wrapper`` in context menu. Use :menuselection:`Let Vivado manage wrapper and auto-update` option.
 15. Generate bitstream
 16. Export hardware including bitstream to file ``antelope-double-uart.xsa``
 
