@@ -25,7 +25,7 @@ allow-direct-references = true
 dev = [
     "Sphinx==8.0.2",
     "sphinx-immaterial==0.12.2",
-    "sphinx-autobuild==2024.4.16",
+    "sphinx-autobuild==2024.9.3",
     "sphinx-lint==0.9.1",
     "vale==3.7.1.0",
     # Fork, as upstream is not maintained
