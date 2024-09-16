@@ -21,7 +21,7 @@ Prerequisites
 -------------
 * AMD Vivado Design Suite
 
-  * Free Standard Edition can be download from https://www.xilinx.com/products/design-tools/vivado.html
+  * Leopard requires licensed Vivado (https://www.xilinx.com/products/design-tools/vivado.html) that enables working with Zynq UltraScale+ ``xczu9eg-ffvc900-1L-i``.
   * Enable support for Zynq UltraScale+ MPSoC during installation
 
     * During installation when selecting devices support make sure to select **Zynq** UltraScale+ MPSoC in SoC group. Just UltraScale+ is different family of devices.
@@ -72,8 +72,8 @@ Create project :tutorial-machine:`Vivado`
       * Speed Bin: DDR4 1600K
       * DRAM Device Capacity: 8192 MBits
       * Row Address Count: 16
-      * tRC (ns): 50
-      * tFAW (ns): 30
+      * tRC: 50
+      * tFAW: 30
       * Dual Rank: enabled
       * Data Mask and DBI: NO DM DBI RD WR
       * Parity: enabled

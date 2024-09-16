@@ -55,3 +55,7 @@ TCP
 UDP
 nftables
 FPD
+xsdb
+SATA
+MDIO
+DBI
