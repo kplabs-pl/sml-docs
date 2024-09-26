@@ -23,6 +23,8 @@ Prerequisites
 
         git clone git@git.kplabs.pl:antelope/software/linux/reference-designs-ml.git
 
+   The files used in this tutorial are mainly located in the ``deployment`` directory of the repository.
+
 3. Obtain the model and data as described in the :doc:`/tutorials/ml_deployment/model_preparation` tutorial.
 4. Obtain the `arch.json` file for the desired target accelerator architecture. A sample arch file is contained within the ``reference-designs-ml`` repository.
 
