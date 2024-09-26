@@ -37,7 +37,6 @@ Deploy the model
 1. Copy the necessary resources (a sample data piece for the inference, the compiled model, and the provided inference runner script) to the target device (remember to replace ``<ANTELOPE_IP>`` with the IP of the target device):
 
    .. code-block:: shell-session
-       :emphasize-lines: 4
 
        scp deep_globe_preprocessed/data/test_data/images/207743_04_02_sat.jpg \
            deployment/deployment_artifacts/compilation_results/deep_globe_segmentation_unet_512_512.xmodel \

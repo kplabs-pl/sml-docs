@@ -78,7 +78,7 @@ The training checkpoint containing model weights will be located at ``reference-
 .. note::
     You can run the training notebook in a non-interactive way and leave it for some time with: ``SML_DEMO_NO_PROGRESS=1 nohup jupyter execute --inplace model_training.ipynb``.
 
-    Enabling SML_DEMO_NO_PROGRESS variable will disable progress bars polluting the notebook while it's executed in the background. You can investigate the training by observing metrics log in the training_logs directory.
+    Enabling SML_DEMO_NO_PROGRESS variable will disable progress bars polluting the notebook while it's executed in the background. You can investigate the training by observing metrics log in the ``training_logs`` directory.
 
 .. warning::
    Mind that training the model requires GPU support and will take time (depending on your GPU it will take up to several hours).
