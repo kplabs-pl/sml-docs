@@ -8,7 +8,7 @@ The model development and deployment process is flexible, supports both PyTorch 
 .. figure:: ./deployment_flow.png
     :align: center
 
-The following tutorials will walk thorough the process on an example of deploying a PyTorch-based land cover segmentation model to Antelope with the inference program written in Python.
+The following tutorials demonstrate deploying a PyTorch-based land cover segmentation model to Antelope, with the inference program written in Python.
 
 .. toctree::
     :maxdepth: 1
