@@ -4,23 +4,23 @@ Onboard inference
 Goal
 ----
 In this tutorial you will:
-    - Load the compiled model on the target device and preapare for inference acceleration
+    - Load the compiled model on the target device and prepare for inference acceleration
     - Delegate inference over a sample image to the FPGA-based accelerator onboard
     - Analyze the inference results and compare them with the ground truth
 
 A bit of background
 -------------------
-The inference program that runs on the target device is responsible for loading the compiled model, preparing the input data, and delegating the inference to the FPGA-based accelerator. The program can either be written in C++ or Python, either way it will levarage the Vitis AI libraries and runtime to interact with the accelerator. In this tuoturial we will use a Python script for demonstrative purposes.
+The inference program that runs on the target device is responsible for loading the compiled model, preparing the input data, and delegating the inference to the FPGA-based accelerator. The program can either be written in C++ or Python, either way it will leverage the Vitis AI libraries and runtime to interact with the accelerator. For demonstrative purposes, this tutorial uses a Python script for the onboard inference.
 
 Prerequisites
 -------------
 1. Set up the target device with the Vitis AI runtime and libraries by following the :doc:`/tutorials/antelope/index` series of tutorials.
-2. Clone the model repository: 
+2. Clone the model repository:
 
    .. code-block:: shell-session
 
         git clone git@git.kplabs.pl:antelope/software/linux/reference-designs-ml.git
-    
+
    The files used in this tutorial are mainly located in the ``onboard`` directory of the repository.
 
 3. Obtain the dataset as described in the :ref:`prepare_dataset` tutorial.
@@ -59,17 +59,17 @@ Run onboard inference
    1. Run the inference script:
 
    .. code-block:: shell-session
-   
+
         python model_runner.py
 
    The script will load the model, prepare the input data, delegate the inference to the FPGA-based accelerator, and save the results as a ``.npy`` file.
 
 .. note::
-    The inference process can easily be automated. Feel free to investigate and run th ``run_onboard_demo`` script (use the ``.env.example`` file to provide the Antelope IP to the script).
+    The inference process can be automated. Feel free to investigate and run the ``run_onboard_demo`` script (use the ``.env.example`` file to provide the Antelope IP to the script).
 
-2. You can now disconnect from the target device (.e.g type ``exit``).
+2. You can now disconnect from the target device (type ``exit``).
 
-You you do not wish to repeat this process, a sample output file is provided in the ``onboard/onboard_results`` directory of the repository via git-lfs.
+You you don't wish to repeat this process, a sample output file is provided in the ``onboard/onboard_results`` directory of the repository via git-lfs.
 
 Analyze the results
 -------------------

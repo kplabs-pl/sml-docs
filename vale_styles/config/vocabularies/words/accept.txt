@@ -70,3 +70,7 @@ PMU
 ARM
 Microblaze
 AMD Vivado Lab Edition
+conda
+quantizing
+multiclass
+Preprocess

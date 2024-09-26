@@ -4,20 +4,20 @@ Model deployment
 Goal
 ----
 In this tutorial you will:
-    - Prepare a pretrained model and data for the deployment process
+    - Prepare a pre-trained model and data for the deployment process
     - Set up Vitis AI deployment container environment
-    - Deploy a pretrained PyTorch land cover segmentation model to a Vitis AI-compatible format by:
-      - Quantizing the model to work with efficient numeric representation
-      - Compiling the model to the format compatible with the given FPGA-based inference accelerator
+    - Deploy a pre-trained PyTorch land cover segmentation model to a Vitis AI-compatible format by:
+      - quantizing the model to work with efficient numeric representation
+      - compiling the model to the format compatible with the given FPGA-based inference accelerator
 
 A bit of background
 -------------------
-The deployment process differs a bit depending on the framework that was used for model training (PyTorch/Tensorflow). In this tutorial we are going to deploy a PyTorch-based land cover segmentation model for demonstrative purposes.
+The deployment process differs a bit depending on the framework that was used for model training (PyTorch/Tensorflow). This tutorials covers deployment of a PyTorch-based land cover segmentation model for demonstrative purposes.
 
 Prerequisites
 -------------
 1. Install `docker <https://www.docker.com>`_.
-2. Clone the model repository: 
+2. Clone the model repository:
 
    .. code-block:: shell-session
 
@@ -72,7 +72,7 @@ Model quantization and compilation
           Mind that the quantization process is time consuming.
 
       .. note::
-          The quantization process includes evaluation of the quantized model. If you wish to skip tis step to speed up the process pass an extra flag that will limit the number of test samples.
+          The quantization process includes evaluation of the quantized model. If you wish to skip this step to speed up the process pass an extra flag that will limit the number of test samples.
 
           .. code-block:: shell-session
 
@@ -88,8 +88,8 @@ Model quantization and compilation
               --output_dir deployment/deployment_artifacts/compilation_results \
               --net_name deep_globe_segmentation_unet_512_512
 
-      For your convinience this command is also provided in the ``deployment/compile_model`` script. The compiled model should appear in the ``deployment/deployment_artifacts/compilation_results`` directory. If you wish to skip this step it is also avilable via git-lfs.
+      For your convenience this command is also provided in the ``deployment/compile_model`` script. The compiled model should appear in the ``deployment/deployment_artifacts/compilation_results`` directory. If you wish to skip this step it's also available via git-lfs.
 
-   6. Exit the Vitis AI container (e.g. type ``exit``).
+   6. Exit the Vitis AI container (for example type ``exit``).
 
 3. Optionally you can evaluate the quantized model metrics by running the ``deployment/calc_quantized_metrics.ipynb`` notebook.
