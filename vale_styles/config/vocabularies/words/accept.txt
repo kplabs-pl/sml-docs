@@ -58,6 +58,8 @@ FPD
 xsdb
 SATA
 MDIO
+MAC
+systemd
 DBI
 AMD Zynq UltraScale+
 FSBL
