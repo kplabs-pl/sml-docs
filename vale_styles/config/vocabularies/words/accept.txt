@@ -12,7 +12,7 @@ EGSE
 Vivado Lab Edition
 Vivado
 XSCT
-bootloader
+[Bb]ootloader
 GUI
 EGSE Hosts?
 [gG]rafana
@@ -62,6 +62,8 @@ MAC
 systemd
 DBI
 AMD Zynq UltraScale+
+Dnsmasq
+DNS
 FSBL
 ELF
 PMU
