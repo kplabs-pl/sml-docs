@@ -15,6 +15,7 @@ extensions = [
 
 html_theme = 'sphinx_immaterial'
 html_logo = 'images/logo-kplabs.png'
+html_favicon = 'images/favicon.ico'
 html_static_path = ['_static']
 html_css_files = [
     'custom.css',
