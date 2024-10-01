@@ -7,14 +7,14 @@ In this tutorial you will quantize a standard deep learning model into a format 
 
 A bit of background
 -------------------
-Quantization is the first step of the deployment process. Typically deep learning models operate on floating-point data, however, to improve inference performance they must be converted to work with lower-bit representation in the quantization process. A Vitis AI compatible quantizer is provided within Vitis AI deployment container. The quantied model can still be run on a standard PC machine, however, it is optimized towards deployment on the edge. Mind that this optimization process is mandatory to deploy the model to the target DPU in later steps.
+Quantization is the first step of the deployment process. Typically deep learning models operate on floating-point data, however, to improve inference performance they must be converted to work with lower-bit representation in the quantization process. A Vitis AI compatible quantizer is provided within Vitis AI deployment container. The quantized model can still be run on a standard PC machine, however, it's optimized towards deployment on the edge. Mind that this optimization process is mandatory to deploy the model to the target DPU in later steps.
 
 Prerequisites
 -------------
 1. `Docker <https://www.docker.com>`_ installed.
 2. Model repository and environment set up as described in :ref:`setup_project`.
 3. Dataset prepared as described in :ref:`prepare_dataset`.
-4. Model weights prepared as descibed in :ref:`train_model`.
+4. Model weights prepared as described in :ref:`train_model`.
 
 Prepare for deployment :tutorial-machine:`Machine Learning Workstation`
 -----------------------------------------------------------------------

@@ -3,7 +3,7 @@ Model compilation
 
 Goal
 ----
-In this tutorial you will convert the quantized model into a format that is compatible with the target DPU platform and can leverage the hardware acceleration on the edge.
+In this tutorial you will convert the quantized model into a format that's compatible with the target DPU platform and can leverage the hardware acceleration on the edge.
 
 Prerequisites
 -------------

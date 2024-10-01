@@ -14,7 +14,7 @@ Typically deep learning models are defined and trained on GPU-enabled workstatio
 
 Before we deploy and run any model on an edge device, we first need to develop and train it on a PC machine using either PyTorch or TensorFlow.
 
-This tutorial demonstrates training of a land cover segmentation UNet model with ResNet encoder implementd in PyTorch. The model produced in this step is later used for deployment to the edge.
+This tutorial demonstrates training of a land cover segmentation UNet model with ResNet encoder implemented in PyTorch. The model produced in this step is later used for deployment to the edge.
 
 Prerequisites
 -------------
@@ -70,7 +70,7 @@ Train the model :tutorial-machine:`Machine Learning Workstation`
 
 1. Open the ``reference-designs-ml/model_training.ipynb`` Jupyter Notebook.
 
-2. Walk throught the notebook cell-by-cell. You can either execute all cells to reproduce the model training process or just read the notebook to get accustomed with the demo use case. If you don't wish to rerun the training, feel free to use the model weights supplied in the ``reference-designs-ml/training_logs`` directory. Reading the notebook will provide you with insights into the dataset, model input output formats, metrics, and the training process.
+2. Walk through the notebook cell-by-cell. You can either execute all cells to reproduce the model training process, or just read the notebook to get accustomed with the demo use case. If you don't wish to rerun the training, feel free to use the model weights supplied in the ``reference-designs-ml/training_logs`` directory. Reading the notebook will provide you with insights into the dataset, model input output formats, metrics, and the training process.
 
 The training checkpoint containing model weights should be located at ``reference-designs-ml/training_logs/lightning_logs/version_XXX/checkpoints/epoch=XXX-step=XXX.ckpt``.
 
