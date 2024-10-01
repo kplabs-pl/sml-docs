@@ -10,20 +10,22 @@ In this tutorial you will:
 
 A bit of background
 -------------------
-Training a deep learning model is the first step in the process of deploying it to a target device. With Vitis AI the training process can follow a typical PyTorch or TensorFlow workflow. Although this tutorial doesn't touch on the deployment, it lays the groundwork for the further steps towards running the model on the target device. Familiarity with the model is crucial for understanding the nuances of the following tutorials on the model deployment.
+Typically deep learning models are defined and trained on GPU-enabled workstations using PyTorch or TensorFlow libraries workflow. These models are suboptimal for inference on the edge, however, using Vitis AI they can be converted into a format that's suitable for running on the edge with FPGA-based hardware acceleration.
 
-The model training process is flexible and can vary a lot depending on the use case. This tutorial covers a demonstrative task of land cover segmentation using PyTorch.
+Before we deploy and run any model on an edge device, we first need to develop and train it on a PC machine using either PyTorch or TensorFlow.
+
+This tutorial demonstrates training of a land cover segmentation UNet model with ResNet encoder implementd in PyTorch. The model produced in this step is later used for deployment to the edge.
 
 Prerequisites
 -------------
 * Git with `git-lfs <https://git-lfs.github.com>`_ installed.
-* Python installed
-* An environment with Jupyter Notebook support (for example Visual Studio Code or Jupyter Lab)
+* Python installed.
+* An environment with Jupyter Notebook support (for example Visual Studio Code or Jupyter Lab).
 
 .. _setup_project:
 
 Setup the project environment :tutorial-machine:`Machine Learning Workstation`
------------------------------------------------------------------------------
+------------------------------------------------------------------------------
 
 1. Clone the model repository and enter it:
 
@@ -61,12 +63,16 @@ Prepare the dataset :tutorial-machine:`Machine Learning Workstation`
 
         (venv) customer@ml-workstation:~/reference_designs_ml$ python3 -m preprocess
 
+.. _train_model:
+
 Train the model :tutorial-machine:`Machine Learning Workstation`
 ----------------------------------------------------------------
 
-1. Open the ``reference-designs-ml/model_training.ipynb`` notebook and execute it if you wish to train the model from scratch, alternatively feel free to skip the model training process and use the model weights provided in the ``reference-designs-ml/training_logs`` directory.
+1. Open the ``reference-designs-ml/model_training.ipynb`` Jupyter Notebook.
 
-The training checkpoint containing model weights will be located at ``reference-designs-ml/training_logs/lightning_logs/version_XXX/checkpoints/epoch=XXX-step=XXX.ckpt``.
+2. Walk throught the notebook cell-by-cell. You can either execute all cells to reproduce the model training process or just read the notebook to get accustomed with the demo use case. If you don't wish to rerun the training, feel free to use the model weights supplied in the ``reference-designs-ml/training_logs`` directory. Reading the notebook will provide you with insights into the dataset, model input output formats, metrics, and the training process.
+
+The training checkpoint containing model weights should be located at ``reference-designs-ml/training_logs/lightning_logs/version_XXX/checkpoints/epoch=XXX-step=XXX.ckpt``.
 
 .. note::
     You can run the training notebook in a non-interactive way and leave it for some time with:

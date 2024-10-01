@@ -142,6 +142,7 @@ Create bitstream with Deep-learning Processor Unit :tutorial-machine:`Vivado`
    .. warning:: Compared to previous tutorials, generating bitstream might take significantly longer time.
 
 #. Export hardware including bitstream to file :file:`antelope-dpu-bd.xsa`
+#. Extract ``arch.json`` file from the Vivado project and save it for later. This file is needed by the deep learning model deployment tools to compile PyTorch and TensorFlow into FPGA accelerator compatible format. The file should reside in the Vivado project path analogous to ``sources\bd\dpu_bd\ip\dpu_bd_dpuczdx8g_0_0\arch.json``.
 
 Add Vitis layers to Yocto Project :tutorial-machine:`Yocto`
 -----------------------------------------------------------

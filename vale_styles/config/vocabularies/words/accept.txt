@@ -72,5 +72,6 @@ Microblaze
 AMD Vivado Lab Edition
 conda
 quantizing
+quantizer
 multiclass
 Preprocess

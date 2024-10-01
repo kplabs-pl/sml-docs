@@ -14,5 +14,5 @@ The following tutorials demonstrate deploying a PyTorch-based land cover segment
     :maxdepth: 1
 
     model_preparation
-    model_deployment
+    model_deployment/index
     onboard_inference
