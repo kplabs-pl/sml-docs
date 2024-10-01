@@ -10,81 +10,72 @@ In this tutorial you will:
 
 A bit of background
 -------------------
-The model training process is flexible and can vary a lot depending on the use case. This tutorial covers a demonstrative task of land cover segmentation.
+Training a deep learning model is the first step in the process of deploying it to a target device. With Vitis AI the training process can follow a typical PyTorch or TensorFlow workflow. Although this tutorial doesn't touch on the deployment, it lays the groundwork for the further steps towards running the model on the target device. Familiarity with the model is crucial for understanding the nuances of the following tutorials on the model deployment.
+
+The model training process is flexible and can vary a lot depending on the use case. This tutorial covers a demonstrative task of land cover segmentation using PyTorch.
 
 Prerequisites
 -------------
-1. Install `git-lfs <https://git-lfs.com>`_.
-2. Clone the model repository:
+* Git with `git-lfs <https://git-lfs.github.com>`_ installed.
+* Python installed
+* An environment with Jupyter Notebook support (for example Visual Studio Code or Jupyter Lab)
+
+.. _setup_project:
+
+Setup the project environment :tutorial-machine:`Machine Learning Workstation`
+-----------------------------------------------------------------------------
+
+1. Clone the model repository and enter it:
 
    .. code-block:: shell-session
 
-        git clone git@git.kplabs.pl:antelope/software/linux/reference-designs-ml.git
+        customer@ml-workstation:~$ git clone git@git.kplabs.pl:antelope/software/linux/reference-designs-ml.git && cd reference-designs-ml
 
-2. Setup an editor that supports running Jupyter Notebooks (for example Visual Studio Code or Jupyter Lab), set your notebook server root dir to the working directory of the ``reference-designs-ml`` repository.
-
-   * If you use VS Code, setup the notebook dir with:
-
-     .. code-block:: json
-
-          "jupyter.notebookFileRoot": "${workspaceFolder}",
-
-   * If you use VS Code with remote machine, setup the notebook dir with:
-
-     .. code-block:: json
-
-          "jupyter.runStartupCommands": [ "%cd ${workspaceFolder}" ],
-
-3. Make sure Python is installed.
-4. Create Python virtual environment:
+2. Create Python virtual environment:
 
    .. code-block:: shell-session
 
-        pip install virtualenv && virtualenv venv && source venv/bin/activate
+        customer@ml-workstation:~/reference-designs-ml$ python3 -m venv venv && source venv/bin/activate
 
-5. Install required Python packages:
+3. Install required Python packages:
 
    .. code-block:: shell-session
 
-        pip install -r requirements.txt
+        (venv) customer@ml-workstation:~/reference-designs-ml$ pip install -r requirements.txt
 
 .. _prepare_dataset:
 
-Prepare the dataset
--------------------
+Prepare the dataset :tutorial-machine:`Machine Learning Workstation`
+--------------------------------------------------------------------
 
 1. Download the dataset
 
    .. note::
        In the current git-lfs-based setup the dataset is downloaded using LFS, in the future when the code is moved to public GitHub repository, provide information about downloading the dataset here.
 
-   The dataset should reside in the ``deep_globe`` directory.
+   The dataset should reside in the ``reference-designs-ml/deep_globe`` directory.
 
-2. Preprocess the dataset
-
-   Split satellite scenes into patches:
+2. Split the satellite scenes in the dataset into patches by running the preprocessing script:
 
    .. code-block:: shell-session
 
-        python preprocess.py
+        (venv) customer@ml-workstation:~/reference_designs_ml$ python3 -m preprocess
 
-Train the model
----------------
+Train the model :tutorial-machine:`Machine Learning Workstation`
+----------------------------------------------------------------
 
-1. Open the ``model_training.ipynb`` notebook and execute it if you wish to train the model from scratch, alternatively feel free to skip the model training process and use the model weights provided in the ``training_logs`` directory.
+1. Open the ``reference-designs-ml/model_training.ipynb`` notebook and execute it if you wish to train the model from scratch, alternatively feel free to skip the model training process and use the model weights provided in the ``reference-designs-ml/training_logs`` directory.
 
 The training checkpoint containing model weights will be located at ``reference-designs-ml/training_logs/lightning_logs/version_XXX/checkpoints/epoch=XXX-step=XXX.ckpt``.
 
 .. note::
-    You can run the training notebook in a non-interactive way and leave it for some time with: ``SML_DEMO_NO_PROGRESS=1 nohup jupyter execute --inplace model_training.ipynb``.
+    You can run the training notebook in a non-interactive way and leave it for some time with:
 
-    Enabling SML_DEMO_NO_PROGRESS variable will disable progress bars polluting the notebook while it's executed in the background. You can investigate the training by observing metrics log in the ``training_logs`` directory.
+    .. code-block:: shell-session
+
+        customer@ml-workstation:~/reference_designs_ml$ SML_DEMO_NO_PROGRESS=1 nohup jupyter execute --inplace model_training.ipynb
+
+    Enabling SML_DEMO_NO_PROGRESS variable will disable progress bars polluting the notebook while it's executed in the background. You can investigate the training by observing metrics log in the ``reference-designs-ml/training_logs`` directory.
 
 .. warning::
    Mind that training the model requires GPU support and will take time (depending on your GPU it will take up to several hours).
-
-.. note::
-   The model training code is dependent on given use case and dataset. You training code may differ a lot from the presented demo. Nevertheless feel encouraged to delve into the provided Jupyter Notebook and use it as a reference.
-
-.. warning::
-   If you develop your custom model in the future make sure to use only `Vitis AI supported layers <https://docs.amd.com/r/en-US/ug1414-vitis-ai/Operators-Supported-by-PyTorch>`_.

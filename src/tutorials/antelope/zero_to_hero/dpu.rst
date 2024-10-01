@@ -28,6 +28,8 @@ Download Deep-learning Processor Unit repository :tutorial-machine:`Vivado`
 
    * Make sure that after extracting, directory ``DPUCZDX8G_v4_1_0`` is directly in :file:`dpu-ip-repo`.
 
+.. _create_bitstream:
+
 Create bitstream with Deep-learning Processor Unit :tutorial-machine:`Vivado`
 -----------------------------------------------------------------------------
 #. Start Vivado and create new project. In new project wizard select following options:
