@@ -82,7 +82,7 @@ Create double UART bitstream :tutorial-machine:`Vivado`
      * Select :menuselection:`Don't specify sources at this time`
      * Don't select :menuselection:`Project is an extensible Vitis platform`
 
-   * Part: ``xczu4cg-sfvc784-1L-i``
+   * Part: ``xczu9eg-ffvc900-1L-i``
 
 2. Create top-level block design by using :menuselection:`Create Block Design` in Flow Navigator. Use ``double_uart_bd`` as name.
 3. In block design diagram editor add Zynq UltraScale+ MPSoC IP block.
