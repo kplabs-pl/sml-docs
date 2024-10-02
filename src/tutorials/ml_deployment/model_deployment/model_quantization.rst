@@ -118,7 +118,7 @@ Run the following commands in the container environment.
           quantizer = torch_quantizer("test", model, (dummy_input), output_dir=str(output_dir))
           quant_model = quantizer.quant_model
 
-   6. Before the model is exported, at least one sample must be passed through it in the test mode. This mode can also be used to evaluate the quantized model before it's serialized. Once the test samples are passed through, the model can finally be exported for the further deployment:
+   6. Before the model is exported, at least one sample must be passed through it in the test mode. This mode can also be used to evaluate the quantized model before it's serialized.
 
       .. code-block:: python3
 
@@ -129,6 +129,10 @@ Run the following commands in the container environment.
                   input_batch = input_image.unsqueeze(0)
                   pred = quant_model(input_batch)
                   f_out.create_dataset(sample_name, data=pred.detach())
+
+   7. Once the test samples are passed through, the model can finally be exported to ``.xmodel`` format for the further deployment:
+
+      .. code-block:: python3
 
           quantizer.export_xmodel(str(output_dir))
 
