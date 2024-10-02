@@ -51,6 +51,6 @@ Run the following commands in the container environment.
    For your convenience the compile command is also provided in the ``reference-designs-ml/deployment/compile_model`` script. You can run it with ``(vitis-ai-wego-torch2) vitis-ai-user@vitis-ai-container-id:/workspace$ ./deployment/compile_model``.
 
    .. Note::
-       Mind that compilation may strip the model of the layers unsupported by the target platform. The compiler will inform you about the layers that were removed. These layers must be re-implemented from scratch on the target platform on the CPU side. In the case of the demo model the sigmoid layer at the end of the model will be removed. It will be re-implemented in the inference script.
+       Mind that compilation may strip the model of the layers unsupported by the target platform. The compiler will inform you about the layers that were removed. These layers must be re-implemented from scratch on the target platform on the CPU side. In the case of the demo model the softmax layer at the end of the model will be removed. It will be re-implemented in the inference script.
 
 2. Exit the Vitis AI container: ``exit``.

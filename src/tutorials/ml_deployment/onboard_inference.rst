@@ -45,7 +45,7 @@ Copy the necessary resources (a sample data piece for the inference, the compile
 
    .. code-block:: shell-session
 
-       customer@egse-my-egse:~$ scp ml_workspace root@172.20.200.100:~
+       customer@egse-my-egse:~$ scp -r ml_workspace root@172.20.200.100:~
 
 4. Log into the DPU target device:
 
@@ -61,19 +61,24 @@ Run onboard inference :tutorial-machine:`DPU Board`
 
 Make sure that you remain logged into the target DPU board.
 
-1. Go to the workspace directory on the DPU board: ``root@antelope:~# cd ml_workspace``.
+1. Go to the workspace directory on the DPU board:
+
+   .. code-block:: shell-session
+
+       root@antelope:~# cd ml_workspace
+
 2. Run the inference script:
 
    .. code-block:: shell-session
 
-       root@antelope:~/ml_workspace# python -m model_runner
+       root@antelope:~/ml_workspace# python3 -m model_runner
 
    The script will load the model, prepare the input data, delegate the inference to the FPGA-based accelerator, and save the results to the ``predictions`` directory as a ``.npy`` file. The ``.npy`` file will contain tensors with the inference results.
 
    .. warning::
        Make sure that the target device accelerator architecture matches the one used for model compilation.
 
-       You can examine the accelerator architecture by running ``root@antelope:~# xdputil xmodel -h``, and the model target architecture by running ``root@antelope:~# xdputil xmodel -l deep_globe_segmentation_unet_512_512.xmodel``. Compare the values under ``DPU Arch`` in the outputs of both commands to double check that they're the same.
+       You can examine the accelerator architecture by running ``root@antelope:~/ml_workspace# xdputil xmodel -h``, and the model target architecture by running ``root@antelope:~/ml_workspace# xdputil xmodel -l deep_globe_segmentation_unet_512_512.xmodel``. Compare the values under ``DPU Arch`` in the outputs of both commands to double check that they're the same.
 
    Let's walk through the model runner script to understand the inference process:
 
@@ -117,7 +122,7 @@ Make sure that you remain logged into the target DPU board.
       .. note::
           Vitis AI libraries will, by default, automatically convert the input/output data to the quantized format used internally by the model.
 
-   3. The runner should also feature preprocessing and postprocessing methods that are analogous to the ones used during the model training and evaluation. The postprocessing method re-implements the sigmoid layer stripped down by the model compiler during the deployment:
+   3. The runner should also feature preprocessing and postprocessing methods that are analogous to the ones used during the model training and evaluation. The postprocessing method re-implements the softmax layer stripped down by the model compiler during the deployment:
 
       .. code-block:: python3
 
@@ -133,7 +138,7 @@ Make sure that you remain logged into the target DPU board.
                   return img
 
               def postproc(self, img: np.ndarray) -> np.ndarray:
-                  return sigmoid(img)
+                  return softmax(img)
 
    4. Finally the main inference method runs can use the preprocessed image, place it into the input buffer, delegate the inference asynchronously to the DPU, and wait for the results:
 
@@ -180,7 +185,7 @@ After disconnecting from the DPU board, you should be back on the EGSE system.
 
    .. code-block:: shell-session
 
-      customer@egse-my-egse:~$ scp root@172.20.200.100:~/207743_04_02_sat.npy .
+      customer@egse-my-egse:~$ scp -r root@172.20.200.100:~/ml_workspace/predictions ml_workspace
 
 2. Disconnect from the EGSE system: ``exit``.
 
