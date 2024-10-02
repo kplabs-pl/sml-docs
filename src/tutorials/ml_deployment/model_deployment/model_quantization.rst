@@ -136,6 +136,8 @@ Run the following commands in the container environment.
 
           quantizer.export_xmodel(str(output_dir))
 
+4. Exit the Vitis AI container: ``exit``.
+
 Evaluate the quantized model metrics :tutorial-machine:`Machine Learning Workstation`
 -------------------------------------------------------------------------------------
-1. The quantization script saves the calibrated model outputs in a file. Optionally you can evaluate metrics for these outputs and preview the results by running the ``reference-designs-ml/deployment/calc_quantized_metrics.ipynb`` notebook (outside of the docker environment).
+1. The quantization script saves the calibrated model outputs in a file. Optionally you can evaluate metrics for these outputs and preview the results by running the ``reference-designs-ml/deployment/calc_quantized_metrics.ipynb`` notebook.
