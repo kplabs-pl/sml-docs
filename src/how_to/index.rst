@@ -5,3 +5,4 @@ How-to guides
     :maxdepth: 2
 
     egse_host/index
+    zynqmp/index
