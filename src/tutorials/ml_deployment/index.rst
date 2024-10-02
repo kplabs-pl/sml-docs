@@ -13,6 +13,6 @@ The following tutorials demonstrate deploying a PyTorch-based land cover segment
 .. toctree::
     :maxdepth: 1
 
-    model_preparation
+    model_training
     model_deployment/index
     onboard_inference

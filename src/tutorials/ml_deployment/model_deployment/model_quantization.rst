@@ -92,7 +92,7 @@ Run the following commands in the container environment.
           quantizer = torch_quantizer("calib", model, (dummy_input), output_dir=str(output_dir))
           quant_model = quantizer.quant_model
 
-   3. Finally the calibration is performed by passing the calibration samples to the quantized model in a loop and the quantization results are exported:
+   3. The calibration is performed by passing the calibration samples to the quantized model in a loop and the quantization results are exported:
 
       .. code-block:: python3
 
@@ -104,7 +104,13 @@ Run the following commands in the container environment.
 
           quantizer.export_quant_config()
 
-   4. However, the quantized model needs to be serialized to be used in the deployment process. This is done by running the setting the quantizer to the ``"test"`` mode. This mode requires to set batch size to 1.
+   4. After calibration the quantized model parameters can be exported with:
+
+      .. code-block:: python3
+
+          quantizer.export_quant_model()
+
+   5. However, the quantized model needs to be serialized before we compile it in the next tutorial. This is done by instantiating the quantizer in the ``"test"`` mode. Test mode requires batch size to be set to 1:
 
       .. code-block:: python3
 
@@ -112,7 +118,7 @@ Run the following commands in the container environment.
           quantizer = torch_quantizer("test", model, (dummy_input), output_dir=str(output_dir))
           quant_model = quantizer.quant_model
 
-   5. Before the model is exported, at least one sample must be passed through it in the test mode. This mode can also be used to evaluate the quantized model before it's serialized. Once the test samples are passed through, the model can finally be exported for the further deployment:
+   6. Before the model is exported, at least one sample must be passed through it in the test mode. This mode can also be used to evaluate the quantized model before it's serialized. Once the test samples are passed through, the model can finally be exported for the further deployment:
 
       .. code-block:: python3
 

@@ -1,5 +1,5 @@
-Model preparation
-=================
+Model training
+==============
 
 Goal
 ----
@@ -10,11 +10,9 @@ In this tutorial you will:
 
 A bit of background
 -------------------
-Typically deep learning models are defined and trained on GPU-enabled workstations using PyTorch or TensorFlow libraries workflow. These models are suboptimal for inference on the edge, however, using Vitis AI they can be converted into a format that's suitable for running on the edge with FPGA-based hardware acceleration.
+Typically deep learning models are defined and trained on GPU-enabled workstations using PyTorch or TensorFlow libraries workflow. These models are suboptimal for inference on the edge, however, using Vitis AI they can be converted into a format that's suitable for running on the edge with FPGA-based hardware acceleration. Before the model can be deployed to the edge, it needs to be trained on a PC machine using either PyTorch or TensorFlow.
 
-Before the model can be deployed to the edge, it needs to be trained on a PC machine using either PyTorch or TensorFlow.
-
-This tutorial demonstrates training of a land cover segmentation UNet model with ResNet encoder implemented in PyTorch. The model produced in this step is later used for deployment to the edge.
+This tutorial demonstrates training of a land cover segmentation UNet model with ResNet encoder implemented in PyTorch. If you are a seasoned machine learning engineer, the process presented in this tutorial step will be familiar to you. The model produced by the training process is deployed to the DPU device in the following tutorials.
 
 Prerequisites
 -------------
@@ -39,7 +37,7 @@ Setup the project environment :tutorial-machine:`Machine Learning Workstation`
 
         customer@ml-workstation:~/reference-designs-ml$ python3 -m venv venv && source venv/bin/activate
 
-3. Install required Python packages required for the model training and evaluation:
+3. Install Python packages required for the model training and evaluation:
 
    .. code-block:: shell-session
 
