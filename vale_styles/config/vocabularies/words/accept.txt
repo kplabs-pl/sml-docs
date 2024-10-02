@@ -60,3 +60,8 @@ SATA
 MDIO
 DBI
 AMD Zynq UltraScale+
+FSBL
+ELF
+PMU
+ARM
+Microblaze
