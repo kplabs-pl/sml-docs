@@ -12,7 +12,7 @@ A bit of background
 -------------------
 Typically deep learning models are defined and trained on GPU-enabled workstations using PyTorch or TensorFlow libraries workflow. These models are suboptimal for inference on the edge, however, using Vitis AI they can be converted into a format that's suitable for running on the edge with FPGA-based hardware acceleration.
 
-Before we deploy and run any model on an edge device, we first need to develop and train it on a PC machine using either PyTorch or TensorFlow.
+Before the model can be deployed to the edge, it needs to be trained on a PC machine using either PyTorch or TensorFlow.
 
 This tutorial demonstrates training of a land cover segmentation UNet model with ResNet encoder implemented in PyTorch. The model produced in this step is later used for deployment to the edge.
 
@@ -39,7 +39,7 @@ Setup the project environment :tutorial-machine:`Machine Learning Workstation`
 
         customer@ml-workstation:~/reference-designs-ml$ python3 -m venv venv && source venv/bin/activate
 
-3. Install required Python packages:
+3. Install required Python packages required for the model training and evaluation:
 
    .. code-block:: shell-session
 
@@ -57,11 +57,11 @@ Prepare the dataset :tutorial-machine:`Machine Learning Workstation`
 
    The dataset should reside in the ``reference-designs-ml/deep_globe`` directory.
 
-2. Split the satellite scenes in the dataset into patches by running the preprocessing script:
+2. The images in the dataset are too large to process them as a whole using deep learning models. They need to be split into even patches of 512 by 512 pixels. Run the supplied script to do so:
 
    .. code-block:: shell-session
 
-        (venv) customer@ml-workstation:~/reference_designs_ml$ python3 -m preprocess
+        (venv) customer@ml-workstation:~/reference_designs_ml$ python3 -m split_to_patches --patch-size 512 --input-dir deep_globe --output-dir deep_globe_patched
 
 .. _train_model:
 
@@ -72,16 +72,18 @@ Train the model :tutorial-machine:`Machine Learning Workstation`
 
 2. Walk through the notebook cell-by-cell. You can either execute all cells to reproduce the model training process, or just read the notebook to get accustomed with the demo use case. If you don't wish to rerun the training, feel free to use the model weights supplied in the ``reference-designs-ml/training_logs`` directory. Reading the notebook will provide you with insights into the dataset, model input output formats, metrics, and the training process.
 
-The training checkpoint containing model weights should be located at ``reference-designs-ml/training_logs/lightning_logs/version_XXX/checkpoints/epoch=XXX-step=XXX.ckpt``.
+   The training checkpoint containing model weights should be located at ``reference-designs-ml/training_logs/lightning_logs/version_XXX/checkpoints/epoch=XXX-step=XXX.ckpt``.
 
-.. note::
-    You can run the training notebook in a non-interactive way and leave it for some time with:
+   .. note::
+       You can run the training notebook in a non-interactive way and leave it for some time with:
 
-    .. code-block:: shell-session
+       .. code-block:: shell-session
 
-        customer@ml-workstation:~/reference_designs_ml$ SML_DEMO_NO_PROGRESS=1 nohup jupyter execute --inplace model_training.ipynb
+           customer@ml-workstation:~/reference_designs_ml$ SML_DEMO_NO_PROGRESS=1 nohup jupyter execute --inplace model_training.ipynb
 
-    Enabling SML_DEMO_NO_PROGRESS variable will disable progress bars polluting the notebook while it's executed in the background. You can investigate the training by observing metrics log in the ``reference-designs-ml/training_logs`` directory.
+       Enabling SML_DEMO_NO_PROGRESS variable will disable progress bars polluting the notebook while it's executed in the background. You can investigate the training by observing metrics log in the ``reference-designs-ml/training_logs`` directory.
 
-.. warning::
-   Mind that training the model requires GPU support and will take time (depending on your GPU it will take up to several hours).
+   .. warning::
+      Mind that training the model requires GPU support and will take time (depending on your GPU it will take up to several hours).
+
+   After you finished either executing or reading the notebook, you can proceed to the next tutorial.

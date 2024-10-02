@@ -18,9 +18,9 @@ Prerequisites
 
 Prepare for deployment :tutorial-machine:`Machine Learning Workstation`
 -----------------------------------------------------------------------
-1. Open and run the ``reference-designs-ml/deployment/deployment_preparation.ipynb`` notebook to prepare the quantization calibration subset and extract model weights from the checkpoint.
+1. The quantization process requires model weights and a subset (100 to 1000 samples) of the training dataset to calibrate the model. This process is done in the Vitis AI deployment container which is a constrained environment. To simplify this step, the fully preprocessed calibration subset and model weights are prepared in advance.
 
-   The notebook will prepare model weights and a subset of train samples necessary for the quantization step of the deployment. The weights and calibration subset will be saved into ``reference-designs-ml/deployment/deployment_artifacts/deployment_inputs`` directory. Feel free to delve into the notebook and the provided code.
+   Open and run the ``reference-designs-ml/deployment/deployment_preparation.ipynb`` Jupyter Notebook to save calibration data and weights to ``reference-designs-ml/deployment/deployment_artifacts/deployment_inputs`` directory.
 
 2. Enter the Vitis AI deployment container with the working directory volume mounted:
 
@@ -43,18 +43,25 @@ Run the following commands in the container environment.
 
        vitis-ai-user@vitis-ai-container-id:/workspace$ conda activate vitis-ai-wego-torch2
 
-2. Install necessary third-party requirements inside the conda environment:
+2. Install third-party modules required to run the model inside the container environment:
 
    .. code-block:: shell-session
 
        (vitis-ai-wego-torch2) vitis-ai-user@vitis-ai-container-id:/workspace$ pip install -r deployment/requirements-vitis-ai.txt
 
 
-3. Run the quantization script. Feel free to delve into the script to learn more about quantizing PyTorch model for Vitis AI.
+3. Quantize the model using Vitis AI Python libraries. The quantizer is created using ``pytorch_nndct.apis.torch_quantizer``, which operates in two modes: ``"calib"`` and ``"test"``. The first one is used to calibrate the model to work in lower-bit precision. The second one is used to evaluate and export the quantized model for further deployment.
+
+   This process is performed by running the quantization script (remember that the demo model works with 512 by 512 3-channel images and 7 output classes):
 
    .. code-block:: shell-session
 
-       (vitis-ai-wego-torch2) vitis-ai-user@vitis-ai-container-id:/workspace$ python3 -m deployment.quantize_model
+       (vitis-ai-wego-torch2) vitis-ai-user@vitis-ai-container-id:/workspace$ python3 -m deployment.quantize_model \
+           --input-size 3 512 512 \
+           --num-classes 7 \
+           --calib-batch-size 8 \
+           --input-dir deployment/deployment_artifacts/deployment_inputs \
+           --output-dir deployment/deployment_artifacts/quantization_results
 
    The quantized model will appear in ``reference-designs-ml/deployment/deployment_artifacts/quantization_results``. If you wish to speed up the process, you can skip this step and use the quantized model provided via git-lfs.
 
@@ -68,7 +75,57 @@ Run the following commands in the container environment.
 
            (vitis-ai-wego-torch2) vitis-ai-user@vitis-ai-container-id:/workspace$ python3 -m deployment.quantize_model --quantization-samples-num-limit 1
 
+   Let's walk through the quantization script to understand the process:
+
+   1. Quantization requires to load the model first:
+
+      .. code-block:: python3
+
+          model = Unet(num_classes=NUM_CLASSES)
+          model.load_state_dict(torch.load(input_dir / "state_dict.pt"))
+
+   2. Then the quantizer is set up in the ``"calib"`` mode using dummy input with the same shape as the model input (in this case it's ``[3, 512, 512]``):
+
+      .. code-block:: python3
+
+          dummy_input = torch.randn(batch_size, *input_shape)
+          quantizer = torch_quantizer("calib", model, (dummy_input), output_dir=str(output_dir))
+          quant_model = quantizer.quant_model
+
+   3. Finally the calibration is performed by passing the calibration samples to the quantized model in a loop and the quantization results are exported:
+
+      .. code-block:: python3
+
+          with h5py.File(calibration_data_h5_path, "r") as f_in:
+              sample_names = list(f_in["calibration"].keys())[:samples_num_limit]
+              for names_batch in tqdm(batched(sample_names, batch_size)):
+                  input_batch = torch.stack([torch.as_tensor(f_in[f"calibration/{name}"]) for name in names_batch])
+                  quant_model(input_batch)
+
+          quantizer.export_quant_config()
+
+   4. However, the quantized model needs to be serialized to be used in the deployment process. This is done by running the setting the quantizer to the ``"test"`` mode. This mode requires to set batch size to 1.
+
+      .. code-block:: python3
+
+          dummy_input = torch.randn(batch_size, *input_shape)
+          quantizer = torch_quantizer("test", model, (dummy_input), output_dir=str(output_dir))
+          quant_model = quantizer.quant_model
+
+   5. Before the model is exported, at least one sample must be passed through it in the test mode. This mode can also be used to evaluate the quantized model before it's serialized. Once the test samples are passed through, the model can finally be exported for the further deployment:
+
+      .. code-block:: python3
+
+          with h5py.File(test_data_h5_path, "r") as f_in, h5py.File(output_dir / "quantization_test_preds.h5", "w") as f_out:
+              sample_names = list(f_in["calibration"].keys())[:samples_num_limit]
+              for sample_name in tqdm(sample_names):
+                  input_image = torch.as_tensor(f_in[f"test/{sample_name}"])
+                  input_batch = input_image.unsqueeze(0)
+                  pred = quant_model(input_batch)
+                  f_out.create_dataset(sample_name, data=pred.detach())
+
+          quantizer.export_xmodel(str(output_dir))
+
 Evaluate the quantized model metrics :tutorial-machine:`Machine Learning Workstation`
 -------------------------------------------------------------------------------------
-1. Optionally you can evaluate the quantized model metrics by running the ``reference-designs-ml/deployment/calc_quantized_metrics.ipynb`` notebook (outside of the docker environment).
-
+1. The quantization script saves the calibrated model outputs in a file. Optionally you can evaluate metrics for these outputs and preview the results by running the ``reference-designs-ml/deployment/calc_quantized_metrics.ipynb`` notebook (outside of the docker environment).
