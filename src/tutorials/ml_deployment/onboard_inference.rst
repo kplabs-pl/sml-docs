@@ -82,7 +82,7 @@ Make sure that you remain logged into the target DPU board.
 
    Let's walk through the model runner script to understand the inference process:
 
-   1. The script must define a model runner class that reads the ``.xmodel`` file and parser the model graph using Vitis AI provided ``xir`` and ``vart`` libraries:
+   1. The script must define a model runner class that reads the ``.xmodel`` file and parses the model graph using Vitis AI provided ``xir`` and ``vart`` libraries:
 
       .. code-block:: python3
 
