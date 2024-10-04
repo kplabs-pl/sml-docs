@@ -8,3 +8,4 @@ Custom can use ``sml`` command line utility to control subscribed boards. Due to
 
     ./common
     ./antelope
+    ./leopard
