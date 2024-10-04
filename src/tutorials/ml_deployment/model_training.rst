@@ -10,9 +10,9 @@ In this tutorial you will:
 
 A bit of background
 -------------------
-Typically deep learning models are defined and trained on GPU-enabled workstations using PyTorch or TensorFlow libraries workflow. These models are suboptimal for inference on the edge, however, using Vitis AI they can be converted into a format that's suitable for running on the edge with FPGA-based hardware acceleration. Before the model can be deployed to the edge, it needs to be trained on a PC machine using either PyTorch or TensorFlow.
+It's common to develop and train deep learning models on GPU-enabled workstations using PyTorch or TensorFlow libraries workflow. These models aren't optimized for inference on the edge devices that differ from standard desktop computers. However, using Vitis AI you can convert deep learning models into a format that's suitable for running on the edge with FPGA-based hardware acceleration. Before deploying the model to the edge, train it on a PC machine using either PyTorch or TensorFlow.
 
-This tutorial demonstrates training of a land cover segmentation UNet model with ResNet encoder implemented in PyTorch. If you are a seasoned machine learning engineer, the process presented in this tutorial step will be familiar to you. The model produced by the training process is deployed to the DPU device in the following tutorials.
+This tutorial demonstrates training of a land cover segmentation UNet model with ResNet encoder implemented in PyTorch. If you are a seasoned machine learning engineer, the process presented in this tutorial step will be familiar to you. After training the model, you can proceed to the next tutorial to deploy it to the edge.
 
 Prerequisites
 -------------
@@ -51,11 +51,11 @@ Prepare the dataset :tutorial-machine:`Machine Learning Workstation`
 1. Download the dataset
 
    .. note::
-       In the current git-lfs-based setup the dataset is downloaded using LFS, in the future when the code is moved to public GitHub repository, provide information about downloading the dataset here.
+      TODO: Now the repository contains the dataset using git-lfs. Consider moving it to a normal storage and provide a download link.
 
    The dataset should reside in the ``reference-designs-ml/deep_globe`` directory.
 
-2. The images in the dataset are too large to process them as a whole using deep learning models. They need to be split into even patches of 512 by 512 pixels. Run the supplied script to do so:
+2. The dataset images are too large to process as a whole with deep learning models. To address this, split them into smaller 512x512 pixel patches by running:
 
    .. code-block:: shell-session
 
@@ -70,7 +70,7 @@ Train the model :tutorial-machine:`Machine Learning Workstation`
 
 2. Walk through the notebook cell-by-cell. You can either execute all cells to reproduce the model training process, or just read the notebook to get accustomed with the demo use case. If you don't wish to rerun the training, feel free to use the model weights supplied in the ``reference-designs-ml/training_logs`` directory. Reading the notebook will provide you with insights into the dataset, model input output formats, metrics, and the training process.
 
-   The training checkpoint containing model weights should be located at ``reference-designs-ml/training_logs/lightning_logs/version_XXX/checkpoints/epoch=XXX-step=XXX.ckpt``.
+   The training checkpoint containing model weights should reside at ``reference-designs-ml/training_logs/lightning_logs/version_XXX/checkpoints/epoch=XXX-step=XXX.ckpt``.
 
    .. note::
        You can run the training notebook in a non-interactive way and leave it for some time with:

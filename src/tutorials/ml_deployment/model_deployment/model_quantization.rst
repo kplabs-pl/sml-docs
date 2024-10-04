@@ -7,7 +7,7 @@ In this tutorial you will quantize a standard deep learning model into a format 
 
 A bit of background
 -------------------
-Quantization is the first step of the deployment process. Typically deep learning models operate on floating-point data, however, to improve inference performance they must be converted to work with lower-bit representation in the quantization process. A Vitis AI compatible quantizer is provided within Vitis AI deployment container. The quantized model can still be run on a standard PC machine, however, it's optimized towards deployment on the edge. Mind that this optimization process is mandatory to deploy the model to the target DPU in later steps.
+Quantization is the first step of the deployment process. Typically deep learning models operate on floating-point data, however, to improve inference performance they must be converted to work with lower-bit representation during quantization. Vitis AI provides a quantizer tool inside the deployment container. You can still run the quantized model on a standard PC, however, it's optimized towards deployment on the edge. Mind that this optimization process is mandatory to deploy the model to the target DPU in later steps.
 
 Prerequisites
 -------------
@@ -18,7 +18,7 @@ Prerequisites
 
 Prepare for deployment :tutorial-machine:`Machine Learning Workstation`
 -----------------------------------------------------------------------
-1. The quantization process requires model weights and a subset (100 to 1000 samples) of the training dataset to calibrate the model. This process is done in the Vitis AI deployment container which is a constrained environment. To simplify this step, the fully preprocessed calibration subset and model weights are prepared in advance.
+1. The quantization process requires model weights and a subset (100 to 1000 samples) of the training dataset to calibrate the model. To avoid preprocessing the dataset for quantization inside the container, run the following command to prepare the calibration samples and model weights in advance:
 
    Open and run the ``reference-designs-ml/deployment/deployment_preparation.ipynb`` Jupyter Notebook to save calibration data and weights to ``reference-designs-ml/deployment/deployment_artifacts/deployment_inputs`` directory.
 
@@ -50,9 +50,9 @@ Run the following commands in the container environment.
        (vitis-ai-wego-torch2) vitis-ai-user@vitis-ai-container-id:/workspace$ pip install -r deployment/requirements-vitis-ai.txt
 
 
-3. Quantize the model using Vitis AI Python libraries. The quantizer is created using ``pytorch_nndct.apis.torch_quantizer``, which operates in two modes: ``"calib"`` and ``"test"``. The first one is used to calibrate the model to work in lower-bit precision. The second one is used to evaluate and export the quantized model for further deployment.
+3. Quantize the model using Vitis AI Python libraries. The ``pytorch_nndct.apis.torch_quantizer`` function creates the quantizer which operates in two modes: ``"calib"`` and ``"test"``. The first one calibrates the model to work in lower-bit precision. The second one evaluates and exports the quantized model for further deployment.
 
-   This process is performed by running the quantization script (remember that the demo model works with 512 by 512 3-channel images and 7 output classes):
+   Perform quantization by running the following script (remember that the demo model works with 512 by 512 3-channel images and 7 output classes):
 
    .. code-block:: shell-session
 
@@ -75,7 +75,7 @@ Run the following commands in the container environment.
 
            (vitis-ai-wego-torch2) vitis-ai-user@vitis-ai-container-id:/workspace$ python3 -m deployment.quantize_model --quantization-samples-num-limit 1
 
-   Let's walk through the quantization script to understand the process:
+   Walk through the quantization script to understand the process:
 
    1. Quantization requires to load the model first:
 
@@ -84,7 +84,7 @@ Run the following commands in the container environment.
           model = Unet(num_classes=NUM_CLASSES)
           model.load_state_dict(torch.load(input_dir / "state_dict.pt"))
 
-   2. Then the quantizer is set up in the ``"calib"`` mode using dummy input with the same shape as the model input (in this case it's ``[3, 512, 512]``):
+   2. Use the quantizer in the ``"calib"`` mode to quantize the model. You have to pass a dummy sample with proper input shape (in this case it's ``[batch_size, 3, 512, 512]``) to initialize the quantizer:
 
       .. code-block:: python3
 
@@ -92,7 +92,7 @@ Run the following commands in the container environment.
           quantizer = torch_quantizer("calib", model, (dummy_input), output_dir=str(output_dir))
           quant_model = quantizer.quant_model
 
-   3. The calibration is performed by passing the calibration samples to the quantized model in a loop and the quantization results are exported:
+   3. The script performs the quantization by passing the calibration samples to the model in a loop:
 
       .. code-block:: python3
 
@@ -102,15 +102,13 @@ Run the following commands in the container environment.
                   input_batch = torch.stack([torch.as_tensor(f_in[f"calibration/{name}"]) for name in names_batch])
                   quant_model(input_batch)
 
-          quantizer.export_quant_config()
-
-   4. After calibration the quantized model parameters can be exported with:
+   5. After calibration, export the quantized model parameters using:
 
       .. code-block:: python3
 
           quantizer.export_quant_model()
 
-   5. However, the quantized model needs to be serialized before we compile it in the next tutorial. This is done by instantiating the quantizer in the ``"test"`` mode. Test mode requires batch size to be set to 1:
+   6. However, Vitis AI requires to serialize the model before it can undergo compilation. Set up the quantizer in the ``"test"`` mode to enable model export. The test mode requires batch size equal to 1:
 
       .. code-block:: python3
 
@@ -118,7 +116,7 @@ Run the following commands in the container environment.
           quantizer = torch_quantizer("test", model, (dummy_input), output_dir=str(output_dir))
           quant_model = quantizer.quant_model
 
-   6. Before the model is exported, at least one sample must be passed through it in the test mode. This mode can also be used to evaluate the quantized model before it's serialized.
+   7. Vitis AI quantizer requires to infer at least one sample in the ``test`` mode before saving the model. You can also evaluate the quantized model in the test mode before it's serialized:
 
       .. code-block:: python3
 
@@ -130,7 +128,7 @@ Run the following commands in the container environment.
                   pred = quant_model(input_batch)
                   f_out.create_dataset(sample_name, data=pred.detach())
 
-   7. Once the test samples are passed through, the model can finally be exported to ``.xmodel`` format for the further deployment:
+   8. Once the model performs inference in the test mode, the quantizer can export it to the ``.xmodel`` format for the further deployment:
 
       .. code-block:: python3
 

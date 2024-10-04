@@ -5,12 +5,12 @@ Goal
 ----
 In this tutorial you will:
     - Load the compiled model on the target device and prepare for inference acceleration
-    - Delegate inference over a sample image to the FPGA-based accelerator onboard
+    - Delegate inference over an image to the FPGA-based accelerator onboard
     - Analyze the inference results and compare them with the ground truth
 
 A bit of background
 -------------------
-After the model is first trained and then compiled for the target device, the final step is to run the inference on the target device. However, the compiled model isn't enough to run the inference. A runner program is necessary to load the model, prepare the input data, and delegate the inference to the FPGA-based accelerator. The runner can either be written in C++ or Python, either way it will leverage the Vitis AI libraries and runtime to interact with the accelerator. For demonstrative purposes, this tutorial uses a Python script for the onboard inference.
+After the model is first trained and then compiled for the target device, the final step is to run the inference on the target device. However, the compiled model isn't enough to run the inference. A runner program is necessary to load the model, prepare the input data, and delegate the inference to the FPGA-based accelerator. You can write the runner program in C++ or Python, either way it will leverage the Vitis AI libraries and runtime to interact with the accelerator. For demonstrative purposes, this tutorial uses a Python script for the onboard inference.
 
 Prerequisites
 -------------
@@ -23,7 +23,7 @@ Prerequisites
 Deploy the model
 ----------------
 
-Copy the necessary resources (a sample data piece for the inference, the compiled model, and the provided inference runner script) to the target device (remember to replace the egsee name and with proper values, Antelope IP address is ``172.20.200.100`` by default):
+Copy the necessary resources (an input image for the inference, the compiled model, and the provided inference runner script) to the target device. Remember to replace the EGSE name (``egse-my-egse.egse.sml.lan``) with a proper value (Antelope IP address is ``172.20.200.100`` by default):
 
 1. Copy the resources to the EGSE system:
 
@@ -54,7 +54,7 @@ Copy the necessary resources (a sample data piece for the inference, the compile
        customer@egse-my-egse:~$ ssh root@172.20.200.100
 
 .. note::
-    The provided inference runner script is a Python script that uses the Vitis AI libraries to load the model and delegate the inference to the FPGA-based accelerator. The script is provided in the model repository under ``reference-designs-ml/onboard/model_runner.py``. Feel free to delve into the script to understand how the inference is performed.
+    The provided inference runner program is a Python script that uses the Vitis AI libraries to load the model and delegate the inference to the FPGA-based accelerator. You can find the script in the model repository under ``reference-designs-ml/onboard/model_runner.py``. You will learn about crucial elements of the Vitis AI inference API used in the script in the following steps.
 
 Run onboard inference :tutorial-machine:`DPU Board`
 ---------------------------------------------------
@@ -80,7 +80,7 @@ Make sure that you remain logged into the target DPU board.
 
        You can examine the accelerator architecture by running ``root@antelope:~/ml_workspace# xdputil xmodel -h``, and the model target architecture by running ``root@antelope:~/ml_workspace# xdputil xmodel -l deep_globe_segmentation_unet_512_512.xmodel``. Compare the values under ``DPU Arch`` in the outputs of both commands to double check that they're the same.
 
-   Let's walk through the model runner script to understand the inference process:
+   Here are the key points to consider when writing an inference runner script:
 
    1. The script must define a model runner class that reads the ``.xmodel`` file and parses the model graph using Vitis AI provided ``xir`` and ``vart`` libraries:
 
@@ -163,7 +163,7 @@ Make sure that you remain logged into the target DPU board.
 
                   return out
 
-   5. The model can be fed with images loaded using OpenCV (mind that OpenCV defaults to BGR data layout, Vitis AI models expect RGB by default):
+   5. You can load images using OpenCV and feed them to the model runner (mind that OpenCV defaults to BGR data layout, Vitis AI models expect RGB by default):
 
       .. code-block:: python3
 
@@ -172,9 +172,9 @@ Make sure that you remain logged into the target DPU board.
           img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
           prediction = runner.infer(img)
 
-2. You can now disconnect from the DPU board: ``exit``.
+2. Disconnect from the DPU board: ``exit``.
 
-If you don't want to repeat this process, a sample output file is provided in the ``reference-designs-ml/onboard/onboard_results`` directory of the repository via git-lfs.
+You can use an output image file saved in the ``reference-designs-ml/onboard/onboard_results`` directory of the repository via git-lfs, if you don't want to repeat this process.
 
 Download the inference results
 ------------------------------

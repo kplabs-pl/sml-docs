@@ -15,9 +15,9 @@ In the following tutorials you will:
 
 A bit of background
 -------------------
-A model trained using PyTorch or TensorFlow isn't suitable to be run on the edge out-of-the-box. It needs to undergo conversion process that will enable efficient inference on the target DPU platform. The deployment process contains two steps: quantization and compilation. Quantization converts model to work in efficient data representation. Compilation translates the model architecture into FPGA-based accelerator compatible format.
+A model trained using PyTorch or TensorFlow isn't suitable for running on a DPU unit out-of-the-box. It needs to undergo conversion process that will enable efficient inference on the target DPU platform. The deployment process contains two steps: quantization and compilation. Quantization converts model to work in efficient data representation. Compilation translates the model architecture into FPGA-based accelerator compatible format.
 
-The deployment process differs a bit depending on the framework that was used for model training (PyTorch/Tensorflow). This tutorials covers deployment of a PyTorch-based land cover segmentation model for demonstrative purposes.
+The deployment process differs a bit depending on the framework used for model training (PyTorch/Tensorflow). This tutorials covers deployment of a PyTorch-based land cover segmentation model for demonstrative purposes.
 
 Model deployment steps
 ----------------------

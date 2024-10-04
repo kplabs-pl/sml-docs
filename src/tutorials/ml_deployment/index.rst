@@ -1,7 +1,6 @@
-ML deployment
-=============
-
-The model development and deployment process is flexible, supports both PyTorch and TensorFlow. The deployment process varies depending on the model framework, and the onboard inference program can be written either in C++ or Python. The general flow of the deployment process is shown below:
+Machine learning model deployment
+=================================
+Model deployment with Vitis AI supports models trained in PyTorch and TensorFlow. However, the process differs depending on the framework. With Vitis AI tools you can convert the model to a format compatible with the target DPU platform and leverage the hardware acceleration on the edge. The conversion process consists of two steps: quantization and compilation. You can run the deployed model onboard of the target device using the inference program written in Python or C++. The flowchart below illustrates the deployment proces:
 
 .. figure:: ./deployment_flow.png
     :align: center
