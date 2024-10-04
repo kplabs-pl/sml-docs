@@ -77,3 +77,4 @@ multiclass
 Preprocess
 postprocessing
 UNet
+softmax
