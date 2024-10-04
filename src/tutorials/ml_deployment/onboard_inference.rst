@@ -122,7 +122,7 @@ Make sure that you remain logged into the target DPU board.
       .. note::
           Vitis AI libraries will, by default, automatically convert the input/output data to the quantized format used internally by the model.
 
-   3. The runner should also feature preprocessing and postprocessing methods that are analogous to the ones used during the model training and evaluation. The postprocessing method re-implements the softmax layer stripped down by the model compiler during the deployment:
+   3. The runner should also feature preprocessing and postprocessing methods that are analogous to the ones used during the model training and evaluation. The postprocessing method re-implements the softmax function to convert the model output to probabilities:
 
       .. code-block:: python3
 
