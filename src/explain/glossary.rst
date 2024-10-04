@@ -3,7 +3,7 @@ Glossary
 
 Acronyms
 --------
-* **DPU** - Data Processing Unit
+* **DPU** - Deep-learning Processing Unit
 * **EGSE** - Electrical Ground Support Equipment
 * **FPGA** - Field Programmable Gate Array
 
