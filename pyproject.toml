@@ -24,7 +24,7 @@ allow-direct-references = true
 [project.optional-dependencies]
 dev = [
     "Sphinx==8.0.2",
-    "sphinx-immaterial==0.12.2",
+    "sphinx-immaterial==0.12.3",
     "sphinx-autobuild==2024.10.3",
     "sphinx-lint==1.0.0",
     "vale==3.7.1.0",
