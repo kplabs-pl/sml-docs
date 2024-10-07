@@ -69,3 +69,4 @@ ELF
 PMU
 ARM
 Microblaze
+AMD Vivado Lab Edition
