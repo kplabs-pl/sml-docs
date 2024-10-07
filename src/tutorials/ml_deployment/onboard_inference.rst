@@ -198,7 +198,7 @@ After disconnecting from the DPU board, you should be back on the EGSE system.
 .. note::
     If you wish to simplify the DPU connection process, you can access the DPU directly by setting up :doc:`/how_to/egse_host/forwarding_ports_to_board`. After enabling forwarding, feel free to investigate and run the ``run_onboard_demo`` script to learn how to automate the inference process. Run ``customer@ml-workstation:~/reference-designs-ml$ ./onboard/run_onboard_demo`` on your host machine to deploy the model, perform the inference, and download the results in one step.
 
-Analyze the results :tutorial-machine:`Machine Learning Workstation`
+Analyze the results :tutorial-machine:`Machine learning workstation`
 --------------------------------------------------------------------
 
 1. Run the ``reference-designs-ml/onboard/preview_onboard_demo.ipynb`` notebook to visualize the inference results and compare them with the ground truth.

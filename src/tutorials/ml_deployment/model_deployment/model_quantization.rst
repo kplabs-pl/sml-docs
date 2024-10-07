@@ -7,7 +7,7 @@ In this tutorial you will quantize a standard deep learning model into a format 
 
 A bit of background
 -------------------
-Quantization is the first step of the deployment process. Typically deep learning models operate on floating-point data, however, to improve inference performance they must be converted to work with lower-bit representation during quantization. Vitis AI provides a quantizer tool inside the deployment container. You can still run the quantized model on a standard PC, however, it's optimized towards deployment on the edge. Mind that this optimization process is mandatory to deploy the model to the target DPU in later steps.
+Quantization is the first step of the deployment process. Typically deep learning models operate on floating-point data. However, to improve inference performance it's necessary to convert them to work with lower-bit representation during the quantizaiton. Vitis AI provides a quantizer tool inside the deployment container. You can still run the quantized model on a standard PC, however, it's optimized towards deployment on the edge. Mind that this optimization process is mandatory to deploy the model to the target DPU in later steps.
 
 Prerequisites
 -------------
@@ -16,7 +16,7 @@ Prerequisites
 3. Dataset prepared as described in :ref:`prepare_dataset`.
 4. Model weights prepared as described in :ref:`train_model`.
 
-Prepare for deployment :tutorial-machine:`Machine Learning Workstation`
+Prepare for deployment :tutorial-machine:`Machine learning workstation`
 -----------------------------------------------------------------------
 1. The quantization process requires model weights and a subset (100 to 1000 samples) of the training dataset to calibrate the model. To avoid preprocessing the dataset for quantization inside the container, run the following command to prepare the calibration samples and model weights in advance:
 
@@ -32,7 +32,7 @@ Prepare for deployment :tutorial-machine:`Machine Learning Workstation`
             -e UID="$(id -u)" -e GID="$(id -g)" \
             xilinx/vitis-ai-pytorch-cpu:ubuntu2004-3.5.0.306
 
-Model quantization :tutorial-machine:`Vitis AI Deployment Container`
+Model quantization :tutorial-machine:`Vitis AI deployment container`
 --------------------------------------------------------------------
 
 Run the following commands in the container environment.
@@ -136,6 +136,6 @@ Run the following commands in the container environment.
 
 4. Exit the Vitis AI container: ``exit``.
 
-Evaluate the quantized model metrics :tutorial-machine:`Machine Learning Workstation`
+Evaluate the quantized model metrics :tutorial-machine:`Machine learning workstation`
 -------------------------------------------------------------------------------------
 1. The quantization script saves the calibrated model outputs in a file. Optionally you can evaluate metrics for these outputs and preview the results by running the ``reference-designs-ml/deployment/calc_quantized_metrics.ipynb`` notebook.

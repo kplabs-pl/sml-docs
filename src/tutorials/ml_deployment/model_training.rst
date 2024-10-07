@@ -22,7 +22,7 @@ Prerequisites
 
 .. _setup_project:
 
-Setup the project environment :tutorial-machine:`Machine Learning Workstation`
+Setup the project environment :tutorial-machine:`Machine learning workstation`
 ------------------------------------------------------------------------------
 
 1. Clone the model repository and enter it:
@@ -45,7 +45,7 @@ Setup the project environment :tutorial-machine:`Machine Learning Workstation`
 
 .. _prepare_dataset:
 
-Prepare the dataset :tutorial-machine:`Machine Learning Workstation`
+Prepare the dataset :tutorial-machine:`Machine learning workstation`
 --------------------------------------------------------------------
 
 1. Download the dataset
@@ -63,12 +63,12 @@ Prepare the dataset :tutorial-machine:`Machine Learning Workstation`
 
 .. _train_model:
 
-Train the model :tutorial-machine:`Machine Learning Workstation`
+Train the model :tutorial-machine:`Machine learning workstation`
 ----------------------------------------------------------------
 
 1. Open the ``reference-designs-ml/model_training.ipynb`` Jupyter Notebook.
 
-2. Walk through the notebook cell-by-cell. You can either execute all cells to reproduce the model training process, or just read the notebook to get accustomed with the demo use case. If you don't wish to rerun the training, feel free to use the model weights supplied in the ``reference-designs-ml/training_logs`` directory. Reading the notebook will provide you with insights into the dataset, model input output formats, metrics, and the training process.
+2. Walk through the notebook cell-by-cell. You can either run all cells to reproduce the model training process, or just read the notebook to get accustomed with the demo use case. If you don't wish to rerun the training, feel free to use the model weights supplied in the ``reference-designs-ml/training_logs`` directory. Reading the notebook will provide you with insights into the dataset, model input output formats, metrics, and the training process.
 
    The training checkpoint containing model weights should reside at ``reference-designs-ml/training_logs/lightning_logs/version_XXX/checkpoints/epoch=XXX-step=XXX.ckpt``.
 
@@ -79,7 +79,7 @@ Train the model :tutorial-machine:`Machine Learning Workstation`
 
            customer@ml-workstation:~/reference_designs_ml$ SML_DEMO_NO_PROGRESS=1 nohup jupyter execute --inplace model_training.ipynb
 
-       Enabling SML_DEMO_NO_PROGRESS variable will disable progress bars polluting the notebook while it's executed in the background. You can investigate the training by observing metrics log in the ``reference-designs-ml/training_logs`` directory.
+       Enabling SML_DEMO_NO_PROGRESS variable will disable progress bars polluting the notebook while it's running in the background. You can investigate the training by observing metrics log in the ``reference-designs-ml/training_logs`` directory.
 
    .. warning::
       Mind that training the model requires GPU support and will take time (depending on your GPU it will take up to several hours).

@@ -78,3 +78,7 @@ Preprocess
 postprocessing
 UNet
 softmax
+sample
+AI
+RGB
+BGR

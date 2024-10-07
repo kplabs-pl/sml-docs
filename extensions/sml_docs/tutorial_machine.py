@@ -33,12 +33,12 @@ class TutorialMachine(SphinxRole):
             'label': 'DPU Board',
             'hint': 'Perform these steps on a DPU board ',
         },
-        'Machine Learning Workstation': {
-            'label': 'Machine Learning Workstation',
+        'Machine learning workstation': {
+            'label': 'Machine learning workstation',
             'hint': 'Perform these steps on machine with Machine Learning Workstation setup',
         },
-        'Vitis AI Deployment Container': {
-            'label': 'Vitis AI Deployment Container',
+        'Vitis AI deployment container': {
+            'label': 'Vitis AI deployment container',
             'hint': 'Perform these steps on machine with Xilinx Vitis AI Deployment Container',
         }
     }
