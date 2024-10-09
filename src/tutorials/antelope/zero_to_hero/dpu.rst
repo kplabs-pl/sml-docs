@@ -10,7 +10,7 @@ In this tutorial you will
 A bit of background
 -------------------
 
-.. note:: TODO
+Deep-learning Processor Unit is an IP Core provided by AMD that accelerates deep-learning inference on Xilinx FPGAs. It's part of Vitis AI library and facilities running models created with TensorFlow or PyTorch on FPGA. Integration of Deep-learning Processor Unit into Linux distribution follows similar steps as integration of other IP blocks (like double UART from :doc:`/tutorials/antelope/zero_to_hero/enable_pl_support`).
 
 Prerequisites
 -------------
@@ -142,7 +142,7 @@ Create bitstream with Deep-learning Processor Unit :tutorial-machine:`Vivado`
    .. warning:: Compared to previous tutorials, generating bitstream might take significantly longer time.
 
 #. Export hardware including bitstream to file :file:`antelope-dpu-bd.xsa`
-#. Extract ``arch.json`` file from the Vivado project and save it for later. The Vitis AI deployment tools require this file to compile PyTorch and TensorFlow models into FPGA accelerator compatible format. The file should reside in the Vivado project path analogous to ``sources\bd\dpu_bd\ip\dpu_bd_dpuczdx8g_0_0\arch.json``.
+#. Copy ``arch.json`` file from the Vivado project and save it for later. The Vitis AI deployment tools require this file to compile PyTorch and TensorFlow models into FPGA accelerator compatible format. The file should reside in the Vivado project path analogous to ``sources\bd\dpu_bd\ip\dpu_bd_dpuczdx8g_0_0\arch.json``.
 
 Add Vitis layers to Yocto Project :tutorial-machine:`Yocto`
 -----------------------------------------------------------
@@ -359,9 +359,8 @@ Run model on Deep-learning Processor Unit :tutorial-machine:`EGSE Host`
            ]
         }
 
-.. note:: TODO Run model
+14. Follow :doc:`/tutorials/ml_deployment/index` tutorials to train, compile and deploy model to Deep-learning Processor Unit.
 
 Summary
 -------
-
-.. note:: TODO
+In this tutorial you walked through steps required to include Deep-learning Processor Unit in FPGA design and integrate it with Yocto project.

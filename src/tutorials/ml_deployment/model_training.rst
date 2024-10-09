@@ -50,8 +50,8 @@ Prepare the dataset :tutorial-machine:`Machine learning workstation`
 
 1. Download the dataset
 
-   .. note::
-      TODO: Now the repository contains the dataset using git-lfs. Consider moving it to a normal storage and provide a download link.
+   .. .. note::
+   ..  TODO: Now the repository contains the dataset using git-lfs. Consider moving it to a normal storage and provide a download link.
 
    The dataset should reside in the ``reference-designs-ml/deep_globe`` directory.
 
