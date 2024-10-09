@@ -28,7 +28,7 @@ Prerequisites
 
   * ``libtinfo5`` (required by Xilinx layers)
   * Yocto requirements (https://docs.yoctoproject.org/ref-manual/system-requirements.html#required-packages-for-the-build-host)
-* At least 60GB free space for Yocto build
+* At least 120GB free space for Yocto build
 
 Create project :tutorial-machine:`Yocto`
 ----------------------------------------

@@ -34,9 +34,9 @@ Prerequisites
 
 Enable programmable logic support :tutorial-machine:`Vivado`
 ------------------------------------------------------------
-1. Open Antelope DPU project from :doc:`/tutorials/antelope/zero_to_hero/minimalist_vivado_project` in Vivado
-2. Use :menuselection:`Open Block Design` option to open ``top_bd`` block design
-3. Customize Zynq UltraScale+ block by double-clicking on it
+#. Open Antelope DPU project from :doc:`/tutorials/antelope/zero_to_hero/minimalist_vivado_project` in Vivado
+#. Use :menuselection:`Open Block Design` option to open ``top_bd`` block design
+#. Customize Zynq UltraScale+ block by double-clicking on it
 
    * Enable PL to PS interrupts ``IRQ0[0-7]``
    * Enable PS-PL Master interface ``AXI HPM0 FPD``
@@ -52,23 +52,27 @@ Enable programmable logic support :tutorial-machine:`Vivado`
 
      * Enable ``PL0`` and set it to 100MHz
 
+#. In ``top_bd`` block design connect:
 
-3. In ``top_bd`` block design connect ``maxihpm0_fpd_aclk`` to ``pl0_clk``
-4. In ``top_bd`` block design connect ``saxihpc0_fpd_aclk`` to ``pl0_clk``
-5. At this point block design should contain single IP block with single connection
+   * ``maxihpm0_fpd_aclk`` to ``pl0_clk``
+   * ``saxihpc0_fpd_aclk`` to ``pl0_clk``
+   * ``saxihpc1_fpd_aclk`` to ``pl0_clk``
+   * ``saxi_lpd_aclk`` to ``pl0_clk``
+
+#. At this point block design should contain single IP block with single connection
 
    .. figure:: ./enable_pl_support/pl_support_enabled.png
       :align: center
 
       Block design with Zynq UltraScale+ IP block configured to support Programmable Logic
 
-6. Open customization of Zynq UltraScale+ IP block and export preset by selecting  :menuselection:`Presets --> Save configuration`
+#. Open customization of Zynq UltraScale+ IP block and export preset by selecting  :menuselection:`Presets --> Save configuration`
 
    * Use ``antelope-minimalistic-with-pl`` as preset name
    * Save to ``antelope-minimalistic-with-pl.tcl`` file
 
-7. Generate bitstream
-8. Export hardware without bitstream. Use ``antelope-minimalistic-pl-base.xsa`` for output file name.
+#. Generate bitstream
+#. Export hardware without bitstream. Use ``antelope-minimalistic-pl-base.xsa`` for output file name.
 
 .. note:: Selected Zynq UltraScale+ configuration covers needs of programmable logic content in this tutorial and next ones.
 
@@ -90,7 +94,13 @@ Create double UART bitstream :tutorial-machine:`Vivado`
 
    1. Apply previously exported preset by selecting :menuselection:`Presets --> Apply configuration` and select :file:`antelope-minimalistic-with-pl.tcl` file.
 
-5. In ``double_uart_bd`` block design connect ``maxihpm0_fpd_aclk`` to ``pl0_clk``.
+5. In ``double_uart_bd`` block design connect
+
+   * ``maxihpm0_fpd_aclk`` to ``pl0_clk``
+   * ``saxihpc0_fpd_aclk`` to ``pl0_clk``
+   * ``saxihpc1_fpd_aclk`` to ``pl0_clk``
+   * ``saxi_lpd_aclk`` to ``pl0_clk``
+
 6. Place two AXI Uartlite IPs on block design
 7. Cross-connect UARTs by connecting ``axu_uartlite1`` TX to ``axu_uartlite0`` RX and vice versa.
 8. Click ``Run connection automation`` and let Vivado instantiate necessary interconnects and resets.
@@ -105,7 +115,7 @@ Create double UART bitstream :tutorial-machine:`Vivado`
 
        Block design with double UARTs connected together and available to Processing System
 
-14. In Sources view select :menuselection:`Design Sources --> double_uart_bd` and click :menuselection:`Create HDL Wrapper`` in context menu. Use :menuselection:`Let Vivado manage wrapper and auto-update` option.
+14. In Sources view select :menuselection:`Design Sources --> double_uart_bd` and click :menuselection:`Create HDL Wrapper` in context menu. Use :menuselection:`Let Vivado manage wrapper and auto-update` option.
 15. Generate bitstream
 16. Export hardware including bitstream to file ``antelope-double-uart.xsa``
 
@@ -168,7 +178,7 @@ Add double UART bitstream to Linux distribution :tutorial-machine:`Yocto`
 
    .. code-block:: shell-session
 
-        machine:~/antelope-linux-1$ mkdir ./egse-host-transfer
+        machine:~/antelope-linux-1$ mkdir -p ./egse-host-transfer
         machine:~/antelope-linux-1$ cp build/tmp/deploy/images/antelope/bootbins/boot-firmware.bin ./egse-host-transfer/
         machine:~/antelope-linux-1$ cp build/tmp/deploy/images/antelope/u-boot-scripts/boot-script-pins/boot-pins.scr ./egse-host-transfer/
         machine:~/antelope-linux-1$ cp build/tmp/deploy/images/antelope/system.dtb ./egse-host-transfer/
@@ -192,27 +202,27 @@ Loading double UART bitstream on DPU :tutorial-machine:`EGSE Host`
        -rw-rw-r-- 1 customer customer  16M Jul 10 11:14 core-image-minimal-antelope.rootfs.cpio.gz.u-boot
        -rw-rw-r-- 1 customer customer  37K Jul 10 11:14 system.dtb
 
-   .. note:: Exact file size might differ a bit but they should be in the same range (for example ``core-image-minimal-antelope.rootfs.cpio.gz.u-boot`` shall be about ~20MB)
+   .. note:: Exact file size might differ a bit but they should be in the same range (for example ``core-image-minimal-antelope.rootfs.cpio.gz.u-boot`` shall be about ~16MB)
 
 2. Power on Antelope
 
    .. code-block:: shell-session
 
-       customer@egse-367mwbwfg5wy2:~$ sml power on
+       customer@egse-host:~$ sml power on
        Powering on...Success
 
 3. Power on DPU
 
    .. code-block:: shell-session
 
-       customer@egse-367mwbwfg5wy2:~$ sml dpu power on
+       customer@egse-host:~$ sml dpu power on
        Powering on...Success
 
 4. Write boot firmware to DPU boot flash
 
    .. code-block:: shell-session
 
-       customer@egse-367mwbwfg5wy2:~$ sml dpu boot-flash write 0 /var/tftp/tutorial/boot-firmware.bin
+       customer@egse-host:~$ sml dpu boot-flash write 0 /var/tftp/tutorial/boot-firmware.bin
        Uploading   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00 43.1 MB/s
        Erasing     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00 383.9 kB/s
        Programming ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00 13.1 kB/s
@@ -221,7 +231,7 @@ Loading double UART bitstream on DPU :tutorial-machine:`EGSE Host`
 
    .. code-block:: shell-session
 
-       customer@egse-367mwbwfg5wy2:~$ sml dpu boot-flash write 0x4E0000 /var/tftp/tutorial/boot-pins.scr
+       customer@egse-host:~$ sml dpu boot-flash write 0x4E0000 /var/tftp/tutorial/boot-pins.scr
        Uploading   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00 ?
        Erasing     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00 ?
        Programming ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00 63.9 MB/s

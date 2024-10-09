@@ -28,7 +28,7 @@ Prerequisites
 
   * ``libtinfo5`` (required by Xilinx layers)
   * Yocto requirements (https://docs.yoctoproject.org/ref-manual/system-requirements.html#required-packages-for-the-build-host)
-* At least 60GB free space for Yocto build
+* At least 120GB free space for Yocto build
 
 Create project :tutorial-machine:`Yocto`
 ----------------------------------------
@@ -121,7 +121,7 @@ Add layers :tutorial-machine:`Yocto`
 
    .. code-block:: shell-session
 
-       machine:~/antelope-linux-1/build$ bitbake-layers add-layer ../sources/meta-kp-classes/meta-kp-classes/
+       machine:~/antelope-linux-1/build$ bitbake-layers add-layer ../sources/meta-kp-classes/
        machine:~/antelope-linux-1/build$ bitbake-layers add-layer ../sources/meta-kp-antelope
 
 Create layer for customizations :tutorial-machine:`Yocto`
@@ -157,7 +157,7 @@ Create layer for customizations :tutorial-machine:`Yocto`
        ~/antelope-linux-1/sources/meta-xilinx/meta-xilinx-bsp \
        ~/antelope-linux-1/sources/meta-xilinx/meta-xilinx-standalone \
        ~/antelope-linux-1/sources/meta-xilinx-tools \
-       ~/antelope-linux-1/sources/meta-kp-classes/meta-kp-classes \
+       ~/antelope-linux-1/sources/meta-kp-classes \
        ~/antelope-linux-1/sources/meta-kp-antelope \
        ~/antelope-linux-1/sources/meta-local \
        "
@@ -179,7 +179,7 @@ Configure project :tutorial-machine:`Yocto`
        machine:~/antelope-linux-1/build$ recipetool newappend --wildcard-version ../sources/meta-local/ external-hdf
 
 3. Create directory :file:`~/antelope-linux-1/sources/meta-local/recipes-bsp/hdf/external-hdf` and copy :file:`top_bd_wrapper.xsa` to it.
-4. Edit recipe append :file:`~/antelope-linux-1/sources/meta-local/recipes-bsp/hdf/external-hdf.bb` and set path XSA file
+4. Edit recipe append :file:`~/antelope-linux-1/sources/meta-local/recipes-bsp/hdf/external-hdf_%.bbappend` and set path to XSA file
 
    .. code-block:: bitbake
 

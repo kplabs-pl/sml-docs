@@ -54,7 +54,7 @@ Create bitstream with Deep-learning Processor Unit :tutorial-machine:`Vivado`
    1. Apply previously exported preset by selecting :menuselection:`Presets --> Apply configuration` and select :file:`antelope-minimalistic-with-pl.tcl` file.
    2. :menuselection:`PS-PL Configuration --> PS-PL Interfaces --> Master Interface AXI HPM0 FPD`: Set Data Width to 32.
 
-#. Add "Processor System Reset" IP block to block design. In Block properties name it :menuselection:`rst_gen_pl_clk0`.
+#. Add "Processor System Reset" IP block to block design. In Block properties name it ``rst_gen_pl_clk0``.
 #. Connect :menuselection:`rst_gen_pl_clk0` IP block inputs:
 
    1. Connect ``slowest_sync_clk`` to ``pl_clk0`` output port of Zynq UltraScale+ MPSoC IP block.
@@ -85,13 +85,13 @@ Create bitstream with Deep-learning Processor Unit :tutorial-machine:`Vivado`
    1. Connect ``clk_in1`` to ``pl_clk0`` output port of Zynq UltraScale+ MPSoC IP block.
    2. Connect ``resetn`` to ``peripheral_aresetn[0:0]`` output port of :menuselection:`rst_gen_pl_clk0` IP block.
 
-#. Add another "Processor System Reset" IP block to block design. In Block properties name it rst_gen_2x_dpu_clk.
+#. Add another "Processor System Reset" IP block to block design. In Block properties name it ``rst_gen_2x_dpu_clk``.
 #. Connect :menuselection:`rst_gen_2x_dpu_clk` IP block inputs:
 
    1. Connect ``slowest_sync_clk`` to ``clk_2x_dpu`` output port of Clocking Wizard IP block.
    2. Connect ``ext_reset_in`` to ``peripheral_aresetn[0:0]`` output port of :menuselection:`rst_gen_pl_clk0` IP block.
 
-#. Add another "Processor System Reset" IP block to block design. In Block properties name it rst_gen_dpu_clk.
+#. Add another "Processor System Reset" IP block to block design. In Block properties name it ``rst_gen_dpu_clk``.
 #. Connect :menuselection:`rst_gen_dpu_clk` IP block inputs:
 
    1. Connect ``slowest_sync_clk`` to ``clk_dpu`` output port of Clocking Wizard IP block.
@@ -134,7 +134,7 @@ Create bitstream with Deep-learning Processor Unit :tutorial-machine:`Vivado`
 
       Block design with Deep-learning Processor Unit
 
-#. In Sources view select :menuselection:`Design Sources --> dpu_bd` and click :menuselection:`Create HDL Wrapper`` in context menu. Use :menuselection:`Let Vivado manage wrapper and auto-update` option.
+#. In Sources view select :menuselection:`Design Sources --> dpu_bd` and click :menuselection:`Create HDL Wrapper` in context menu. Use :menuselection:`Let Vivado manage wrapper and auto-update` option.
 #. Generate bitstream
 
    .. warning:: Compared to previous tutorials, generating bitstream might take significantly longer time.
@@ -212,7 +212,7 @@ Add Deep-learning Processor Unit bitstream to Linux image :tutorial-machine:`Yoc
 
    .. code-block:: bitbake
 
-      FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+      FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
       SRC_URI += "file://xlnx-dpu.cfg"
 
@@ -304,7 +304,7 @@ Run model on Deep-learning Processor Unit :tutorial-machine:`EGSE Host`
 
        customer@egse-host:~$ minicom -D /dev/sml/antelope-dpu-uart
 
-    Leave this terminal open and get back to SSH connection used in previous steps.
+   Leave this terminal open and get back to SSH connection used in previous steps.
 
 9. Release DPU from reset
 
