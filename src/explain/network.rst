@@ -4,7 +4,6 @@ Customer network
 Smart Mission Lab network provides access to three kinds of resources:
 
 * EGSE Hosts with DPUs
-* Network Attached Storage (NAS)
 * Grafana
 
 .. _customer-network:
@@ -31,13 +30,6 @@ EGSE Hosts
 EGSE Hosts are physical machines connected to Smart Mission Lab network on one side and to DPU on another. Customer can access EGSE Hosts using SSH and use provided utilities to control DPU - starting from power control to loading customized Linux distribution using JTAG. It's important to note that DPU itself doesn't have access to Smart Mission Lab network and customer can't access it directly from their machine.
 
 Read more about EGSE Host in :doc:`/explain/egse_host`.
-
-Network Attached Storage
-------------------------
-
-Each customer gets access to a dedicated space on Network Attached Storage (NAS) where they can store data and use it from any EGSE Host.
-
-.. note:: TODO
 
 Grafana
 -------
