@@ -1,3 +1,5 @@
+.. _board_antelope:
+
 Board: Antelope
 ===============
 

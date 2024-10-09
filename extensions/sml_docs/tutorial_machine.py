@@ -19,15 +19,27 @@ class TutorialMachine(SphinxRole):
     MACHINES = {
         'Vivado': {
             'label': 'Vivado',
-            'hint': 'Perform this steps on machine with AMD Vivado Design Suite',
+            'hint': 'Perform these steps on machine with AMD Vivado Design Suite',
         },
         'Yocto': {
             'label': 'Yocto',
-            'hint': 'Perform this steps on machine with Yocto project',
+            'hint': 'Perform these steps on machine with Yocto project',
         },
         'EGSE Host': {
             'label': 'EGSE Host',
-            'hint': 'Perform this steps on EGSE Host within Smart Mission Lab network',
+            'hint': 'Perform these steps on EGSE Host within Smart Mission Lab network',
+        },
+        'DPU Board': {
+            'label': 'DPU Board',
+            'hint': 'Perform these steps on a DPU board ',
+        },
+        'Machine learning workstation': {
+            'label': 'Machine learning workstation',
+            'hint': 'Perform these steps on machine with Machine Learning Workstation setup',
+        },
+        'Vitis AI deployment container': {
+            'label': 'Vitis AI deployment container',
+            'hint': 'Perform these steps on machine with Xilinx Vitis AI Deployment Container',
         }
     }
     def run(self) -> tuple[list[nodes.Node], list[nodes.system_message]]:

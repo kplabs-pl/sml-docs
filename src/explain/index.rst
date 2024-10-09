@@ -7,3 +7,4 @@ Explain
     network
     egse_host
     grafana
+    glossary
