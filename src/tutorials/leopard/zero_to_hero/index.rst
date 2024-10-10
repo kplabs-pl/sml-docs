@@ -6,3 +6,5 @@ Zero to hero
 
     minimalist_vivado_project
     minimalist_linux_distro
+    enable_pl_support
+    dpu
