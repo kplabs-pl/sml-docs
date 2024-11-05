@@ -2,6 +2,8 @@ name: Build and publish documentation
 on: push
 jobs:
   build:
+    environment:
+      name: github-pages
     runs-on: ubuntu-latest
     steps:
       - name: Install pipx
@@ -11,6 +13,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Build documentation
         run: hatch run dev:build
+        env:
+          GA_TOKEN: ${{ secrets.GA_TOKEN }}
       - name: Write CNAME
         run: echo "docs.sml.kplabs.space" > build/html/CNAME
       - uses: actions/upload-pages-artifact@v3

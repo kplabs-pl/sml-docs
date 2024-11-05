@@ -1,4 +1,5 @@
 from datetime import datetime
+import os
 
 project = 'Smart Mission Lab'
 author = 'KP Labs Sp. z o.o'
@@ -17,6 +18,7 @@ html_theme = 'sphinx_immaterial'
 html_logo = 'images/logo-kplabs.png'
 html_favicon = 'images/favicon.ico'
 html_static_path = ['_static']
+templates_path = ['_templates']
 html_css_files = [
     'custom.css',
 ]
@@ -50,3 +52,20 @@ html_theme_options = {
         },
     ],
 }
+
+google_analytics_token = os.environ.get('GA_TOKEN', None)
+
+if google_analytics_token is not None:
+    html_theme_options['analytics'] = {
+        'provider': 'google',
+        'property': google_analytics_token,
+    }
+    html_theme_options['consent'] = {
+        'title': 'Cookie consent',
+        'description': '''
+      We use cookies to recognize your repeated visits and preferences, as well
+      as to measure the effectiveness of our documentation and whether users
+      find what they're searching for. With your consent, you're helping us to
+      make our documentation better.
+        '''
+    }
