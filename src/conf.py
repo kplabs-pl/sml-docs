@@ -21,6 +21,7 @@ html_static_path = ['_static']
 templates_path = ['_templates']
 html_css_files = [
     'custom.css',
+    'grid-cards.css',
 ]
 html_theme_options = {
     'features': [
