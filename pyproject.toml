@@ -1,7 +1,7 @@
 [build-system]
 build-backend = "hatchling.build"
 requires = [
-    "hatchling==1.25.0",
+    "hatchling==1.26.3",
 ]
 
 [project]
@@ -27,7 +27,7 @@ dev = [
     "sphinx-immaterial==0.12.4",
     "sphinx-autobuild==2024.10.3",
     "sphinx-lint==1.0.0",
-    "vale==3.8.0.0",
+    "vale==3.9.0.0",
     # Fork, as upstream is not maintained
     'pygments-bitbake @ git+https://github.com/avnet-embedded/pygments-bitbake.git@5b84cf596d8bafb6ce4d36171518116712a6fc20',
 ]
