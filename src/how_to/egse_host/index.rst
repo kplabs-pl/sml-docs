@@ -8,3 +8,5 @@ EGSE Host
     getting_root
     install_vivado_lab
     accessing_samba
+    setting_password
+    accessing_ftp

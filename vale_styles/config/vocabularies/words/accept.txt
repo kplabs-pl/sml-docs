@@ -88,3 +88,4 @@ SMB
 Samba
 mountpoint
 Ubuntu
+FTP
