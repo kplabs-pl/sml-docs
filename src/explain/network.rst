@@ -36,6 +36,6 @@ Grafana
 
 Smart Mission Lab collects telemetry from all DPUs and customer can explore it using Grafana. KP Labs provides set of basic dashboards that show all telemetry values from each board. Customer can also define their own dashboard as they see fit. Underlying data source is a Prometheus-compatible databases which support PromQL queries.
 
-Stored telemetry isn't limited to currently subscribed DPUs - database includes all telemetry values from all DPUs subscribed at . Each series contain EGSE Host host name as a label to distinguish between different instances.
+Stored telemetry isn't limited to currently subscribed DPUs - database includes all telemetry values from all DPUs subscribed at . Each series contain EGSE Host machine's host name as a label to distinguish between different instances.
 
 Read more about Grafana in :doc:`/explain/grafana`.
