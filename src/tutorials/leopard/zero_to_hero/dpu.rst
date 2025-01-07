@@ -293,7 +293,7 @@ Run model on Deep-learning Processor Unit :tutorial-machine:`EGSE Host`
 
       Currently there's no support from Leopard's bootloader for writing firmware to boot flash. Below is the temporary solution. Run following script using xsdb tool, part of Vivado Lab.
 
-      Save following content to file on EGSE host as ~/load.tcl:
+      Save following content to file on EGSE Host as ~/load.tcl:
 
       .. vale off
 
