@@ -7,3 +7,4 @@ EGSE Host
     forwarding_ports_to_board
     getting_root
     install_vivado_lab
+    accessing_samba
