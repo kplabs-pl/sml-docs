@@ -1,4 +1,4 @@
-@Library('oryx-jpl@v2.5-build-profile') _
+@Library('oryx-jpl') _
 
 pipeline {
     agent { label 'sml-build' }
@@ -10,9 +10,9 @@ pipeline {
         stage('Check quality') {
             steps {
                 dir('src') {
-                    withPipxInstalled('3.12', ['hatch==1.9.4']) {
-                        sh('hatch env prune')
-                        sh('hatch run dev:check')
+                    withPipxInstalled('3.12', ['hatch==1.12.0']) {
+                        runCommand('hatch env prune')
+                        runCommand('hatch run dev:check')
                     }
                 }
             }
@@ -23,8 +23,8 @@ pipeline {
                     deleteDir()
                 }
                 dir('src') {
-                    withPipxInstalled('3.12', ['hatch==1.9.4']) {
-                        sh('hatch run dev:build -W -a -E')
+                    withPipxInstalled('3.12', ['hatch==1.12.0']) {
+                        runCommand('hatch run dev:build -W -a -E')
                     }
                 }
             }
