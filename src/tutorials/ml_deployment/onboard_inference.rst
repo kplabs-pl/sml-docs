@@ -18,7 +18,7 @@ Prerequisites
 2. Model repository and environment set up as described in :ref:`setup_project`.
 3. Dataset prepared as described in :ref:`prepare_dataset`.
 4. Model compiled as described in the :doc:`/tutorials/ml_deployment/model_deployment/model_compilation` tutorial.
-5. Ssh access to the target device via the EGSE system.
+5. SSH access to the target device via the EGSE system.
 
 Deploy the model
 ----------------

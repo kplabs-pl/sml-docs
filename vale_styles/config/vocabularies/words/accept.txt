@@ -82,3 +82,10 @@ sample
 AI
 RGB
 BGR
+SSH
+passwordless
+SMB
+Samba
+mountpoint
+Ubuntu
+FTP

@@ -6,3 +6,4 @@ AMD Zynq UltraScale+
 
     jtag_set_boot_mode
     jtag_boot
+    network_boot
