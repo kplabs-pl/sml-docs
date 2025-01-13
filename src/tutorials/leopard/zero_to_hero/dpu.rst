@@ -23,6 +23,7 @@ Download Deep-learning Processor Unit repository :tutorial-machine:`Vivado`
 2. Download DPU IP block from https://xilinx.github.io/Vitis-AI/3.5/html/docs/workflow-system-integration.html#ip-and-reference-designs.
 
    * Use 'IP-only download' link for 'MPSoC & Kria K26' platform.
+   * Note that DPU IP for Zynq UltraScale+ has version 3.0. That version works fine with Vitis AI 3.5 used in this tutorial.
 
 3. Unpack downloaded archive to :file:`dpu-ip-repo` directory.
 
@@ -206,7 +207,7 @@ Add Deep-learning Processor Unit bitstream to Linux image :tutorial-machine:`Yoc
 
    .. code-block:: bitbake
 
-      FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+      FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
       SRC_URI += "file://xlnx-dpu.cfg"
 
