@@ -34,9 +34,9 @@ Prerequisites
 
 Enable programmable logic support :tutorial-machine:`Vivado`
 ------------------------------------------------------------
-1. Open Leopard DPU project from :doc:`/tutorials/leopard/zero_to_hero/minimalist_vivado_project` in Vivado
-2. Use :menuselection:`Open Block Design` option to open ``top_bd`` block design
-3. Customize Zynq UltraScale+ block by double-clicking on it
+#. Open Leopard DPU project from :doc:`/tutorials/leopard/zero_to_hero/minimalist_vivado_project` in Vivado
+#. Use :menuselection:`Open Block Design` option to open ``top_bd`` block design
+#. Customize Zynq UltraScale+ block by double-clicking on it
 
    * Enable PL to PS interrupts ``IRQ0[0-7]``
    * Enable PS-PL Master interface ``AXI HPM0 FPD``
@@ -53,29 +53,31 @@ Enable programmable logic support :tutorial-machine:`Vivado`
      * Enable ``PL0`` and set it to 100MHz
 
 
-3. In ``top_bd`` block design connect ``maxihpm0_fpd_aclk`` to ``pl0_clk``
-4. In ``top_bd`` block design connect ``saxihpc0_fpd_aclk`` to ``pl0_clk``
-5. At this point block design should contain single IP block with single connection
+#. In ``top_bd`` block design connect ``maxihpm0_fpd_aclk`` to ``pl0_clk``
+#. In ``top_bd`` block design connect ``saxihpc0_fpd_aclk`` to ``pl0_clk``
+#. In ``top_bd`` block design connect ``saxihpc1_fpd_aclk`` to ``pl0_clk``
+#. In ``top_bd`` block design connect ``saxi_lpd_aclk`` to ``pl0_clk``
+#. At this point block design should contain single IP block with each clock connected to ``pl0_clk``
 
-   .. figure:: ./enable_pl_support/pl_support_enabled.png
+   .. figure:: ./enable_pl_support/leopard_pl_support_enabled.png
       :align: center
 
       Block design with Zynq UltraScale+ IP block configured to support Programmable Logic
 
-6. Open customization of Zynq UltraScale+ IP block and export preset by selecting  :menuselection:`Presets --> Save configuration`
+#. Open customization of Zynq UltraScale+ IP block and export preset by selecting  :menuselection:`Presets --> Save configuration`
 
    * Use ``leopard-minimalistic-with-pl`` as preset name
    * Save to ``leopard-minimalistic-with-pl.tcl`` file
 
-7. Generate bitstream
-8. Export hardware without bitstream. Use ``leopard-minimalistic-pl-base.xsa`` for output file name.
+#. Generate bitstream
+#. Export hardware without bitstream. Use ``leopard-minimalistic-pl-base.xsa`` for output file name.
 
 .. note:: Selected Zynq UltraScale+ configuration covers needs of programmable logic content in this tutorial and next ones.
 
 Create double UART bitstream :tutorial-machine:`Vivado`
 -------------------------------------------------------
 
-1. Start Vivado and create new project. In new project wizard select following options:
+#. Start Vivado and create new project. In new project wizard select following options:
 
    * Project type: RTL Project
 
@@ -84,35 +86,38 @@ Create double UART bitstream :tutorial-machine:`Vivado`
 
    * Part: ``xczu9eg-ffvc900-1L-i``
 
-2. Create top-level block design by using :menuselection:`Create Block Design` in Flow Navigator. Use ``double_uart_bd`` as name.
-3. In block design diagram editor add Zynq UltraScale+ MPSoC IP block.
-4. Start customization of Zynq UltraScale+ MPSoC IP block by double-clicking on it.
+#. Create top-level block design by using :menuselection:`Create Block Design` in Flow Navigator. Use ``double_uart_bd`` as name.
+#. In block design diagram editor add Zynq UltraScale+ MPSoC IP block.
+#. Start customization of Zynq UltraScale+ MPSoC IP block by double-clicking on it.
 
    1. Apply previously exported preset by selecting :menuselection:`Presets --> Apply configuration` and select :file:`leopard-minimalistic-with-pl.tcl` file.
 
-5. In ``double_uart_bd`` block design connect ``maxihpm0_fpd_aclk`` to ``pl0_clk``.
-6. Place two AXI Uartlite IPs on block design
-7. Cross-connect UARTs by connecting ``axu_uartlite1`` TX to ``axu_uartlite0`` RX and vice versa.
-8. Click ``Run connection automation`` and let Vivado instantiate necessary interconnects and resets.
-9. Add ``Concat`` IP block
-10. Connect ``dout`` pin of ``Concat`` block to ``pl_ps_irq`` pin of Zynq UltraScale+ block
-11. Connect ``interrupt`` pin of ``axi_uartlite0`` to ``In0`` of ``Concat`` block
-12. Connect ``interrupt`` pin of ``axi_uartlite1`` to ``In1`` of ``Concat`` block
-13. Final block design should look like this:
+#. In ``double_uart_bd`` block design connect ``maxihpm0_fpd_aclk`` to ``pl0_clk``.
+#. In ``double_uart_bd`` block design connect ``saxihpc0_fpd_aclk`` to ``pl0_clk``
+#. In ``double_uart_bd`` block design connect ``saxihpc1_fpd_aclk`` to ``pl0_clk``
+#. In ``double_uart_bd`` block design connect ``saxi_lpd_aclk`` to ``pl0_clk``
+#. Place two AXI Uartlite IPs on block design
+#. Cross-connect UARTs by connecting ``axu_uartlite1`` TX to ``axu_uartlite0`` RX and vice versa.
+#. Click ``Run connection automation`` and let Vivado instantiate necessary interconnects and resets.
+#. Add ``Concat`` IP block
+#. Connect ``dout`` pin of ``Concat`` block to ``pl_ps_irq`` pin of Zynq UltraScale+ block
+#. Connect ``interrupt`` pin of ``axi_uartlite0`` to ``In0`` of ``Concat`` block
+#. Connect ``interrupt`` pin of ``axi_uartlite1`` to ``In1`` of ``Concat`` block
+#. Final block design should look like this:
 
-    .. figure:: ./enable_pl_support/double_uart_bd.png
+   .. figure:: ./enable_pl_support/leopard_double_uart_bd.png
        :align: center
 
        Block design with double UARTs connected together and available to Processing System
 
-14. In Sources view select :menuselection:`Design Sources --> double_uart_bd` and click :menuselection:`Create HDL Wrapper`` in context menu. Use :menuselection:`Let Vivado manage wrapper and auto-update` option.
-15. Generate bitstream
-16. Export hardware including bitstream to file ``leopard-double-uart.xsa``
+#. In Sources view select :menuselection:`Design Sources --> double_uart_bd` and click :menuselection:`Create HDL Wrapper`` in context menu. Use :menuselection:`Let Vivado manage wrapper and auto-update` option.
+#. Generate bitstream
+#. Export hardware including bitstream to file ``leopard-double-uart.xsa``
 
 Enable programmable logic support in boot firmware :tutorial-machine:`Yocto`
 ----------------------------------------------------------------------------
-1. Add :file:`leopard-minimalistic-pl-base.xsa` to :file:`sources/meta-local/recipes-bsp/hdf/external-hdf/` directory.
-2. Modify :file:`sources/meta-local/recipes-bsp/hdf/external-hdf_%.bbappend` to use new XSA file.
+#. Add :file:`leopard-minimalistic-pl-base.xsa` to :file:`sources/meta-local/recipes-bsp/hdf/external-hdf/` directory.
+#. Modify :file:`sources/meta-local/recipes-bsp/hdf/external-hdf_%.bbappend` to use new XSA file.
 
    .. code-block:: bitbake
 
@@ -122,8 +127,8 @@ Enable programmable logic support in boot firmware :tutorial-machine:`Yocto`
 
 Add double UART bitstream to Linux distribution :tutorial-machine:`Yocto`
 -------------------------------------------------------------------------
-1. Create directory :file:`sources/meta-local/recipes-example/bitstreams/double-uart/` and copy :file:`leopard-double-uart.xsa` to it.
-2. Create new recipe :file:`sources/meta-local/recipes-example/bitstreams/double-uart.bb` that will install bitstream with double UART.
+#. Create directory :file:`sources/meta-local/recipes-example/bitstreams/double-uart/` and copy :file:`leopard-double-uart.xsa` to it.
+#. Create new recipe :file:`sources/meta-local/recipes-example/bitstreams/double-uart.bb` that will install bitstream with double UART.
 
    .. code-block:: bitbake
 
@@ -134,7 +139,7 @@ Add double UART bitstream to Linux distribution :tutorial-machine:`Yocto`
         SRC_URI += "file://leopard-double-uart.xsa"
         BITSTREAM_HDF_FILE = "${WORKDIR}/leopard-double-uart.xsa"
 
-3. Create append for ``leopard-all`` recipe
+#. Create append for ``leopard-all`` recipe
 
    .. code-block:: shell-session
 
@@ -150,7 +155,7 @@ Add double UART bitstream to Linux distribution :tutorial-machine:`Yocto`
         Summary: There was 1 WARNING message.
         ~/leopard-linux-1/sources/meta-local/recipes-leopard/images/dpu-leopard.bbappend
 
-4. Add new packages into Linux image by editing :file:`sources/meta-local/recipes-leopard/images/dpu-leopard.bbappend`
+#. Add new packages into Linux image by editing :file:`sources/meta-local/recipes-leopard/images/dpu-leopard.bbappend`
 
    .. code-block:: bitbake
 
@@ -159,27 +164,24 @@ Add double UART bitstream to Linux distribution :tutorial-machine:`Yocto`
             double-uart \
         "
 
-5. Build firmware and image
+#. Build firmware and image
 
    .. code-block:: shell-session
 
        machine:~/leopard-linux-1$ bitbake leopard-all
 
-6. Prepare build artifacts for transfer to EGSE Host
+#. Prepare build artifacts for transfer to EGSE Host
 
    .. code-block:: shell-session
 
         machine:~/leopard-linux-1$ mkdir -p ./egse-host-transfer
-        machine:~/leopard-linux-1$ cp build/tmp/deploy/images/leopard-dpu/pmu-firmware-leopard-dpu.elf ./egse-host-transfer
-        machine:~/leopard-linux-1$ cp build/tmp/deploy/images/leopard-dpu/fsbl-leopard-dpu.elf ./egse-host-transfer
-        machine:~/leopard-linux-1$ cp build/tmp/deploy/images/leopard-dpu/arm-trusted-firmware.elf  ./egse-host-transfer
-        machine:~/leopard-linux-1$ cp build/tmp/deploy/images/leopard-dpu/u-boot.elf ./egse-host-transfer
+        machine:~/leopard-linux-1$ cp build/tmp/deploy/images/leopard-dpu/bootbins/boot-common.bin ./egse-host-transfer
         machine:~/leopard-linux-1$ cp build/tmp/deploy/images/leopard-dpu/system.dtb  ./egse-host-transfer
         machine:~/leopard-linux-1$ cp build/tmp/deploy/images/leopard-dpu/dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot ./egse-host-transfer
         machine:~/leopard-linux-1$ cp build/tmp/deploy/images/leopard-dpu/Image ./egse-host-transfer
 
 
-7. Transfer content of :file:`egse-host-transfer` directory to EGSE Host and place it in :file:`/var/tftp/tutorial` directory
+#. Transfer content of :file:`egse-host-transfer` directory to EGSE Host and place it in :file:`/var/tftp/tutorial` directory
 
 Loading double UART bitstream on DPU :tutorial-machine:`EGSE Host`
 ------------------------------------------------------------------
@@ -189,14 +191,11 @@ Loading double UART bitstream on DPU :tutorial-machine:`EGSE Host`
    .. code-block:: shell-session
 
        customer@egse-host:~$ ls -lh /var/tftp/tutorial
-       total 58M
-       -rw-r--r-- 1 customer customer  21M Oct  1 12:42 Image
-       -rw-r--r-- 1 customer customer 145K Oct  1 12:42 arm-trusted-firmware.elf
-       -rw-r--r-- 1 customer customer  44M Oct  1 12:42 dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot
-       -rw-r--r-- 1 customer customer 440K Oct  1 12:42 fsbl-leopard-dpu.elf
-       -rw-r--r-- 1 customer customer 486K Oct  1 12:42 pmu-firmware-leopard-dpu.elf
-       -rw-r--r-- 1 customer customer  39K Oct  1 12:42 system.dtb
-       -rw-r--r-- 1 customer customer 1.4M Oct  1 12:42 u-boot.elf
+       total 48M
+       -rw-rw-r-- 1 customer customer  21M Jan 22 13:30 Image
+       -rw-rw-r-- 1 customer customer 1.6M Jan 22 13:30 boot-common.bin
+       -rw-rw-r-- 1 customer customer  35M Jan 22 13:30 dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot
+       -rw-rw-r-- 1 customer customer  39K Jan 22 13:30 system.dtb
 
    .. note:: Exact file size might differ a bit but they should be in the same range (for example ``dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot`` shall be about ~40MB)
 
@@ -225,72 +224,19 @@ Loading double UART bitstream on DPU :tutorial-machine:`EGSE Host`
 
 #. Write boot firmware to DPU boot flash
 
-.. note:: TODO
+   .. code-block:: shell-session
 
-   Currently there's no support from Leopard's bootloader for writing firmware to boot flash. Below is the temporary solution. Run following script using xsdb tool, part of Vivado Lab.
+       customer@egse-host:~$ sml boot-flash write --nor-memory nor1 0 /var/tftp/tutorial/boot-common.bin
+       Uploading   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00 48.6 MB/s
+       Erasing     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00 553.3 kB/s
+       Programming ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00 13.5 kB/s
 
-   Save following content to file on EGSE Host as ~/load.tcl:
-
-   .. vale off
-
-   .. code-block:: tcl
-      :force:
-
-      proc proc_wait { timeout }  {
-          puts "Waiting $timeout seconds ..."
-          after [expr $timeout * 1000]
-      }
-
-      puts "Setting boot mode"
-      targets -set -filter {name =~ "PSU"}
-      rwr crl_apb boot_mode_user use_alt 1
-      rst -system
-      proc_wait 1
-
-      puts "Disable Security gates to view PMU MB target"
-      targets -set -filter {name =~ "PSU"}
-      rst -system
-      mwr 0xffca0038 0x1ff
-      proc_wait 1
-
-      puts "Download PMU"
-      targets -set -filter {name =~ "MicroBlaze PMU"}
-      dow "pmu-firmware-leopard-dpu.elf"
-      con
-      proc_wait 1
-
-      puts "Download FSBL"
-      targets -set -nocase -filter {name =~ "*A53 #0*"}
-      rst -processor -clear-registers
-      dow "fsbl-leopard-dpu.elf"
-      con
-      proc_wait 10
-
-      puts "Download u-boot"
-      dow -data "system.dtb" 0x00100000
-      dow "u-boot.elf"
-      dow -data "../leopard-boot.scr" 0x20000000
-      dow "arm-trusted-firmware.elf"
-      con
-
-   .. vale on
-
-   And run following commands:
+#. Power on Processing Node 1
 
    .. code-block:: shell-session
 
-      customer@egse-host:~$ cd /var/tftp/tutorial
-      customer@egse-host:~$ xsdb
-
-      ****** System Debugger (XSDB) v2024.1
-      **** Build date : May 22 2024-19:19:01
-          ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
-          ** Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
-
-      xsdb% connect
-      tcfchan#0
-      xsdb% source ~/load.tcl
-
+       customer@egse-host:~$ sml pn1 power on --nor-image nor1
+       Powering on processing node Node1...Success
 
 #. DPU boot process should be visible in ``minicom`` terminal
 

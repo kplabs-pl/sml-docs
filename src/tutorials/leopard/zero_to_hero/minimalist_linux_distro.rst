@@ -32,7 +32,7 @@ Prerequisites
 
 Create project :tutorial-machine:`Yocto`
 ----------------------------------------
-1. Create new directory for Yocto project and navigate to it.
+#. Create new directory for Yocto project and navigate to it.
 
    .. code-block:: shell-session
 
@@ -40,19 +40,13 @@ Create project :tutorial-machine:`Yocto`
        machine:~$ cd ~/leopard-linux-1
        machine:~/leopard-linux-1$
 
-2. Initialize git repository:
-
-   .. code-block:: shell-session
-
-      machine:~$ git init
-
-2. Clone Poky layer from Yocto project
+#. Clone Poky layer from Yocto project
 
    .. code-block:: shell-session
 
        machine:~/leopard-linux-1$ git clone -b nanbield https://git.yoctoproject.org/poky sources/poky
 
-3. Create new build configuration
+#. Create new build configuration
 
    .. code-block:: shell-session
 
@@ -97,7 +91,7 @@ Create project :tutorial-machine:`Yocto`
 
 Add layers :tutorial-machine:`Yocto`
 ------------------------------------
-1. Clone Xilinx layers:
+#. Clone Xilinx layers:
 
    .. code-block:: shell-session
 
@@ -105,7 +99,7 @@ Add layers :tutorial-machine:`Yocto`
        machine:~/leopard-linux-1/build$ git clone -b nanbield https://github.com/Xilinx/meta-xilinx-tools.git ../sources/meta-xilinx-tools
        machine:~/leopard-linux-1/build$ git clone -b nanbield https://git.openembedded.org/meta-openembedded/ ../sources/meta-openembedded
 
-2. Add set of required layers from Xilinx repositories:
+#. Add set of required layers from Xilinx repositories:
 
    .. code-block:: shell-session
 
@@ -114,6 +108,7 @@ Add layers :tutorial-machine:`Yocto`
        machine:~/leopard-linux-1/build$ bitbake-layers add-layer ../sources/meta-xilinx/meta-xilinx-standalone
        machine:~/leopard-linux-1/build$ bitbake-layers add-layer ../sources/meta-xilinx-tools
        machine:~/leopard-linux-1/build$ bitbake-layers add-layer ../sources/meta-openembedded/meta-oe/
+       machine:~/leopard-linux-1/build$ bitbake-layers add-layer ../sources/meta-openembedded/meta-networking/
 
 
    .. note::
@@ -124,29 +119,35 @@ Add layers :tutorial-machine:`Yocto`
 
         This is for informational purposes only and you can ignore it.
 
-3. Retrieve KP Labs-provided layers
-4. Add set of required layers from KP Labs repositories:
+#. Clone KP Labs layers
 
    .. code-block:: shell-session
 
-       machine:~/leopard-linux-1/build$ bitbake-layers add-layer ../sources/meta-kp-classes/meta-kp-classes/
+       machine:~/leopard-linux-1/build$ git clone -b nanbield https://github.com/kplabs-pl/meta-kp-classes.git ../sources/meta-kp-classes
+       machine:~/leopard-linux-1/build$ git clone -b nanbield https://github.com/kplabs-pl/meta-kp-leopard.git ../sources/meta-kp-leopard
+
+#. Add set of required layers from KP Labs repositories:
+
+   .. code-block:: shell-session
+
+       machine:~/leopard-linux-1/build$ bitbake-layers add-layer ../sources/meta-kp-classes/
        machine:~/leopard-linux-1/build$ bitbake-layers add-layer ../sources/meta-kp-leopard
 
 Create layer for customizations :tutorial-machine:`Yocto`
 ---------------------------------------------------------
-1. Create empty layer
+#. Create empty layer
 
    .. code-block:: shell-session
 
        machine:~/leopard-linux-1/build$ bitbake-layers create-layer ../sources/meta-local
 
-2. Add newly created layer to project
+#. Add newly created layer to project
 
    .. code-block:: shell-session
 
        machine:~/leopard-linux-1/build$ bitbake-layers add-layer ../sources/meta-local
 
-3. Verify set of layers enabled in project by opening :file:`~/leopard-linux-1/build/conf/bblayers.conf` and checking its contents:
+#. Verify set of layers enabled in project by opening :file:`~/leopard-linux-1/build/conf/bblayers.conf` and checking its contents:
 
    .. code-block:: bitbake
 
@@ -166,31 +167,32 @@ Create layer for customizations :tutorial-machine:`Yocto`
        ~/leopard-linux-1/sources/meta-xilinx/meta-xilinx-standalone \
        ~/leopard-linux-1/sources/meta-xilinx-tools \
        ~/leopard-linux-1/sources/meta-openembedded/meta-oe \
-       ~/leopard-linux-1/sources/meta-kp-classes/meta-kp-classes \
+       ~/leopard-linux-1/sources/meta-openembedded/meta-networking \
+       ~/leopard-linux-1/sources/meta-kp-classes \
        ~/leopard-linux-1/sources/meta-kp-leopard \
        ~/leopard-linux-1/sources/meta-local \
        "
 
 Configure project :tutorial-machine:`Yocto`
 -------------------------------------------
-1. Edit :file:`~/leopard-linux-1/build/conf/local.conf` and add following lines at the beginning:
+#. Edit :file:`~/leopard-linux-1/build/conf/local.conf` and add following lines at the beginning:
 
    .. code-block:: bitbake
 
         MACHINE = "leopard-dpu"
-        DISTRO = "leopard"
+        DISTRO = "kplabs-dpu"
         INHERIT += "rm_work"
         PROJECT_NAME = "leopard-dpu-minimal-linux"
 
 
-2. Create recipe append to set XSA file
+#. Create recipe append to set XSA file
 
    .. code-block:: shell-session
 
        machine:~/leopard-linux-1/build$ recipetool newappend --wildcard-version ../sources/meta-local/ external-hdf
 
-3. Create directory :file:`~/leopard-linux-1/sources/meta-local/recipes-bsp/hdf/external-hdf` and copy :file:`top_bd_wrapper.xsa` to it.
-4. Edit recipe append :file:`~/leopard-linux-1/sources/meta-local/recipes-bsp/hdf/external-hdf.bb` and set path XSA file
+#. Create directory :file:`~/leopard-linux-1/sources/meta-local/recipes-bsp/hdf/external-hdf` and copy :file:`top_bd_wrapper.xsa` to it.
+#. Edit recipe append :file:`~/leopard-linux-1/sources/meta-local/recipes-bsp/hdf/external-hdf.bb` and set path XSA file
 
    .. code-block:: bitbake
 
@@ -202,7 +204,7 @@ Configure project :tutorial-machine:`Yocto`
 
 Build project :tutorial-machine:`Yocto`
 ---------------------------------------
-1. Build project artifacts:
+#. Build project artifacts:
 
    .. code-block:: shell-session
 
@@ -211,20 +213,17 @@ Build project :tutorial-machine:`Yocto`
    .. warning:: First build might take a long time to complete. Be patient.
 
 
-2. Prepare build artifacts for transfer to EGSE Host
+#. Prepare build artifacts for transfer to EGSE Host
 
    .. code-block:: shell-session
 
         machine:~/leopard-linux-1$ mkdir -p ./egse-host-transfer
-        machine:~/leopard-linux-1$ cp build/tmp/deploy/images/leopard-dpu/pmu-firmware-leopard-dpu.elf ~/egse-host-transfer
-        machine:~/leopard-linux-1$ cp build/tmp/deploy/images/leopard-dpu/fsbl-leopard-dpu.elf ~/egse-host-transfer
-        machine:~/leopard-linux-1$ cp build/tmp/deploy/images/leopard-dpu/arm-trusted-firmware.elf  ~/egse-host-transfer
-        machine:~/leopard-linux-1$ cp build/tmp/deploy/images/leopard-dpu/u-boot.elf ~/egse-host-transfer
-        machine:~/leopard-linux-1$ cp build/tmp/deploy/images/leopard-dpu/system.dtb  ~/egse-host-transfer
-        machine:~/leopard-linux-1$ cp build/tmp/deploy/images/leopard-dpu/dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot ~/egse-host-transfer
-        machine:~/leopard-linux-1$ cp build/tmp/deploy/images/leopard-dpu/Image ~/egse-host-transfer
+        machine:~/leopard-linux-1$ cp build/tmp/deploy/images/leopard-dpu/bootbins/boot-common.bin ./egse-host-transfer
+        machine:~/leopard-linux-1$ cp build/tmp/deploy/images/leopard-dpu/system.dtb  ./egse-host-transfer
+        machine:~/leopard-linux-1$ cp build/tmp/deploy/images/leopard-dpu/dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot ./egse-host-transfer
+        machine:~/leopard-linux-1$ cp build/tmp/deploy/images/leopard-dpu/Image ./egse-host-transfer
 
-3. Transfer content of :file:`~/leopard-linux-1/egse-host-transfer` directory to EGSE Host and place it in :file:`/var/tftp/tutorial` directory
+#. Transfer content of :file:`~/leopard-linux-1/egse-host-transfer` directory to EGSE Host and place it in :file:`/var/tftp/tutorial` directory
 
 
 Booting Linux on DPU :tutorial-machine:`EGSE Host`
@@ -234,14 +233,11 @@ Booting Linux on DPU :tutorial-machine:`EGSE Host`
    .. code-block:: shell-session
 
         customer@egse-host:~$ ls -lh /var/tftp/tutorial
-        total 58M
-        -rw-r--r-- 1 customer customer  21M Sep 30 12:18 Image
-        -rw-r--r-- 1 customer customer 145K Sep 30 12:18 arm-trusted-firmware.elf
-        -rw-r--r-- 1 customer customer  44M Sep 30 12:18 dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot
-        -rw-r--r-- 1 customer customer 440K Sep 30 12:18 fsbl-leopard-dpu.elf
-        -rw-r--r-- 1 customer customer 486K Sep 30 12:18 pmu-firmware-leopard-dpu.elf
-        -rw-r--r-- 1 customer customer  39K Sep 30 12:18 system.dtb
-        -rw-r--r-- 1 customer customer 1.4M Sep 30 12:18 u-boot.elf
+        total 48M
+        -rw-rw-r-- 1 customer customer  21M Jan 22 07:55 Image
+        -rw-rw-r-- 1 customer customer 1.6M Jan 22 07:55 boot-common.bin
+        -rw-rw-r-- 1 customer customer  35M Jan 22 07:55 dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot
+        -rw-rw-r-- 1 customer customer  39K Jan 22 07:55 system.dtb
 
    .. note:: Exact file size might differ a bit but they should be in the same range (for example ``dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot`` shall be about ~40MB)
 
@@ -256,7 +252,6 @@ Booting Linux on DPU :tutorial-machine:`EGSE Host`
         tftpboot ${fdt_addr_r} /tutorial/system.dtb
         tftpboot ${ramdisk_addr_r} /tutorial/dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot
 
-        setenv bootargs "console=ttyPS0,115200 earlycon ro rdinit=/sbin/init"
         booti ${kernel_addr_r} ${ramdisk_addr_r} ${fdt_addr_r}
 
 #. Compile U-Boot script
@@ -265,13 +260,38 @@ Booting Linux on DPU :tutorial-machine:`EGSE Host`
 
         customer@egse-host:~$ mkimage -A arm64 -O U-Boot -T script -C none -d /var/tftp/leopard-boot.cmd /var/tftp/leopard-boot.scr
         Image Name:
-        Created:      Mon Sep 30 12:13:00 2024
+        Created:      Wed Jan 22 08:31:23 2025
         Image Type:   AArch64 U-Boot Script (uncompressed)
-        Data Size:    309 Bytes = 0.30 KiB = 0.00 MiB
+        Data Size:    240 Bytes = 0.23 KiB = 0.00 MiB
         Load Address: 00000000
         Entry Point:  00000000
         Contents:
-        Image 0: 301 Bytes = 0.29 KiB = 0.00 MiB
+           Image 0: 232 Bytes = 0.23 KiB = 0.00 MiB
+
+#. Power on Leopard
+
+   .. code-block:: shell-session
+
+       customer@egse-367mwbwfg5wy2:~$ sml power on
+       Powering on...Success
+
+#. Write boot firmware to DPU boot flash
+
+   .. code-block:: shell-session
+
+       customer@egse-host:~$ sml boot-flash write --nor-memory nor1 0 /var/tftp/tutorial/boot-common.bin
+       Uploading   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00 48.6 MB/s
+       Erasing     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00 553.3 kB/s
+       Programming ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00 13.5 kB/s
+
+#. Write U-Boot boot script to DPU boot flash
+
+   .. code-block:: shell-session
+
+       customer@egse-host:~$ sml boot-flash write --nor-memory nor1 0x380000 /var/tftp/leopard-boot.scr
+       Uploading   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00 ?
+       Erasing     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00 ?
+       Programming ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00 30.7 MB/s
 
 #. Open second SSH connection to EGSE Host and start ``minicom`` to observe boot process
 
@@ -281,88 +301,12 @@ Booting Linux on DPU :tutorial-machine:`EGSE Host`
 
    Leave this terminal open and get back to SSH connection used in previous steps.
 
-#. Power on Leopard
-
-   .. code-block:: shell-session
-
-       customer@egse-367mwbwfg5wy2:~$ sml power on
-       Powering on...Success
-
 #. Power on Processing Node 1
 
    .. code-block:: shell-session
 
-       customer@egse-367mwbwfg5wy2:~$ sml pn1 power on
+       customer@egse-host:~$ sml pn1 power on --nor-image nor1
        Powering on processing node Node1...Success
-
-#. Write boot firmware to DPU boot flash
-
-.. note:: TODO
-
-   Currently there's no support from Leopard's bootloader for writing firmware to boot flash. Below is the temporary solution. Run following script using xsdb tool, part of Vivado Lab.
-
-   Save following content to file on EGSE Host as ~/load.tcl:
-
-   .. vale off
-
-   .. code-block:: tcl
-      :force:
-
-      proc proc_wait { timeout }  {
-          puts "Waiting $timeout seconds ..."
-          after [expr $timeout * 1000]
-      }
-
-      puts "Setting boot mode"
-      targets -set -filter {name =~ "PSU"}
-      rwr crl_apb boot_mode_user use_alt 1
-      rst -system
-      proc_wait 1
-
-      puts "Disable Security gates to view PMU MB target"
-      targets -set -filter {name =~ "PSU"}
-      rst -system
-      mwr 0xffca0038 0x1ff
-      proc_wait 1
-
-      puts "Download PMU"
-      targets -set -filter {name =~ "MicroBlaze PMU"}
-      dow "pmu-firmware-leopard-dpu.elf"
-      con
-      proc_wait 1
-
-      puts "Download FSBL"
-      targets -set -nocase -filter {name =~ "*A53 #0*"}
-      rst -processor -clear-registers
-      dow "fsbl-leopard-dpu.elf"
-      con
-      proc_wait 10
-
-      puts "Download u-boot"
-      dow -data "system.dtb" 0x00100000
-      dow "u-boot.elf"
-      dow -data "../leopard-boot.scr" 0x20000000
-      dow "arm-trusted-firmware.elf"
-      con
-
-   .. vale on
-
-   And run following commands:
-
-   .. code-block:: shell-session
-
-      customer@egse-host:~$ cd /var/tftp/tutorial
-      customer@egse-host:~$ xsdb
-
-      ****** System Debugger (XSDB) v2024.1
-      **** Build date : May 22 2024-19:19:01
-          ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
-          ** Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
-
-      xsdb% connect
-      tcfchan#0
-      xsdb% source ~/load.tcl
-
 
 #. DPU boot process should be visible in ``minicom`` terminal
 

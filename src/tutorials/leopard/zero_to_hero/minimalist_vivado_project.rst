@@ -52,9 +52,12 @@ Create project :tutorial-machine:`Vivado`
       * :menuselection:`Low Speed --> Memory Interfaces --> QSPI`: Single, x1, **without** feedback clock
       * :menuselection:`Low Speed --> Memory Interfaces --> NAND`: Single Ready/busy on MIO10, Data strobe on MIO12
       * :menuselection:`Low Speed --> Memory Interfaces --> SD --> SD 1`: on MIO46..51, Slot Type SD 2.0, enable CD on MIO 45
-      * :menuselection:`Low Speed --> I/O Peripherals --> UART --> UART0`: on MIO74..75, no modem signals
-      * :menuselection:`Low Speed --> I/O Peripherals --> GPIO --> GPIO2 MIO`: on MIO52..77
       * :menuselection:`Low Speed --> I/O Peripherals --> I2C --> I2C 0`: on MIO66..67
+      * :menuselection:`Low Speed --> I/O Peripherals --> SPI --> SPI 0`: on MIO38..43 with SS[0] on MIO41
+      * :menuselection:`Low Speed --> I/O Peripherals --> UART --> UART0`: on MIO74..75, no modem signals
+      * :menuselection:`Low Speed --> I/O Peripherals --> GPIO --> GPIO0 MIO`: on MIO0..25
+      * :menuselection:`Low Speed --> I/O Peripherals --> GPIO --> GPIO1 MIO`: on MIO26..51
+      * :menuselection:`Low Speed --> I/O Peripherals --> GPIO --> GPIO2 MIO`: on MIO52..77
       * :menuselection:`High Speed --> GEM --> GEM2`: on MDIO 52..53, enable MDIO2 on MIO76..77
       * :menuselection:`High Speed --> SATA`: enable SATA Lane0 on GT Lane0 and enable SATA Lane1 on GT Lane1
 

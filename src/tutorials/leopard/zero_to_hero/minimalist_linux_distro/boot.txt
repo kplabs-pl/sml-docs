@@ -46,14 +46,13 @@
         starting USB...
         No working controllers found
         Hit any key to stop autoboot:  0
-        JTAG: Trying to boot script at 20000000
+        SF: Detected s25fl512s with page size 256 Bytes, erase size 256 KiB, total 64 MiB
+        device 0 offset 0x380000, size 0x80000
+        SF: 524288 bytes @ 0x380000 Read: OK
+        QSPI: Trying to boot script at 20000000
         ## Executing script at 20000000
-        Running Leopard tftp-boot.scr
-        TFTP Root:
-        ethernet@ff0d0000 Waiting for PHY auto negotiation to complete. done
         BOOTP broadcast 1
-        BOOTP broadcast 2
-        DHCP client bound to address 172.20.200.100 (308 ms)
+        DHCP client bound to address 172.20.200.100 (43 ms)
         Using ethernet@ff0d0000 device
         TFTP from server 172.20.200.1; our IP address is 172.20.200.100
         Filename '/tutorial/Image'.
