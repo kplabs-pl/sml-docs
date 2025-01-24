@@ -1,0 +1,18 @@
+* ML Data
+    * deep globe
+        * full
+            * test_data
+            * training_data
+        * patched
+            * test_data
+            * training_data
+* Tutorials
+    * Antelope
+    * Leopard
+    * ML Deployment
+        * tools
+            * requirements.txt
+            * model_training.ipynb
+            * src
+            * pyproject.toml
+        * Onboard model runner in Python

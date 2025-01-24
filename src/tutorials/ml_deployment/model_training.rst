@@ -16,72 +16,99 @@ This tutorial demonstrates training of a land cover segmentation UNet model with
 
 Prerequisites
 -------------
-* Git with `git-lfs <https://git-lfs.github.com>`_ installed.
+* DeepGlobe dataset (:ref:`tutorial_files`)
+* SML ML Deployment tutorial files (https://github.com/kplabs-pl/sml-ml-tutorial.git)
 * Python installed.
 * An environment with Jupyter Notebook support (for example Visual Studio Code or Jupyter Lab).
+
+Provided outputs
+----------------
+Following files (:ref:`tutorial_files`) are associated with this tutorial:
+
+* :file:`ML deployment/01 Model training/model.ckpt` - model checkpoint
 
 .. _setup_project:
 
 Setup the project environment :tutorial-machine:`Machine learning workstation`
 ------------------------------------------------------------------------------
 
-1. Clone the model repository and enter it:
+#. Download ML data set and unpack it to :file:`~/sml-tutorials/ml-deployment/dataset`.
+
+#. Clone SML ML Tutorial repository to :file:`~/sml-tutorials/ml-deployment/tools`.
 
    .. code-block:: shell-session
 
-        customer@ml-workstation:~$ git clone git@git.kplabs.pl:antelope/software/linux/reference-designs-ml.git && cd reference-designs-ml
+      customer@ml-workstation:~/sml-tutorials/ml-deployment$ git clone https://github.com/kplabs-pl/sml-ml-tutorial.git tools
 
-2. Create Python virtual environment:
+#. Create folder for output files: :file:`~/sml-tutorials/ml-deployment/tools/output``
 
-   .. code-block:: shell-session
-
-        customer@ml-workstation:~/reference-designs-ml$ python3 -m venv venv && source venv/bin/activate
-
-3. Install Python packages required for the model training and evaluation:
+#. Create Python virtual environment:
 
    .. code-block:: shell-session
 
-        (venv) customer@ml-workstation:~/reference-designs-ml$ pip install -r requirements.txt
+        customer@ml-workstation:~/sml-tutorials/ml-deployment$ python3 -m venv venv && source venv/bin/activate
+
+#. Install Python packages required for the model training and evaluation:
+
+   .. code-block:: shell-session
+
+        (venv) customer@ml-workstation:~/sml-tutorials/ml-deployment/tools$ pip install -r requirements.txt
+
+#. At this point folder structure should look like this:
+
+   .. code-block::
+
+        .
+        ├── dataset
+        │   └── deep_globe
+        │       ├── test_data
+        │       └── training_data
+        ├── output
+        ├── tools
+        │   ├── 01-prepare
+        │   ├── 02-train
+        │   ├── 03-quantize
+        │   ├── pyproject.toml
+        │   ├── requirements.txt
+        │   ├── requirements-vitis-ai.txt
+        │   └── src
+        └── venv
+        
 
 .. _prepare_dataset:
 
 Prepare the dataset :tutorial-machine:`Machine learning workstation`
 --------------------------------------------------------------------
 
-1. Download the dataset
-
-   .. .. note::
-   ..  TODO: Now the repository contains the dataset using git-lfs. Consider moving it to a normal storage and provide a download link.
-
-   The dataset should reside in the ``reference-designs-ml/deep_globe`` directory.
-
-2. The dataset images are too large to process as a whole with deep learning models. To address this, split them into smaller 512x512 pixel patches by running:
+#. The dataset images are too large to process as a whole with deep learning models. To address this, split them into smaller 512x512 pixel patches by running:
 
    .. code-block:: shell-session
 
-        (venv) customer@ml-workstation:~/reference_designs_ml$ python3 -m split_to_patches --patch-size 512 --input-dir deep_globe --output-dir deep_globe_patched
+        (venv) customer@ml-workstation:~/sml-tutorials/ml-deployment/tools$ python3 ./01-prepare/split_to_patches.py --input-dir ../data/deep_globe/ --output-dir ../data/deep_glob_patched/
 
 .. _train_model:
 
 Train the model :tutorial-machine:`Machine learning workstation`
 ----------------------------------------------------------------
 
-1. Open the ``reference-designs-ml/model_training.ipynb`` Jupyter Notebook.
+#. Open the :file:`~/sml-tutorials/ml-deployment/tools/01-train/model_training.ipynb` Jupyter Notebook.
 
-2. Walk through the notebook cell-by-cell. You can either run all cells to reproduce the model training process, or just read the notebook to get accustomed with the demo use case. If you don't wish to rerun the training, feel free to use the model weights supplied in the ``reference-designs-ml/training_logs`` directory. Reading the notebook will provide you with insights into the dataset, model input output formats, metrics, and the training process.
+#. Walk through the notebook cell-by-cell. You can either run all cells to reproduce the model training process, or just read the notebook to get accustomed with the demo use case. If you don't wish to rerun the training, feel free to use the model weights supplied in the :file:`~/sml-tutorials/ml-deployment/tools/training_logs` directory. Reading the notebook will provide you with insights into the dataset, model input output formats, metrics, and the training process.
 
-   The training checkpoint containing model weights should reside at ``reference-designs-ml/training_logs/lightning_logs/version_XXX/checkpoints/epoch=XXX-step=XXX.ckpt``.
+   The training checkpoint containing model weights should reside at :file:`~/sml-tutorials/ml-deployment/tools/training_logs/lightning_logs/version_XXX/checkpoints/epoch=XXX-step=XXX.ckpt`.
 
    .. note::
        You can run the training notebook in a non-interactive way and leave it for some time with:
 
        .. code-block:: shell-session
 
-           customer@ml-workstation:~/reference_designs_ml$ SML_DEMO_NO_PROGRESS=1 nohup jupyter execute --inplace model_training.ipynb
+           customer@ml-workstation:~/sml-tutorials/ml-deployment/tools$ SML_DEMO_NO_PROGRESS=1 nohup jupyter execute --inplace model_training.ipynb
 
-       Enabling SML_DEMO_NO_PROGRESS variable will disable progress bars polluting the notebook while it's running in the background. You can investigate the training by observing metrics log in the ``reference-designs-ml/training_logs`` directory.
+       Enabling SML_DEMO_NO_PROGRESS variable will disable progress bars polluting the notebook while it's running in the background. You can investigate the training by observing metrics log in the :file:`~/sml-tutorials/ml-deployment/tools/training_logs` directory.
 
    .. warning::
       Mind that training the model requires GPU support and will take time (depending on your GPU it will take up to several hours).
 
    After you finished either executing or reading the notebook, you can proceed to the next tutorial.
+
+#. Copy training checkpoint file :file:`~/sml-tutorials/ml-deployment/tools/training_logs/lightning_logs/version_XXX/checkpoints/epoch=XXX-step=XXX.ckpt` to :file:`~/sml-tutorials/ml-deployment/output/02-train/model.ckpt`

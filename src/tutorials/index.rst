@@ -6,6 +6,7 @@ Tutorials
 
     setting_up_vpn
     accessing_egse_host_ssh
+    tutorial_files
     antelope/index
     leopard/index
     ml_deployment/index

@@ -236,6 +236,7 @@ Process input files and generate output
                 classes = np.argmax(prediction[0], axis=2)
                 colors = COLOR_MAP[classes]
                 colored_image = (img * 0.7 + colors * 0.3).astype(np.uint8)
+                colored_image = cv2.cvtColor(colored_image, cv2.COLOR_RGB2BGR)
                 cv2.imwrite(str(output_dir / img_path.with_suffix('.jpg').name), colored_image)
 
 #. Add command line arguments parsing
@@ -255,6 +256,8 @@ Process input files and generate output
             parser.add_argument("--output-dir", type=Path)
             args = parser.parse_args()
             main(args.input_dir, args.input_glob, args.output_dir)
+
+#. You can review entire script in :download:`model_runner.py<onboard_model_runner_python/model_runner.py>`.
 
 Summary
 -------

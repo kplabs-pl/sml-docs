@@ -9,8 +9,10 @@ import argparse
 
 XMODEL_PATH = Path(__file__).parent / "deep_globe_segmentation_unet_512_512.xmodel"
 
+
 def softmax(image: np.ndarray, classes_axis: int = -1) -> np.ndarray:
     return np.exp(image) / np.sum(np.exp(image), axis=classes_axis, keepdims=True)
+
 
 class Runner:
     def __init__(self) -> None:
@@ -37,7 +39,7 @@ class Runner:
         child_subgraphs = root_subgraph.toposort_child_subgraph()
         assert child_subgraphs is not None and len(child_subgraphs) > 0
         return [cs for cs in child_subgraphs if cs.has_attr("device") and cs.get_attr("device").upper() == "DPU"]
-
+    
     def _preprocess(self, img: np.ndarray) -> np.ndarray:
         img = img / 255.0
         img = img.astype(np.float32)
@@ -45,10 +47,10 @@ class Runner:
         # Append batch dimension.
         img.reshape(self._input_tensors[0].dims)
         return img
-
+    
     def _postprocess(self, data: np.ndarray) -> np.ndarray:
         return softmax(data)
-
+    
     def infer(self, img: np.ndarray) -> np.ndarray:
         img = self._preprocess(img)
 
@@ -88,6 +90,7 @@ def main(input_dir: Path, input_glob: str, output_dir: Path) -> None:
         classes = np.argmax(prediction[0], axis=2)
         colors = COLOR_MAP[classes]
         colored_image = (img * 0.7 + colors * 0.3).astype(np.uint8)
+        colored_image = cv2.cvtColor(colored_image, cv2.COLOR_RGB2BGR)
         cv2.imwrite(str(output_dir / img_path.with_suffix('.jpg').name), colored_image)
 
 
