@@ -13,13 +13,13 @@ Prerequisites
 -------------
 * Yocto project with Deep learning Processor Unit (:doc:`./dpu`)
 * Quantized model (:doc:`/tutorials/ml_deployment/model_deployment/model_compilation`)
-* Python tool for running inference (TODO)
-* Test images (TODO)
+* Python tool for running inference (:doc:`/tutorials/ml_deployment/onboard_model_runner_python`)
+* 3-4 test images from ML dataset in form of of 512x512 patches (use files from :file:`input data/deep globe/patched` folder)
 
 Add inference tools to Yocto project :tutorial-machine:`Yocto`
 --------------------------------------------------------------
 #. Create directory :file:`~/leopard-linux-1/sources/meta-local/recipes-example/inference/inference/`
-#. TODO: Copy ``model_runner.py`` to :file:`~/leopard-linux-1/sources/meta-local/recipes-example/inference/inference/`
+#. Copy ``model_runner.py`` to :file:`~/leopard-linux-1/sources/meta-local/recipes-example/inference/inference/`
 #. Copy ``deep_globe_segmentation_unet_512_512.xmodel`` to :file:`~/leopard-linux-1/sources/meta-local/recipes-example/inference/inference/`
 
    This files in a quantized and compiled model from :doc:`/tutorials/ml_deployment/model_deployment/model_compilation`.

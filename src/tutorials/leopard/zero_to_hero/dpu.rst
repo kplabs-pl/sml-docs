@@ -212,18 +212,16 @@ Add Deep-learning Processor Unit bitstream to Linux image :tutorial-machine:`Yoc
 
       SRC_URI += "file://xlnx-dpu.cfg"
 
-#. Add new packages into Linux image by editing :file:`~/leopard-linux-1/sources/meta-local/recipes-leopard/images/dpu-leopard.bbappend`
+#. Add new packages into Linux image by editing :file:`~/leopard-linux-1/sources/meta-local/recipes-leopard/images/dpu-leopard.bbappend` (TODO: limit deps)
 
    .. code-block:: bitbake
 
         IMAGE_INSTALL += "\
-            fpga-manager-script \
-            double-uart \
-            dpu \
-            vart \
-            xir \
-            vitis-ai-library \
-            kernel-module-xlnx-dpu \
+           fpga-manager-script \
+           double-uart \
+           dpu \
+           vitis-ai-library \
+           kernel-module-xlnx-dpu \
         "
 
 #. Build firmware and image
@@ -247,7 +245,7 @@ Add Deep-learning Processor Unit bitstream to Linux image :tutorial-machine:`Yoc
 
 Run model on Deep-learning Processor Unit :tutorial-machine:`EGSE Host`
 -----------------------------------------------------------------------
-#. Verify that all necessary artifacts are present on EGSE Host:
+#. Verify that all necessary artifacts are present on EGSE Host: (TODO: fix size after changing dependencies)
 
    .. code-block:: shell-session
 
@@ -258,7 +256,7 @@ Run model on Deep-learning Processor Unit :tutorial-machine:`EGSE Host`
        -rw-rw-r-- 1 customer customer  93M Jan 23 09:37 dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot
        -rw-rw-r-- 1 customer customer  39K Jan 23 09:37 system.dtb
 
-   .. note:: Exact file size might differ a bit but they should be in the same range (for example ``core-image-minimal-leopard.rootfs.cpio.gz.u-boot`` shall be about ~100MB)
+   .. note:: Exact file size might differ a bit but they should be in the same range (for example ``dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot`` shall be about ~100MB)
 
 
 #. Open second SSH connection to EGSE Host and start ``minicom`` to observe boot process
@@ -329,7 +327,7 @@ Run model on Deep-learning Processor Unit :tutorial-machine:`EGSE Host`
       }
 
 
-#. Follow :doc:`/tutorials/ml_deployment/index` tutorials to train, compile and deploy model to Deep-learning Processor Unit.
+#. Follow :doc:`/tutorials/ml_deployment/index` tutorials to train, compile and deploy model to Deep-learning Processor Unit. (TODO)
 
 Summary
 -------

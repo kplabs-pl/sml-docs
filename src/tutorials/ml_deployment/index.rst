@@ -12,4 +12,4 @@ The following tutorials demonstrate deploying a PyTorch-based land cover segment
 
     model_training
     model_deployment/index
-    onboard_inference
+    onboard_model_runner_python
