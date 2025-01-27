@@ -17,6 +17,19 @@ Prerequisites
 * Preset with Processing System configuration from :doc:`/tutorials/leopard/zero_to_hero/enable_pl_support`
 * Yocto project with Programmable Logic support from :doc:`/tutorials/leopard/zero_to_hero/enable_pl_support`
 
+Provided outputs
+----------------
+Following files (:ref:`tutorial_files`) are associated with this tutorial:
+
+* :file:`Leopard/Zero-to-hero/03 Enable programmable logic support/arch.json` - DPU fingerprint
+* :file:`Leopard/Zero-to-hero/03 Enable programmable logic support/leopard-dpu-bd.xsa` - DPU IP bitstream
+* :file:`Leopard/Zero-to-hero/03 Enable programmable logic support/boot-common.bin` - Boot firmware for Leopard
+* :file:`Leopard/Zero-to-hero/03 Enable programmable logic support/dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot` - Root filesystem for Leopard
+* :file:`Leopard/Zero-to-hero/03 Enable programmable logic support/Image` - Linux kernel
+* :file:`Leopard/Zero-to-hero/03 Enable programmable logic support/system.dtb` - Device tree
+
+Use these files if you want to skip building bitstream or Yocto distribution by yourself.
+
 Download Deep-learning Processor Unit repository :tutorial-machine:`Vivado`
 ---------------------------------------------------------------------------
 #. On machine with Vivado create :file:`dpu-ip-repo` directory.
@@ -212,7 +225,7 @@ Add Deep-learning Processor Unit bitstream to Linux image :tutorial-machine:`Yoc
 
       SRC_URI += "file://xlnx-dpu.cfg"
 
-#. Add new packages into Linux image by editing :file:`~/leopard-linux-1/sources/meta-local/recipes-leopard/images/dpu-leopard.bbappend` (TODO: limit deps)
+#. Add new packages into Linux image by editing :file:`~/leopard-linux-1/sources/meta-local/recipes-leopard/images/dpu-leopard.bbappend`
 
    .. code-block:: bitbake
 
@@ -245,7 +258,7 @@ Add Deep-learning Processor Unit bitstream to Linux image :tutorial-machine:`Yoc
 
 Run model on Deep-learning Processor Unit :tutorial-machine:`EGSE Host`
 -----------------------------------------------------------------------
-#. Verify that all necessary artifacts are present on EGSE Host: (TODO: fix size after changing dependencies)
+#. Verify that all necessary artifacts are present on EGSE Host:
 
    .. code-block:: shell-session
 
@@ -327,7 +340,7 @@ Run model on Deep-learning Processor Unit :tutorial-machine:`EGSE Host`
       }
 
 
-#. Follow :doc:`/tutorials/ml_deployment/index` tutorials to train, compile and deploy model to Deep-learning Processor Unit. (TODO)
+#. Follow :doc:`/tutorials/ml_deployment/index` tutorials to train and compile for Deep-learning Processor Unit. Go to :doc:`dpu_inference` to see how to run inference on DPU.
 
 Summary
 -------

@@ -73,7 +73,7 @@ Setup the project environment :tutorial-machine:`Machine learning workstation`
         │   ├── requirements-vitis-ai.txt
         │   └── src
         └── venv
-        
+
 
 .. _prepare_dataset:
 

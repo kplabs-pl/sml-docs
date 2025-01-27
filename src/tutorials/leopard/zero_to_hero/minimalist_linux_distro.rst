@@ -30,6 +30,17 @@ Prerequisites
   * Yocto requirements (https://docs.yoctoproject.org/ref-manual/system-requirements.html#required-packages-for-the-build-host)
 * At least 120GB free space for Yocto build
 
+Provided outputs
+----------------
+Following files (:ref:`tutorial_files`) are associated with this tutorial:
+
+* :file:`Leopard/Zero-to-hero/02 Minimalist Linux distribution/boot-common.bin` - Boot firmware for Leopard
+* :file:`Leopard/Zero-to-hero/02 Minimalist Linux distribution/dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot` - Root filesystem for Leopard
+* :file:`Leopard/Zero-to-hero/02 Minimalist Linux distribution/Image` - Linux kernel
+* :file:`Leopard/Zero-to-hero/02 Minimalist Linux distribution/system.dtb` - Device tree
+
+Use these files if you want to skip building Yocto distribution by yourself.
+
 Create project :tutorial-machine:`Yocto`
 ----------------------------------------
 #. Create new directory for Yocto project and navigate to it.

@@ -14,7 +14,19 @@ Prerequisites
 * Yocto project with Deep learning Processor Unit (:doc:`./dpu`)
 * Quantized model (:doc:`/tutorials/ml_deployment/model_deployment/model_compilation`)
 * Python tool for running inference (:doc:`/tutorials/ml_deployment/onboard_model_runner_python`)
-* 3-4 test images from ML dataset in form of of 512x512 patches (use files from :file:`input data/deep globe/patched` folder)
+* 3-4 test images from ML dataset in form of 512x512 patches (:ref:`tutorial_files`)
+
+Provided outputs
+----------------
+Following files (:ref:`tutorial_files`) are associated with this tutorial:
+
+* :file:`Leopard/Zero-to-hero/03 Enable programmable logic support/boot-common.bin` - Boot firmware for Leopard
+* :file:`Leopard/Zero-to-hero/03 Enable programmable logic support/dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot` - Root filesystem for Leopard
+* :file:`Leopard/Zero-to-hero/03 Enable programmable logic support/Image` - Linux kernel
+* :file:`Leopard/Zero-to-hero/03 Enable programmable logic support/system.dtb` - Device tree
+
+Use these files if you want to Yocto distribution by yourself.
+
 
 Add inference tools to Yocto project :tutorial-machine:`Yocto`
 --------------------------------------------------------------
@@ -85,7 +97,7 @@ Add inference tools to Yocto project :tutorial-machine:`Yocto`
 
 Run inference on DPU :tutorial-machine:`EGSE Host`
 --------------------------------------------------
-#. Upload images to run inference on to EGSE Host and place them in :file:`~/inference-input` directory (TODO)
+#. Upload few images from DeepGlobe dataset (:ref:`tutorial_files`) to run inference on to EGSE Host and place them in :file:`~/inference-input` directory. Use patched files (512x512).
 
 #. Verify that all necessary artifacts are present on EGSE Host:
 

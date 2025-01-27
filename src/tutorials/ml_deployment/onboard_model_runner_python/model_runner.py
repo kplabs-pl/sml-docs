@@ -37,7 +37,7 @@ class Runner:
         child_subgraphs = root_subgraph.toposort_child_subgraph()
         assert child_subgraphs is not None and len(child_subgraphs) > 0
         return [cs for cs in child_subgraphs if cs.has_attr("device") and cs.get_attr("device").upper() == "DPU"]
-    
+
     def _preprocess(self, img: np.ndarray) -> np.ndarray:
         img = img / 255.0
         img = img.astype(np.float32)
@@ -45,10 +45,10 @@ class Runner:
         # Append batch dimension.
         img.reshape(self._input_tensors[0].dims)
         return img
-    
+
     def _postprocess(self, data: np.ndarray) -> np.ndarray:
         return softmax(data)
-    
+
     def infer(self, img: np.ndarray) -> np.ndarray:
         img = self._preprocess(img)
         output = np.empty(self._output_tensors[0].dims, dtype=np.float32, order="C")

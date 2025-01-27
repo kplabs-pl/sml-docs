@@ -29,6 +29,14 @@ Prerequisites
 
   * This tutorial uses 2024.1 version. Other versions might also work correctly but it's possible that exact steps will be different.
 
+Provided outputs
+----------------
+Following files (:ref:`tutorial_files`) are associated with this tutorial:
+
+* :file:`Leopard/Zero-to-hero/01 Create minimalist Vivado project/leopard-minimal.xsa` - Vivado hardware definition file.
+
+Use these files if you want to skip tutorial.
+
 Create project :tutorial-machine:`Vivado`
 -----------------------------------------
 .. note:: Leopard User Manual describes all configuration values used in these steps.

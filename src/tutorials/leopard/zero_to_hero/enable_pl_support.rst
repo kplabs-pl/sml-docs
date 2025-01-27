@@ -32,6 +32,20 @@ Prerequisites
 * Base Yocto project for Leopard DPU from :doc:`/tutorials/leopard/zero_to_hero/minimalist_linux_distro`
 * EGSE Host prepared to boot Leopard DPU from network as described in :doc:`/tutorials/leopard/zero_to_hero/minimalist_linux_distro`
 
+Provided outputs
+----------------
+Following files (:ref:`tutorial_files`) are associated with this tutorial:
+
+* :file:`Leopard/Zero-to-hero/03 Enable programmable logic support/leopard-minimalistic-with-pl.tcl` - Vivado preset for Leopard with enabled PL support
+* :file:`Leopard/Zero-to-hero/03 Enable programmable logic support/leopard-minimalistic-pl-base.xsa` - Base XSA file with enabled PL support
+* :file:`Leopard/Zero-to-hero/03 Enable programmable logic support/leopard-double-uart.xsa` - Double UART XSA file
+* :file:`Leopard/Zero-to-hero/03 Enable programmable logic support/boot-common.bin` - Boot firmware for Leopard
+* :file:`Leopard/Zero-to-hero/03 Enable programmable logic support/dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot` - Root filesystem for Leopard
+* :file:`Leopard/Zero-to-hero/03 Enable programmable logic support/Image` - Linux kernel
+* :file:`Leopard/Zero-to-hero/03 Enable programmable logic support/system.dtb` - Device tree
+
+Use these files if you want to skip building bitstream or Yocto distribution by yourself.
+
 Enable programmable logic support :tutorial-machine:`Vivado`
 ------------------------------------------------------------
 #. Open Leopard DPU project from :doc:`/tutorials/leopard/zero_to_hero/minimalist_vivado_project` in Vivado
