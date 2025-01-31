@@ -27,16 +27,15 @@ Following files (:ref:`tutorial_files`) are associated with this tutorial:
 
 Due to file size following files are available separately:
 
-* :file:`ML deployment/02 Model quantization/quantization_samples.h5` - calibration data (TODO)
+* :file:`quantization_samples.h5.xz` - calibration data (compressed)
 
 Prepare for deployment :tutorial-machine:`Machine learning workstation`
 -----------------------------------------------------------------------
 #. The quantization process requires model weights and a subset (100 to 1000 samples) of the training dataset to calibrate the model. To avoid preprocessing the dataset for quantization inside the container, run the following command to prepare the calibration samples and model weights in advance:
 
-   Open and run the :file:`~/sml-tutorials/ml-deployment/tools/02-quantize/deployment_preparation.ipynb` Jupyter Notebook. At the end you should have two files:
-     
+   Open and run the :file:`~/sml-tutorials/ml-deployment/tools/03-quantize/deployment_preparation.ipynb` Jupyter Notebook. At the end you should have two files:
+
    * :file:`output/03-quantize/quantization_samples.h5` - calibration data
-   * :file:`output/03-quantize/quantization_test_preds.h5` - tests samples
    * :file:`output/03-quantize/state_dict.pt` - model weights
 
 #. Enter the Vitis AI deployment container with the working directory volume mounted:
@@ -64,7 +63,7 @@ Run the following commands in the container environment.
 
    .. code-block:: shell-session
 
-       (vitis-ai-wego-torch2) vitis-ai-user@vitis-ai-container-id:/workspace/tools$ pip install -r deployment/requirements-vitis-ai.txt
+       (vitis-ai-wego-torch2) vitis-ai-user@vitis-ai-container-id:/workspace/tools$ pip install -r requirements-vitis-ai.txt
 
 
 #. Quantize the model using Vitis AI Python libraries. The ``pytorch_nndct.apis.torch_quantizer`` function creates the quantizer which operates in two modes: ``"calib"`` and ``"test"``. The first one calibrates the model to work in lower-bit precision. The second one evaluates and exports the quantized model for further deployment.
@@ -88,11 +87,11 @@ Run the following commands in the container environment.
        Mind that the quantization process is time consuming.
 
    .. note::
-       The quantization process includes evaluation of the quantized model. If you wish to skip this step to speed up the process pass an extra flag that will limit the number of test samples.
+       The quantization process includes evaluation of the quantized model. If you wish to skip this step to speed up the process pass an extra flag that will limit the number of calibration and test samples.
 
        .. code-block:: shell-session
 
-           (vitis-ai-wego-torch2) vitis-ai-user@vitis-ai-container-id:/workspace/tools$ python3 ./03-quantize/quantize_model.py --quantization-samples-num-limit 1 ...
+           (vitis-ai-wego-torch2) vitis-ai-user@vitis-ai-container-id:/workspace/tools$ python3 ./03-quantize/quantize_model.py --calib-samples-limit 1 --test-samples-limit 1 ...
 
    Walk through the quantization script to understand the process:
 
@@ -158,3 +157,5 @@ Run the following commands in the container environment.
 Evaluate the quantized model metrics :tutorial-machine:`Machine learning workstation`
 -------------------------------------------------------------------------------------
 #. The quantization script saves the calibrated model outputs in a file. Optionally you can evaluate metrics for these outputs and preview the results by running the :file:`~/sml-tutorials/ml-deployment/tools/03-quantize/calc_quantized_metrics.ipynb` notebook.
+
+   .. note:: Evaluation of the quantized model requires :file:`output/03-quantize/quantization_test_preds.h5` with **all** samples which you might have skipped to save some time.

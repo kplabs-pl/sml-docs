@@ -18,7 +18,7 @@ Prerequisites
 -------------
 * DeepGlobe dataset (:ref:`tutorial_files`)
 * SML ML Deployment tutorial files (https://github.com/kplabs-pl/sml-ml-tutorial.git)
-* Python installed.
+* Python with virtual environment support installed.
 * An environment with Jupyter Notebook support (for example Visual Studio Code or Jupyter Lab).
 
 Provided outputs
@@ -40,7 +40,7 @@ Setup the project environment :tutorial-machine:`Machine learning workstation`
 
       customer@ml-workstation:~/sml-tutorials/ml-deployment$ git clone https://github.com/kplabs-pl/sml-ml-tutorial.git tools
 
-#. Create folder for output files: :file:`~/sml-tutorials/ml-deployment/tools/output``
+#. Create folder for output files: :file:`~/sml-tutorials/ml-deployment/output``
 
 #. Create Python virtual environment:
 
@@ -84,14 +84,14 @@ Prepare the dataset :tutorial-machine:`Machine learning workstation`
 
    .. code-block:: shell-session
 
-        (venv) customer@ml-workstation:~/sml-tutorials/ml-deployment/tools$ python3 ./01-prepare/split_to_patches.py --input-dir ../data/deep_globe/ --output-dir ../data/deep_glob_patched/
+        (venv) customer@ml-workstation:~/sml-tutorials/ml-deployment/tools$ python3 ./01-prepare/split_to_patches.py --input-dir ../dataset/deep_globe/ --output-dir ../dataset/deep_globe_patched/
 
 .. _train_model:
 
 Train the model :tutorial-machine:`Machine learning workstation`
 ----------------------------------------------------------------
 
-#. Open the :file:`~/sml-tutorials/ml-deployment/tools/01-train/model_training.ipynb` Jupyter Notebook.
+#. Open the :file:`~/sml-tutorials/ml-deployment/tools/02-train/model_training.ipynb` Jupyter Notebook.
 
 #. Walk through the notebook cell-by-cell. You can either run all cells to reproduce the model training process, or just read the notebook to get accustomed with the demo use case. If you don't wish to rerun the training, feel free to use the model weights supplied in the :file:`~/sml-tutorials/ml-deployment/tools/training_logs` directory. Reading the notebook will provide you with insights into the dataset, model input output formats, metrics, and the training process.
 

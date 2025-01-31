@@ -9,10 +9,8 @@ import argparse
 
 XMODEL_PATH = Path(__file__).parent / "deep_globe_segmentation_unet_512_512.xmodel"
 
-
 def softmax(image: np.ndarray, classes_axis: int = -1) -> np.ndarray:
     return np.exp(image) / np.sum(np.exp(image), axis=classes_axis, keepdims=True)
-
 
 class Runner:
     def __init__(self) -> None:
@@ -53,13 +51,11 @@ class Runner:
     
     def infer(self, img: np.ndarray) -> np.ndarray:
         img = self._preprocess(img)
-
         output = np.empty(self._output_tensors[0].dims, dtype=np.float32, order="C")
         job_id = self._dpu_runner.execute_async([img], [output])
         self._dpu_runner.wait(job_id)
 
-        output = self._postprocess(output)
-        return output
+        return self._postprocess(output)
 
 
 COLOR_MAP = np.array([
