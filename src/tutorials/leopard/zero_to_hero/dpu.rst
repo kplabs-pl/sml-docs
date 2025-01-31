@@ -21,12 +21,12 @@ Provided outputs
 ----------------
 Following files (:ref:`tutorial_files`) are associated with this tutorial:
 
-* :file:`Leopard/Zero-to-hero/03 Enable programmable logic support/arch.json` - DPU fingerprint
-* :file:`Leopard/Zero-to-hero/03 Enable programmable logic support/leopard-dpu-bd.xsa` - DPU IP bitstream
-* :file:`Leopard/Zero-to-hero/03 Enable programmable logic support/boot-common.bin` - Boot firmware for Leopard
-* :file:`Leopard/Zero-to-hero/03 Enable programmable logic support/dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot` - Root filesystem for Leopard
-* :file:`Leopard/Zero-to-hero/03 Enable programmable logic support/Image` - Linux kernel
-* :file:`Leopard/Zero-to-hero/03 Enable programmable logic support/system.dtb` - Device tree
+* :file:`Leopard/Zero-to-hero/04 Deep learning Processor Unit/arch.json` - DPU fingerprint
+* :file:`Leopard/Zero-to-hero/04 Deep learning Processor Unit/leopard-dpu-bd.xsa` - DPU IP bitstream
+* :file:`Leopard/Zero-to-hero/04 Deep learning Processor Unit/boot-common.bin` - Boot firmware for Leopard
+* :file:`Leopard/Zero-to-hero/04 Deep learning Processor Unit/dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot` - Root filesystem for Leopard
+* :file:`Leopard/Zero-to-hero/04 Deep learning Processor Unit/Image` - Linux kernel
+* :file:`Leopard/Zero-to-hero/04 Deep learning Processor Unit/system.dtb` - Device tree
 
 Use these files if you want to skip building bitstream or Yocto distribution by yourself.
 
@@ -241,17 +241,17 @@ Add Deep-learning Processor Unit bitstream to Linux image :tutorial-machine:`Yoc
 
    .. code-block:: shell-session
 
-       machine:~/leopard-linux-1$ bitbake leopard-all
+       machine:~/leopard-linux-1/build$ bitbake leopard-all
 
 #. Prepare build artifacts for transfer to EGSE Host
 
    .. code-block:: shell-session
 
-        machine:~/leopard-linux-1$ mkdir -p ./egse-host-transfer
-        machine:~/leopard-linux-1$ cp build/tmp/deploy/images/leopard-dpu/bootbins/boot-common.bin ./egse-host-transfer
-        machine:~/leopard-linux-1$ cp build/tmp/deploy/images/leopard-dpu/system.dtb  ./egse-host-transfer
-        machine:~/leopard-linux-1$ cp build/tmp/deploy/images/leopard-dpu/dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot ./egse-host-transfer
-        machine:~/leopard-linux-1$ cp build/tmp/deploy/images/leopard-dpu/Image ./egse-host-transfer
+        machine:~/leopard-linux-1/build$ mkdir -p ../egse-host-transfer
+        machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/bootbins/boot-common.bin ../egse-host-transfer
+        machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/system.dtb ../egse-host-transfer
+        machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot ../egse-host-transfer
+        machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/Image ../egse-host-transfer
 
 #. Transfer content of :file:`egse-host-transfer` directory to EGSE Host and place it in :file:`/var/tftp/tutorial` directory
 
@@ -284,15 +284,17 @@ Run model on Deep-learning Processor Unit :tutorial-machine:`EGSE Host`
 
    .. code-block:: shell-session
 
-       customer@egse-367mwbwfg5wy2:~$ sml power on
+       customer@egse-host:~$ sml power on
        Powering on...Success
 
 #. Power on DPU Processing Node 1
 
    .. code-block:: shell-session
 
-       customer@egse-367mwbwfg5wy2:~$ sml pn1 power on --nor-memory nor1
+       customer@egse-host:~$ sml pn1 power on --nor-memory nor1
        Powering on processing node Node1...Success
+
+   .. note:: Boot firmware is the same as in :doc:`enable_pl_support`.
 
 #. DPU boot process should be visible in ``minicom`` terminal
 

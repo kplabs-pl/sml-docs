@@ -20,12 +20,12 @@ Provided outputs
 ----------------
 Following files (:ref:`tutorial_files`) are associated with this tutorial:
 
-* :file:`Leopard/Zero-to-hero/03 Enable programmable logic support/boot-common.bin` - Boot firmware for Leopard
-* :file:`Leopard/Zero-to-hero/03 Enable programmable logic support/dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot` - Root filesystem for Leopard
-* :file:`Leopard/Zero-to-hero/03 Enable programmable logic support/Image` - Linux kernel
-* :file:`Leopard/Zero-to-hero/03 Enable programmable logic support/system.dtb` - Device tree
+* :file:`Leopard/Zero-to-hero/05 Onboard inference/boot-common.bin` - Boot firmware for Leopard
+* :file:`Leopard/Zero-to-hero/05 Onboard inference/dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot` - Root filesystem for Leopard
+* :file:`Leopard/Zero-to-hero/05 Onboard inference/Image` - Linux kernel
+* :file:`Leopard/Zero-to-hero/05 Onboard inference/system.dtb` - Device tree
 
-Use these files if you want to Yocto distribution by yourself.
+Use these files if you don't want to build Yocto distribution by yourself.
 
 
 Add inference tools to Yocto project :tutorial-machine:`Yocto`
@@ -33,9 +33,6 @@ Add inference tools to Yocto project :tutorial-machine:`Yocto`
 #. Create directory :file:`~/leopard-linux-1/sources/meta-local/recipes-example/inference/inference/`
 #. Copy ``model_runner.py`` to :file:`~/leopard-linux-1/sources/meta-local/recipes-example/inference/inference/`
 #. Copy ``deep_globe_segmentation_unet_512_512.xmodel`` to :file:`~/leopard-linux-1/sources/meta-local/recipes-example/inference/inference/`
-
-   This files in a quantized and compiled model from :doc:`/tutorials/ml_deployment/model_deployment/model_compilation`.
-
 #. Create new recipe :file:`~/leopard-linux-1/sources/meta-local/recipes-example/inference/inference.bb`
 
    .. code-block:: bitbake
@@ -57,9 +54,6 @@ Add inference tools to Yocto project :tutorial-machine:`Yocto`
             install -d ${D}/dpu-inference
             install -m 0644 ${WORKDIR}/model_runner.py ${D}/dpu-inference
             install -m 0644 ${WORKDIR}/deep_globe_segmentation_unet_512_512.xmodel ${D}/dpu-inference
-
-            install -d ${D}/dpu-inference/data
-            install -m 0644 ${WORKDIR}/207743_04_02_sat.jpg ${D}/dpu-inference/data
       }
 
       FILES:${PN} += "/dpu-inference/*"
@@ -81,17 +75,17 @@ Add inference tools to Yocto project :tutorial-machine:`Yocto`
 
    .. code-block:: shell-session
 
-       machine:~/leopard-linux-1$ bitbake leopard-all
+       machine:~/leopard-linux-1/build$ bitbake leopard-all
 
 #. Prepare build artifacts for transfer to EGSE Host
 
    .. code-block:: shell-session
 
-        machine:~/leopard-linux-1$ mkdir -p ./egse-host-transfer
-        machine:~/leopard-linux-1$ cp build/tmp/deploy/images/leopard-dpu/bootbins/boot-common.bin ./egse-host-transfer
-        machine:~/leopard-linux-1$ cp build/tmp/deploy/images/leopard-dpu/system.dtb  ./egse-host-transfer
-        machine:~/leopard-linux-1$ cp build/tmp/deploy/images/leopard-dpu/dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot ./egse-host-transfer
-        machine:~/leopard-linux-1$ cp build/tmp/deploy/images/leopard-dpu/Image ./egse-host-transfer
+        machine:~/leopard-linux-1/build$ mkdir -p ../egse-host-transfer
+        machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/bootbins/boot-common.bin ../egse-host-transfer
+        machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/system.dtb  ../egse-host-transfer
+        machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot ../egse-host-transfer
+        machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/Image ../egse-host-transfer
 
 #. Transfer content of :file:`egse-host-transfer` directory to EGSE Host and place it in :file:`/var/tftp/tutorial` directory
 
@@ -111,10 +105,10 @@ Run inference on DPU :tutorial-machine:`EGSE Host`
        -rw-rw-r-- 1 customer customer  39K Jan 23 13:59 system.dtb
 
        customer@egse-host:~$ ls -lh ~/inference-input
-       total 131K
-       -rw-rw-r-- 1 customer customer 54K Jan 23 15:51 115444_02_02_sat.jpg
-       -rw-rw-r-- 1 customer customer 42K Jan 23 15:52 140299_04_03_sat.jpg
-       -rw-rw-r-- 1 customer customer 34K Jan 23 15:51 21023_01_04_sat.jpg
+       total 225K
+       -rw-rw-r-- 1 customer customer 71K Jan 30 07:58 207743_04_02_sat.jpg
+       -rw-rw-r-- 1 customer customer 77K Jan 30 07:58 207743_04_03_sat.jpg
+       -rw-rw-r-- 1 customer customer 76K Jan 30 07:58 21717_04_02_sat.jpg
 
    .. note:: Exact file size might differ a bit but they should be in the same range (for example ``dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot`` shall be about ~120MB)
 
@@ -132,7 +126,7 @@ Run inference on DPU :tutorial-machine:`EGSE Host`
 
    .. code-block:: shell-session
 
-       customer@egse-367mwbwfg5wy2:~$ sml power on
+       customer@egse-host:~$ sml power on
        Powering on...Success
 
 #. Power on DPU Processing Node 1
@@ -142,6 +136,8 @@ Run inference on DPU :tutorial-machine:`EGSE Host`
        customer@egse-host:~$ sml pn1 power on --nor-memory nor1
        Powering on processing node Node1...Success
 
+   .. note:: Boot firmware is the same as in :doc:`enable_pl_support`.
+
 #. DPU boot process should be visible in ``minicom`` terminal
 
 #. Transfer images from EGSE Host to Processing Node
@@ -150,9 +146,9 @@ Run inference on DPU :tutorial-machine:`EGSE Host`
 
       customer@egse-host:~$ scp -r ~/inference-input pn1:/tmp/inference-input
       Warning: Permanently added '172.20.200.100' (ED25519) to the list of known hosts.
-      21023_01_04_sat.jpg                   100%   34KB   9.3MB/s   00:00
-      115444_02_02_sat.jpg                  100%   53KB  16.2MB/s   00:00
-      140299_04_03_sat.jpg                  100%   42KB  15.5MB/s   00:00
+      21717_04_02_sat.jpg                100%   76KB  16.1MB/s   00:00
+      207743_04_03_sat.jpg               100%   77KB  27.1MB/s   00:00
+      207743_04_02_sat.jpg               100%   70KB  29.4MB/s   00:00
 
 #. Log in to DPU using ``root`` user
 
@@ -177,17 +173,17 @@ Run inference on DPU :tutorial-machine:`EGSE Host`
        Input tensors dtype: ['xint8']
        Output tensors dtype: ['xint8']
 
-       Processing image /tmp/inference-input/140299_04_03_sat.jpg
+       Processing image /tmp/inference-input/21717_04_02_sat.jpg
                Infering...
        /dpu-inference/model_runner.py:24: RuntimeWarning: overflow encountered in exp
        return np.exp(image) / np.sum(np.exp(image), axis=classes_axis, keepdims=True)
        /dpu-inference/model_runner.py:24: RuntimeWarning: invalid value encountered in divide
        return np.exp(image) / np.sum(np.exp(image), axis=classes_axis, keepdims=True)
                Rendering...
-       Processing image /tmp/inference-input/115444_02_02_sat.jpg
+       Processing image /tmp/inference-input/207743_04_03_sat.jpg
                Infering...
                Rendering...
-       Processing image /tmp/inference-input/21023_01_04_sat.jpg
+       Processing image /tmp/inference-input/207743_04_02_sat.jpg
                Infering...
                Rendering...
 
@@ -198,12 +194,12 @@ Run inference on DPU :tutorial-machine:`EGSE Host`
    .. code-block:: shell-session
 
       root@leopard-dpu:~# ls -l /tmp/inference-output/
-      -rw-r--r--    1 root     root         94206 Jan 23 16:04 115444_02_02_sat.jpg
-      -rw-r--r--    1 root     root       7340160 Jan 23 16:04 115444_02_02_sat.npy
-      -rw-r--r--    1 root     root         77093 Jan 23 16:04 140299_04_03_sat.jpg
-      -rw-r--r--    1 root     root       7340160 Jan 23 16:04 140299_04_03_sat.npy
-      -rw-r--r--    1 root     root         60820 Jan 23 16:04 21023_01_04_sat.jpg
-      -rw-r--r--    1 root     root       7340160 Jan 23 16:04 21023_01_04_sat.npy
+      -rw-r--r--    1 root     root         73077 Jan 30 08:17 207743_04_02_sat.jpg
+      -rw-r--r--    1 root     root       7340160 Jan 30 08:17 207743_04_02_sat.npy
+      -rw-r--r--    1 root     root         78363 Jan 30 08:17 207743_04_03_sat.jpg
+      -rw-r--r--    1 root     root       7340160 Jan 30 08:17 207743_04_03_sat.npy
+      -rw-r--r--    1 root     root         77827 Jan 30 08:17 21717_04_02_sat.jpg
+      -rw-r--r--    1 root     root       7340160 Jan 30 08:17 21717_04_02_sat.npy
 
    Script has produced ``.npy`` and ``.jpg`` files for each input image.
 
@@ -211,31 +207,31 @@ Run inference on DPU :tutorial-machine:`EGSE Host`
 
    .. code-block:: shell-session
 
-      customer@egse-host:~$ scp -r pn1:/tmp/inference-output ~/inference-output
+      customer@egse-host:~$ scp -r pn1:/tmp/inference-output/* ~/inference-output/
       Warning: Permanently added '172.20.200.100' (ED25519) to the list of known hosts.
-      21023_01_04_sat.jpg                      100%   59KB  21.6MB/s   00:00
-      21023_01_04_sat.npy                      100% 7168KB  67.6MB/s   00:00
-      115444_02_02_sat.jpg                     100%   92KB  36.8MB/s   00:00
-      115444_02_02_sat.npy                     100% 7168KB  68.0MB/s   00:00
-      140299_04_03_sat.jpg                     100%   75KB  36.9MB/s   00:00
-      140299_04_03_sat.npy                     100% 7168KB  67.8MB/s   00:00
+      207743_04_02_sat.jpg                         100%   71KB  16.2MB/s   00:00
+      207743_04_02_sat.npy                         100% 7168KB  53.3MB/s   00:00
+      207743_04_03_sat.jpg                         100%   77KB  32.7MB/s   00:00
+      207743_04_03_sat.npy                         100% 7168KB  53.4MB/s   00:00
+      21717_04_02_sat.jpg                          100%   76KB  32.9MB/s   00:00
+      21717_04_02_sat.npy                          100% 7168KB  53.4MB/s   00:00
 
 #. Download inference results from EGSE Host and review rendered images.
 
-   .. figure:: dpu_inference/results/21023_01_04_sat.jpg
+   .. figure:: dpu_inference/results/21717_04_02_sat.jpg
       :width: 300px
 
-      21023_01_04_sat.jpg
+      21717_04_02_sat.jpg
 
-   .. figure:: dpu_inference/results/115444_02_02_sat.jpg
+   .. figure:: dpu_inference/results/207743_04_02_sat.jpg
       :width: 300px
 
-      115444_02_02_sat.jpg
+      207743_04_02_sat.jpg
 
-   .. figure:: dpu_inference/results/140299_04_03_sat.jpg
+   .. figure:: dpu_inference/results/207743_04_03_sat.jpg
       :width: 300px
 
-      140299_04_03_sat.jpg
+      207743_04_03_sat.jpg
 
 Summary
 -------

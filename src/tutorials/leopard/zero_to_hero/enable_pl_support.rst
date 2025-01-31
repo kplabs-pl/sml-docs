@@ -157,7 +157,7 @@ Add double UART bitstream to Linux distribution :tutorial-machine:`Yocto`
 
    .. code-block:: shell-session
 
-        machine:~/leopard-linux-1$ recipetool newappend ./sources/meta-local/ dpu-leopard
+        machine:~/leopard-linux-1/build$ recipetool newappend ../sources/meta-local/ dpu-leopard
         NOTE: Starting bitbake server...
         WARNING: The ZynqMP pmu-rom is not enabled, qemu may not be able to emulate a ZynqMP system without it. To enable this you must add 'xilinx' to the LICENSE_FLAGS_ACCEPTED to indicate you accept the software license.
         Loading cache: 100% |#############################################################################################################################################################################| Time: 0:00:00
@@ -182,17 +182,17 @@ Add double UART bitstream to Linux distribution :tutorial-machine:`Yocto`
 
    .. code-block:: shell-session
 
-       machine:~/leopard-linux-1$ bitbake leopard-all
+       machine:~/leopard-linux-1/build$ bitbake leopard-all
 
 #. Prepare build artifacts for transfer to EGSE Host
 
    .. code-block:: shell-session
 
-        machine:~/leopard-linux-1$ mkdir -p ./egse-host-transfer
-        machine:~/leopard-linux-1$ cp build/tmp/deploy/images/leopard-dpu/bootbins/boot-common.bin ./egse-host-transfer
-        machine:~/leopard-linux-1$ cp build/tmp/deploy/images/leopard-dpu/system.dtb  ./egse-host-transfer
-        machine:~/leopard-linux-1$ cp build/tmp/deploy/images/leopard-dpu/dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot ./egse-host-transfer
-        machine:~/leopard-linux-1$ cp build/tmp/deploy/images/leopard-dpu/Image ./egse-host-transfer
+        machine:~/leopard-linux-1/build$ mkdir -p ../egse-host-transfer
+        machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/bootbins/boot-common.bin ../egse-host-transfer
+        machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/system.dtb ../egse-host-transfer
+        machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot ../egse-host-transfer
+        machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/Image ../egse-host-transfer
 
 
 #. Transfer content of :file:`egse-host-transfer` directory to EGSE Host and place it in :file:`/var/tftp/tutorial` directory
@@ -226,14 +226,14 @@ Loading double UART bitstream on DPU :tutorial-machine:`EGSE Host`
 
    .. code-block:: shell-session
 
-       customer@egse-367mwbwfg5wy2:~$ sml power on
+       customer@egse-host:~$ sml power on
        Powering on...Success
 
 #. Power on DPU Processing Node 1
 
    .. code-block:: shell-session
 
-       customer@egse-367mwbwfg5wy2:~$ sml pn1 power on
+       customer@egse-host:~$ sml pn1 power on --nor-memory nor1
        Powering on processing node Node1...Success
 
 #. Write boot firmware to DPU boot flash
@@ -249,7 +249,7 @@ Loading double UART bitstream on DPU :tutorial-machine:`EGSE Host`
 
    .. code-block:: shell-session
 
-       customer@egse-host:~$ sml pn1 power on --nor-image nor1
+       customer@egse-host:~$ sml pn1 power on --nor-memory nor1
        Powering on processing node Node1...Success
 
 #. DPU boot process should be visible in ``minicom`` terminal

@@ -96,7 +96,7 @@ Create project :tutorial-machine:`Vivado`
 
 5. In Sources view select :menuselection:`Design Sources --> top_bd` and click :menuselection:`Create HDL Wrapper` in context menu. Use :menuselection:`Let Vivado manage wrapper and auto-update` option.
 6. Click 'Generate Bitstream' in Flow Navigator to finalize design and generate outputs.
-7. Export hardware by clicking :menuselection:`File --> Export --> Export Hardware`. Don't include bitstream. Save exported ``.xsa`` file in known place for next tutorials.
+7. Export hardware by clicking :menuselection:`File --> Export --> Export Hardware`. Don't include bitstream. Save exported file as :file:`leopard-minimal.xsa` in known place for next tutorials.
 
 Summary
 -------
