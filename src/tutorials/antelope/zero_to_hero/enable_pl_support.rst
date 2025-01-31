@@ -32,6 +32,21 @@ Prerequisites
 * Base Yocto project for Antelope DPU from :doc:`/tutorials/antelope/zero_to_hero/minimalist_linux_distro`
 * EGSE Host prepared to boot Antelope DPU from network as described in :doc:`/tutorials/antelope/zero_to_hero/minimalist_linux_distro`
 
+Provided outputs
+----------------
+Following files (:ref:`tutorial_files`) are associated with this tutorial:
+
+* :file:`Antelope/Zero-to-hero/03 Enable programmable logic support/antelope-minimalistic-with-pl.tcl` - Vivado preset for Antelope with enabled PL support
+* :file:`Antelope/Zero-to-hero/03 Enable programmable logic support/antelope-minimalistic-pl-base.xsa` - Base XSA file with enabled PL support
+* :file:`Antelope/Zero-to-hero/03 Enable programmable logic support/antelope-double-uart.xsa` - Double UART XSA file
+* :file:`Antelope/Zero-to-hero/03 Enable programmable logic support/boot-firmware.bin` - Boot firmware for Antelope
+* :file:`Antelope/Zero-to-hero/03 Enable programmable logic support/boot-pins.bin` - Boot script for Antelope
+* :file:`Antelope/Zero-to-hero/03 Enable programmable logic support/antelope-minimal-image-antelope.rootfs.cpio.gz.u-boot` - Root filesystem for Antelope
+* :file:`Antelope/Zero-to-hero/03 Enable programmable logic support/Image` - Linux kernel
+* :file:`Antelope/Zero-to-hero/03 Enable programmable logic support/system.dtb` - Device tree
+
+Use these files if you want to skip building bitstream or Yocto distribution by yourself.
+
 Enable programmable logic support :tutorial-machine:`Vivado`
 ------------------------------------------------------------
 #. Open Antelope DPU project from :doc:`/tutorials/antelope/zero_to_hero/minimalist_vivado_project` in Vivado
@@ -144,11 +159,11 @@ Add double UART bitstream to Linux distribution :tutorial-machine:`Yocto`
         SRC_URI += "file://antelope-double-uart.xsa"
         BITSTREAM_HDF_FILE = "${WORKDIR}/antelope-double-uart.xsa"
 
-3. Create append for ``core-image-minimal`` recipe
+3. Create append for ``antelope-minimal-image`` recipe
 
    .. code-block:: shell-session
 
-        machine:~/antelope-linux-1$ recipetool newappend ./sources/meta-local/ core-image-minimal
+        machine:~/antelope-linux-1/build$ recipetool newappend ../sources/meta-local/ antelope-minimal-image
         NOTE: Starting bitbake server...
         WARNING: The ZynqMP pmu-rom is not enabled, qemu may not be able to emulate a ZynqMP system without it. To enable this you must add 'xilinx' to the LICENSE_FLAGS_ACCEPTED to indicate you accept the software license.
         Loading cache: 100% |#############################################################################################################################################################################| Time: 0:00:00
@@ -158,8 +173,8 @@ Add double UART bitstream to Linux distribution :tutorial-machine:`Yocto`
         WARNING: No bb files in default matched BBFILE_PATTERN_meta-kp-classes '^~/antelope-linux-1/sources/meta-kp-classes/meta-kp-classes/'
 
         Summary: There was 1 WARNING message.
-        ~/antelope-linux-1/sources/meta-local/recipes-core/images/core-image-minimal.bbappend created
-4. Add new packages into Linux image by editing :file:`sources/meta-local/recipes-core/images/core-image-minimal.bbappend`
+        ~/antelope-linux-1/sources/meta-local/recipes-antelope/images/antelope-minimal-image.bbappend created
+4. Add new packages into Linux image by editing :file:`sources/meta-local/recipes-antelope/images/antelope-minimal-image.bbappend`
 
    .. code-block:: bitbake
 
@@ -172,18 +187,18 @@ Add double UART bitstream to Linux distribution :tutorial-machine:`Yocto`
 
    .. code-block:: shell-session
 
-       machine:~/antelope-linux-1$ bitbake core-image-minimal bootbin-firmware boot-script-pins virtual/kernel device-tree
+       machine:~/antelope-linux-1/build$ bitbake antelope-all
 
 6. Prepare build artifacts for transfer to EGSE Host
 
    .. code-block:: shell-session
 
-        machine:~/antelope-linux-1$ mkdir -p ./egse-host-transfer
-        machine:~/antelope-linux-1$ cp build/tmp/deploy/images/antelope/bootbins/boot-firmware.bin ./egse-host-transfer/
-        machine:~/antelope-linux-1$ cp build/tmp/deploy/images/antelope/u-boot-scripts/boot-script-pins/boot-pins.scr ./egse-host-transfer/
-        machine:~/antelope-linux-1$ cp build/tmp/deploy/images/antelope/system.dtb ./egse-host-transfer/
-        machine:~/antelope-linux-1$ cp build/tmp/deploy/images/antelope/Image ./egse-host-transfer/
-        machine:~/antelope-linux-1$ cp build/tmp/deploy/images/antelope/core-image-minimal-antelope.rootfs.cpio.gz.u-boot ./egse-host-transfer/
+        machine:~/antelope-linux-1/build$ mkdir -p ../egse-host-transfer
+        machine:~/antelope-linux-1/build$ cp build/tmp/deploy/images/antelope/bootbins/boot-firmware.bin ../egse-host-transfer
+        machine:~/antelope-linux-1/build$ cp build/tmp/deploy/images/antelope/u-boot-scripts/boot-script-pins/boot-pins.scr ../egse-host-transfer
+        machine:~/antelope-linux-1/build$ cp build/tmp/deploy/images/antelope/system.dtb ../egse-host-transfer
+        machine:~/antelope-linux-1/build$ cp build/tmp/deploy/images/antelope/Image ../egse-host-transfer
+        machine:~/antelope-linux-1/build$ cp build/tmp/deploy/images/antelope/antelope-minimal-image-antelope.rootfs.cpio.gz.u-boot ../egse-host-transfer
 
 7. Transfer content of :file:`egse-host-transfer` directory to EGSE Host and place it in :file:`/var/tftp/tutorial` directory
 
@@ -199,10 +214,10 @@ Loading double UART bitstream on DPU :tutorial-machine:`EGSE Host`
        -rw-rw-r-- 1 customer customer  22M Jul 10 11:14 Image
        -rw-rw-r-- 1 customer customer 1.6M Jul 10 11:14 boot-firmware.bin
        -rw-rw-r-- 1 customer customer 2.8K Jul 10 11:14 boot-pins.scr
-       -rw-rw-r-- 1 customer customer  16M Jul 10 11:14 core-image-minimal-antelope.rootfs.cpio.gz.u-boot
+       -rw-rw-r-- 1 customer customer  16M Jul 10 11:14 antelope-minimal-image-antelope.rootfs.cpio.gz.u-boot
        -rw-rw-r-- 1 customer customer  37K Jul 10 11:14 system.dtb
 
-   .. note:: Exact file size might differ a bit but they should be in the same range (for example ``core-image-minimal-antelope.rootfs.cpio.gz.u-boot`` shall be about ~16MB)
+   .. note:: Exact file size might differ a bit but they should be in the same range (for example ``antelope-minimal-image-antelope.rootfs.cpio.gz.u-boot`` shall be about ~16MB)
 
 2. Power on Antelope
 

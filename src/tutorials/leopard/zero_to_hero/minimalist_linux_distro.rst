@@ -30,6 +30,17 @@ Prerequisites
   * Yocto requirements (https://docs.yoctoproject.org/ref-manual/system-requirements.html#required-packages-for-the-build-host)
 * At least 120GB free space for Yocto build
 
+Provided outputs
+----------------
+Following files (:ref:`tutorial_files`) are associated with this tutorial:
+
+* :file:`Leopard/Zero-to-hero/02 Minimalist Linux distribution/boot-common.bin` - Boot firmware for Leopard
+* :file:`Leopard/Zero-to-hero/02 Minimalist Linux distribution/dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot` - Root filesystem for Leopard
+* :file:`Leopard/Zero-to-hero/02 Minimalist Linux distribution/Image` - Linux kernel
+* :file:`Leopard/Zero-to-hero/02 Minimalist Linux distribution/system.dtb` - Device tree
+
+Use these files if you want to skip building Yocto distribution by yourself.
+
 Create project :tutorial-machine:`Yocto`
 ----------------------------------------
 #. Create new directory for Yocto project and navigate to it.
@@ -191,15 +202,15 @@ Configure project :tutorial-machine:`Yocto`
 
        machine:~/leopard-linux-1/build$ recipetool newappend --wildcard-version ../sources/meta-local/ external-hdf
 
-#. Create directory :file:`~/leopard-linux-1/sources/meta-local/recipes-bsp/hdf/external-hdf` and copy :file:`top_bd_wrapper.xsa` to it.
-#. Edit recipe append :file:`~/leopard-linux-1/sources/meta-local/recipes-bsp/hdf/external-hdf.bb` and set path XSA file
+#. Create directory :file:`~/leopard-linux-1/sources/meta-local/recipes-bsp/hdf/external-hdf` and copy :file:`minimal-leopard.xsa` to it.
+#. Edit recipe append :file:`~/leopard-linux-1/sources/meta-local/recipes-bsp/hdf/external-hdf_%.bbappend` and set path XSA file
 
    .. code-block:: bitbake
 
        FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
        HDF_BASE = "file://"
-       HDF_PATH = "top_bd_wrapper.xsa"
+       HDF_PATH = "leopard-minimal.xsa"
 
 
 Build project :tutorial-machine:`Yocto`
@@ -217,11 +228,11 @@ Build project :tutorial-machine:`Yocto`
 
    .. code-block:: shell-session
 
-        machine:~/leopard-linux-1$ mkdir -p ./egse-host-transfer
-        machine:~/leopard-linux-1$ cp build/tmp/deploy/images/leopard-dpu/bootbins/boot-common.bin ./egse-host-transfer
-        machine:~/leopard-linux-1$ cp build/tmp/deploy/images/leopard-dpu/system.dtb  ./egse-host-transfer
-        machine:~/leopard-linux-1$ cp build/tmp/deploy/images/leopard-dpu/dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot ./egse-host-transfer
-        machine:~/leopard-linux-1$ cp build/tmp/deploy/images/leopard-dpu/Image ./egse-host-transfer
+        machine:~/leopard-linux-1/build$ mkdir -p ../build/egse-host-transfer/
+        machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/bootbins/boot-common.bin ../build/egse-host-transfer/
+        machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/system.dtb ../build/egse-host-transfer/
+        machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot ../build/egse-host-transfer/
+        machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/Image ../build/egse-host-transfer/
 
 #. Transfer content of :file:`~/leopard-linux-1/egse-host-transfer` directory to EGSE Host and place it in :file:`/var/tftp/tutorial` directory
 
@@ -272,7 +283,7 @@ Booting Linux on DPU :tutorial-machine:`EGSE Host`
 
    .. code-block:: shell-session
 
-       customer@egse-367mwbwfg5wy2:~$ sml power on
+       customer@egse-host:~$ sml power on
        Powering on...Success
 
 #. Write boot firmware to DPU boot flash
@@ -305,10 +316,12 @@ Booting Linux on DPU :tutorial-machine:`EGSE Host`
 
    .. code-block:: shell-session
 
-       customer@egse-host:~$ sml pn1 power on --nor-image nor1
+       customer@egse-host:~$ sml pn1 power on --nor-memory nor1
        Powering on processing node Node1...Success
 
 #. DPU boot process should be visible in ``minicom`` terminal
+
+   .. note:: It might take ~20 seconds to get first line of output
 
    .. include:: ./minimalist_linux_distro/boot.txt
 

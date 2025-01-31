@@ -3,7 +3,7 @@ Onboard inference
 
 Goal
 ----
-This tutorial shows how to run ground segementation on Leopard using previously prepared model and Deep learning Processor Unit accelerator.
+This tutorial shows how to run ground segementation on Antelope using previously prepared model and Deep learning Processor Unit accelerator.
 
 A bit of background
 -------------------
@@ -20,20 +20,21 @@ Provided outputs
 ----------------
 Following files (:ref:`tutorial_files`) are associated with this tutorial:
 
-* :file:`Leopard/Zero-to-hero/05 Onboard inference/boot-common.bin` - Boot firmware for Leopard
-* :file:`Leopard/Zero-to-hero/05 Onboard inference/dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot` - Root filesystem for Leopard
-* :file:`Leopard/Zero-to-hero/05 Onboard inference/Image` - Linux kernel
-* :file:`Leopard/Zero-to-hero/05 Onboard inference/system.dtb` - Device tree
+* :file:`Antelope/Zero-to-hero/05 Onboard inference/boot-firmware.bin` - Boot firmware for Antelope
+* :file:`Antelope/Zero-to-hero/05 Onboard inference/boot-pins.bin` - Boot script for Antelope
+* :file:`Antelope/Zero-to-hero/05 Onboard inference/antelope-minimal-image-antelope.rootfs.cpio.gz.u-boot` - Root filesystem for Antelope
+* :file:`Antelope/Zero-to-hero/05 Onboard inference/Image` - Linux kernel
+* :file:`Antelope/Zero-to-hero/05 Onboard inference/system.dtb` - Device tree
 
 Use these files if you don't want to build Yocto distribution by yourself.
 
 
 Add inference tools to Yocto project :tutorial-machine:`Yocto`
 --------------------------------------------------------------
-#. Create directory :file:`~/leopard-linux-1/sources/meta-local/recipes-example/inference/inference/`
-#. Copy ``model_runner.py`` to :file:`~/leopard-linux-1/sources/meta-local/recipes-example/inference/inference/`
-#. Copy ``deep_globe_segmentation_unet_512_512.xmodel`` to :file:`~/leopard-linux-1/sources/meta-local/recipes-example/inference/inference/`
-#. Create new recipe :file:`~/leopard-linux-1/sources/meta-local/recipes-example/inference/inference.bb`
+#. Create directory :file:`~/antelope-linux-1/sources/meta-local/recipes-example/inference/inference/`
+#. Copy ``model_runner.py`` to :file:`~/antelope-linux-1/sources/meta-local/recipes-example/inference/inference/`
+#. Copy ``deep_globe_segmentation_unet_512_512.xmodel`` to :file:`~/antelope-linux-1/sources/meta-local/recipes-example/inference/inference/`
+#. Create new recipe :file:`~/antelope-linux-1/sources/meta-local/recipes-example/inference/inference.bb`
 
    .. code-block:: bitbake
 
@@ -58,14 +59,14 @@ Add inference tools to Yocto project :tutorial-machine:`Yocto`
 
       FILES:${PN} += "/dpu-inference/*"
 
-#. Add new packages into Linux image by editing :file:`~/leopard-linux-1/sources/meta-local/recipes-leopard/images/dpu-leopard.bbappend`
+#. Add new packages into Linux image by editing :file:`~/antelope-linux-1/sources/meta-local/recipes-antelope/images/antelope-minimal-image.bbappend`
 
    .. code-block:: bitbake
 
         IMAGE_INSTALL += "\
            fpga-manager-script \
            double-uart \
-           dpu \
+           antelope-dpu \
            vitis-ai-library \
            kernel-module-xlnx-dpu \
            inference \
@@ -75,17 +76,18 @@ Add inference tools to Yocto project :tutorial-machine:`Yocto`
 
    .. code-block:: shell-session
 
-       machine:~/leopard-linux-1/build$ bitbake leopard-all
+       machine:~/antelope-linux-1/build$ bitbake antelope-all
 
 #. Prepare build artifacts for transfer to EGSE Host
 
    .. code-block:: shell-session
 
-        machine:~/leopard-linux-1/build$ mkdir -p ../egse-host-transfer
-        machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/bootbins/boot-common.bin ../egse-host-transfer
-        machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/system.dtb  ../egse-host-transfer
-        machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot ../egse-host-transfer
-        machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/Image ../egse-host-transfer
+        machine:~/antelope-linux-1/build$ mkdir -p ../egse-host-transfer
+        machine:~/antelope-linux-1/build$ cp tmp/deploy/images/antelope/bootbins/boot-firmware.bin ../egse-host-transfer
+        machine:~/antelope-linux-1/build$ cp tmp/deploy/images/antelope/u-boot-scripts/boot-script-pins/boot-pins.scr ../egse-host-transfer
+        machine:~/antelope-linux-1/build$ cp tmp/deploy/images/antelope/system.dtb ../egse-host-transfer
+        machine:~/antelope-linux-1/build$ cp tmp/deploy/images/antelope/Image ../egse-host-transfer
+        machine:~/antelope-linux-1/build$ cp tmp/deploy/images/antelope/antelope-minimal-image-antelope.rootfs.cpio.gz.u-boot ../egse-host-transfer
 
 #. Transfer content of :file:`egse-host-transfer` directory to EGSE Host and place it in :file:`/var/tftp/tutorial` directory
 
@@ -98,11 +100,12 @@ Run inference on DPU :tutorial-machine:`EGSE Host`
    .. code-block:: shell-session
 
        customer@egse-host:~$ ls -lh /var/tftp/tutorial
-       total 134M
-       -rw-rw-r-- 1 customer customer  21M Jan 23 13:59 Image
-       -rw-rw-r-- 1 customer customer 1.6M Jan 23 13:59 boot-common.bin
-       -rw-rw-r-- 1 customer customer 121M Jan 23 13:59 dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot
-       -rw-rw-r-- 1 customer customer  39K Jan 23 13:59 system.dtb
+       total 128M
+       -rw-rw-r-- 1 customer customer  22M Jan 29 08:19 Image
+       -rw-rw-r-- 1 customer customer 114M Jan 29 08:20 antelope-minimal-image-antelope.rootfs.cpio.gz.u-boot
+       -rw-rw-r-- 1 customer customer 1.6M Jan 29 08:20 boot-firmware.bin
+       -rw-rw-r-- 1 customer customer 2.8K Jan 29 08:20 boot-pins.scr
+       -rw-rw-r-- 1 customer customer  37K Jan 29 08:20 system.dtb
 
        customer@egse-host:~$ ls -lh ~/inference-input
        total 225K
@@ -110,41 +113,47 @@ Run inference on DPU :tutorial-machine:`EGSE Host`
        -rw-rw-r-- 1 customer customer 77K Jan 30 07:58 207743_04_03_sat.jpg
        -rw-rw-r-- 1 customer customer 76K Jan 30 07:58 21717_04_02_sat.jpg
 
-   .. note:: Exact file size might differ a bit but they should be in the same range (for example ``dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot`` shall be about ~120MB)
+   .. note:: Exact file size might differ a bit but they should be in the same range (for example ``antelope-minimal-image-antelope.rootfs.cpio.gz.u-boot`` shall be about ~110MB)
 
    .. note:: You can choose different images to run inference on.
 
-#. Open second SSH connection to EGSE Host and start ``minicom`` to observe boot process
-
-   .. code-block:: shell-session
-
-       customer@egse-host:~$ minicom -D /dev/sml/leopard-pn1-uart
-
-   Leave this terminal open and get back to SSH connection used in previous steps.
-
-#. Power on Leopard
+#. Power on Antelope
 
    .. code-block:: shell-session
 
        customer@egse-host:~$ sml power on
        Powering on...Success
 
-#. Power on DPU Processing Node 1
+#. Power on DPU
 
    .. code-block:: shell-session
 
-       customer@egse-host:~$ sml pn1 power on --nor-memory nor1
-       Powering on processing node Node1...Success
+       customer@egse-host:~$ sml dpu power on
+       Powering on...Success
+
+#. Open second SSH connection to EGSE Host and start ``minicom`` to observe boot process
+
+   .. code-block:: shell-session
+
+       customer@egse-host:~$ minicom -D /dev/sml/antelope-dpu-uart
+
+   Leave this terminal open and get back to SSH connection used in previous steps.
+
+#. Release DPU from reset
+
+   .. code-block:: shell-session
+
+      customer@egse-host:~$ sml dpu reset off 7
 
    .. note:: Boot firmware is the same as in :doc:`enable_pl_support`.
 
 #. DPU boot process should be visible in ``minicom`` terminal
 
-#. Transfer images from EGSE Host to Processing Node
+#. Transfer images from EGSE Host to DPU
 
    .. code-block:: shell-session
 
-      customer@egse-host:~$ scp -r ~/inference-input pn1:/tmp/inference-input
+      customer@egse-host:~$ scp -r ~/inference-input dpu:/tmp/inference-input
       Warning: Permanently added '172.20.200.100' (ED25519) to the list of known hosts.
       21717_04_02_sat.jpg                100%   76KB  16.1MB/s   00:00
       207743_04_03_sat.jpg               100%   77KB  27.1MB/s   00:00
@@ -154,20 +163,20 @@ Run inference on DPU :tutorial-machine:`EGSE Host`
 
    .. code-block:: shell-session
 
-      leopard login: root
-      root@leopard:~#
+      antelope login: root
+      root@antelope:~#
 
 #. Load DPU bitstream
 
    .. code-block:: shell-session
 
-      root@leopard:~# fpgautil -o /lib/firmware/dpu/overlay.dtbo
+      root@antelope:~# fpgautil -o /lib/firmware/antelope-dpu/overlay.dtbo
 
 #. Run inference. Runner creates output directory automatically.
 
    .. code-block:: shell-session
 
-       root@leopard-dpu:~# python3 /dpu-inference/model_runner.py --input-dir /tmp/inference-input/ --output-dir /tmp/inference-output
+       root@antelope:~# python3 /dpu-inference/model_runner.py --input-dir /tmp/inference-input/ --output-dir /tmp/inference-output
        Input tensors shape: [[1, 512, 512, 3]]
        Output tensors shape: [[1, 512, 512, 7]]
        Input tensors dtype: ['xint8']
@@ -193,7 +202,7 @@ Run inference on DPU :tutorial-machine:`EGSE Host`
 
    .. code-block:: shell-session
 
-      root@leopard-dpu:~# ls -l /tmp/inference-output/
+      root@antelope:~# ls -l /tmp/inference-output/
       -rw-r--r--    1 root     root         73077 Jan 30 08:17 207743_04_02_sat.jpg
       -rw-r--r--    1 root     root       7340160 Jan 30 08:17 207743_04_02_sat.npy
       -rw-r--r--    1 root     root         78363 Jan 30 08:17 207743_04_03_sat.jpg
@@ -207,7 +216,7 @@ Run inference on DPU :tutorial-machine:`EGSE Host`
 
    .. code-block:: shell-session
 
-      customer@egse-host:~$ scp -r pn1:/tmp/inference-output/* ~/inference-output/
+      customer@egse-host:~$ scp -r dpu:/tmp/inference-output/* ~/inference-output/
       Warning: Permanently added '172.20.200.100' (ED25519) to the list of known hosts.
       207743_04_02_sat.jpg                         100%   71KB  16.2MB/s   00:00
       207743_04_02_sat.npy                         100% 7168KB  53.3MB/s   00:00

@@ -29,6 +29,14 @@ Prerequisites
 
   * This tutorial uses 2024.1 version. Other versions might also work correctly but it's possible that exact steps will be different.
 
+Provided outputs
+----------------
+Following files (:ref:`tutorial_files`) are associated with this tutorial:
+
+* :file:`Leopard/Zero-to-hero/01 Create minimalist Vivado project/leopard-minimal.xsa` - Vivado hardware definition file.
+
+Use these files if you want to skip tutorial.
+
 Create project :tutorial-machine:`Vivado`
 -----------------------------------------
 .. note:: Leopard User Manual describes all configuration values used in these steps.
@@ -88,7 +96,7 @@ Create project :tutorial-machine:`Vivado`
 
 5. In Sources view select :menuselection:`Design Sources --> top_bd` and click :menuselection:`Create HDL Wrapper` in context menu. Use :menuselection:`Let Vivado manage wrapper and auto-update` option.
 6. Click 'Generate Bitstream' in Flow Navigator to finalize design and generate outputs.
-7. Export hardware by clicking :menuselection:`File --> Export --> Export Hardware`. Don't include bitstream. Save exported ``.xsa`` file in known place for next tutorials.
+7. Export hardware by clicking :menuselection:`File --> Export --> Export Hardware`. Don't include bitstream. Save exported file as :file:`leopard-minimal.xsa` in known place for next tutorials.
 
 Summary
 -------

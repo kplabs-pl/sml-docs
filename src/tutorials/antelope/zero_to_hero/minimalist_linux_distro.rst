@@ -30,9 +30,22 @@ Prerequisites
   * Yocto requirements (https://docs.yoctoproject.org/ref-manual/system-requirements.html#required-packages-for-the-build-host)
 * At least 120GB free space for Yocto build
 
+Provided outputs
+----------------
+Following files (:ref:`tutorial_files`) are associated with this tutorial:
+
+* :file:`Antelope/Zero-to-hero/02 Minimalist Linux distribution/boot-firmware.bin` - Boot firmware for Antelope
+* :file:`Antelope/Zero-to-hero/02 Minimalist Linux distribution/boot-pins.bin` - Boot script for Antelope
+* :file:`Antelope/Zero-to-hero/02 Minimalist Linux distribution/antelope-minimal-image-antelope.rootfs.cpio.gz.u-boot` - Root filesystem for Antelope
+* :file:`Antelope/Zero-to-hero/02 Minimalist Linux distribution/Image` - Linux kernel
+* :file:`Antelope/Zero-to-hero/02 Minimalist Linux distribution/system.dtb` - Device tree
+
+Use these files if you want to skip building Yocto distribution by yourself.
+
+
 Create project :tutorial-machine:`Yocto`
 ----------------------------------------
-1. Create new directory for Yocto project and navigate to it.
+#. Create new directory for Yocto project and navigate to it.
 
    .. code-block:: shell-session
 
@@ -40,13 +53,13 @@ Create project :tutorial-machine:`Yocto`
        machine:~$ cd ~/antelope-linux-1
        machine:~/antelope-linux-1$
 
-2. Clone Poky layer from Yocto project
+#. Clone Poky layer from Yocto project
 
    .. code-block:: shell-session
 
        machine:~/antelope-linux-1$ git clone -b nanbield https://git.yoctoproject.org/poky sources/poky
 
-3. Create new build configuration
+#. Create new build configuration
 
    .. code-block:: shell-session
 
@@ -91,14 +104,14 @@ Create project :tutorial-machine:`Yocto`
 
 Add layers :tutorial-machine:`Yocto`
 ------------------------------------
-1. Clone Xilinx layers:
+#. Clone Xilinx layers:
 
    .. code-block:: shell-session
 
        machine:~/antelope-linux-1/build$ git clone -b nanbield https://github.com/Xilinx/meta-xilinx.git ../sources/meta-xilinx
        machine:~/antelope-linux-1/build$ git clone -b nanbield https://github.com/Xilinx/meta-xilinx-tools.git ../sources/meta-xilinx-tools
 
-2. Add set of required layers from Xilinx repositories:
+#. Add set of required layers from Xilinx repositories:
 
    .. code-block:: shell-session
 
@@ -116,29 +129,35 @@ Add layers :tutorial-machine:`Yocto`
 
         This is for informational purposes only and you can ignore it.
 
-3. Retrieve KP Labs-provided layers
-4. Add set of required layers from KP Labs repositories:
+#. Clone KP Labs layers
 
    .. code-block:: shell-session
 
-       machine:~/antelope-linux-1/build$ bitbake-layers add-layer ../sources/meta-kp-classes/
+       machine:~/antelope-linux-1/build$ git clone -b nanbield https://github.com/kplabs-pl/meta-kp-classes.git ../sources/meta-kp-classes
+       machine:~/antelope-linux-1/build$ git clone -b nanbield https://github.com/kplabs-pl/meta-kp-antelope.git ../sources/meta-kp-antelope
+
+#. Add set of required layers from KP Labs repositories:
+
+   .. code-block:: shell-session
+
+       machine:~/antelope-linux-1/build$ bitbake-layers add-layer ../sources/meta-kp-classes
        machine:~/antelope-linux-1/build$ bitbake-layers add-layer ../sources/meta-kp-antelope
 
 Create layer for customizations :tutorial-machine:`Yocto`
 ---------------------------------------------------------
-1. Create empty layer
+#. Create empty layer
 
    .. code-block:: shell-session
 
        machine:~/antelope-linux-1/build$ bitbake-layers create-layer ../sources/meta-local
 
-2. Add newly created layer to project
+#. Add newly created layer to project
 
    .. code-block:: shell-session
 
        machine:~/antelope-linux-1/build$ bitbake-layers add-layer ../sources/meta-local
 
-3. Verify set of layers enabled in project by opening :file:`~/antelope-linux-1/build/conf/bblayers.conf` and checking its contents:
+#. Verify set of layers enabled in project by opening :file:`~/antelope-linux-1/build/conf/bblayers.conf` and checking its contents:
 
    .. code-block:: bitbake
 
@@ -164,7 +183,7 @@ Create layer for customizations :tutorial-machine:`Yocto`
 
 Configure project :tutorial-machine:`Yocto`
 -------------------------------------------
-1. Edit :file:`~/antelope-linux-1/build/conf/local.conf` and add following lines at the beginning:
+#. Edit :file:`~/antelope-linux-1/build/conf/local.conf` and add following lines at the beginning:
 
    .. code-block:: bitbake
 
@@ -172,49 +191,49 @@ Configure project :tutorial-machine:`Yocto`
        DISTRO = "kplabs-dpu"
        INHERIT += "rm_work"
 
-2. Create recipe append to set XSA file
+#. Create recipe append to set XSA file
 
    .. code-block:: shell-session
 
        machine:~/antelope-linux-1/build$ recipetool newappend --wildcard-version ../sources/meta-local/ external-hdf
 
-3. Create directory :file:`~/antelope-linux-1/sources/meta-local/recipes-bsp/hdf/external-hdf` and copy :file:`top_bd_wrapper.xsa` to it.
-4. Edit recipe append :file:`~/antelope-linux-1/sources/meta-local/recipes-bsp/hdf/external-hdf_%.bbappend` and set path to XSA file
+#. Create directory :file:`~/antelope-linux-1/sources/meta-local/recipes-bsp/hdf/external-hdf` and copy :file:`antelope_minimal.xsa` to it.
+#. Edit recipe append :file:`~/antelope-linux-1/sources/meta-local/recipes-bsp/hdf/external-hdf_%.bbappend` and set path to XSA file
 
    .. code-block:: bitbake
 
        FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
        HDF_BASE = "file://"
-       HDF_PATH = "top_bd_wrapper.xsa"
+       HDF_PATH = "antelope_minimal.xsa"
 
 
 Build project :tutorial-machine:`Yocto`
 ---------------------------------------
-1. Build project artifacts:
+#. Build project artifacts:
 
    .. code-block:: shell-session
 
-       machine:~/antelope-linux-1/build$ bitbake core-image-minimal bootbin-firmware boot-script-pins virtual/kernel device-tree
+       machine:~/antelope-linux-1/build$ bitbake antelope-all
 
    .. warning:: First build might take a long time to complete. Be patient.
 
-2. Prepare build artifacts for transfer to EGSE Host
+#. Prepare build artifacts for transfer to EGSE Host
 
    .. code-block:: shell-session
 
-        machine:~/antelope-linux-1$ mkdir -p ./egse-host-transfer
-        machine:~/antelope-linux-1$ cp build/tmp/deploy/images/antelope/bootbins/boot-firmware.bin ./egse-host-transfer/
-        machine:~/antelope-linux-1$ cp build/tmp/deploy/images/antelope/u-boot-scripts/boot-script-pins/boot-pins.scr ./egse-host-transfer/
-        machine:~/antelope-linux-1$ cp build/tmp/deploy/images/antelope/system.dtb ./egse-host-transfer/
-        machine:~/antelope-linux-1$ cp build/tmp/deploy/images/antelope/Image ./egse-host-transfer/
-        machine:~/antelope-linux-1$ cp build/tmp/deploy/images/antelope/core-image-minimal-antelope.rootfs.cpio.gz.u-boot ./egse-host-transfer/
+        machine:~/antelope-linux-1/build$ mkdir -p ../egse-host-transfer
+        machine:~/antelope-linux-1/build$ cp tmp/deploy/images/antelope/bootbins/boot-firmware.bin ../build/egse-host-transfer/
+        machine:~/antelope-linux-1/build$ cp tmp/deploy/images/antelope/u-boot-scripts/boot-script-pins/boot-pins.scr ../build/egse-host-transfer/
+        machine:~/antelope-linux-1/build$ cp tmp/deploy/images/antelope/system.dtb ../build/egse-host-transfer/
+        machine:~/antelope-linux-1/build$ cp tmp/deploy/images/antelope/Image ../build/egse-host-transfer/
+        machine:~/antelope-linux-1/build$ cp tmp/deploy/images/antelope/antelope-minimal-image-antelope.rootfs.cpio.gz.u-boot ../build/egse-host-transfer/
 
-3. Transfer content of :file:`~/antelope-linux-1/egse-host-transfer` directory to EGSE Host and place it in :file:`/var/tftp/tutorial` directory
+#. Transfer content of :file:`~/antelope-linux-1/egse-host-transfer` directory to EGSE Host and place it in :file:`/var/tftp/tutorial` directory
 
 Booting Linux on DPU :tutorial-machine:`EGSE Host`
 --------------------------------------------------
-1. Verify that all necessary artifacts are present on EGSE Host:
+#. Verify that all necessary artifacts are present on EGSE Host:
 
    .. code-block:: shell-session
 
@@ -223,53 +242,53 @@ Booting Linux on DPU :tutorial-machine:`EGSE Host`
        -rw-rw-r-- 1 customer customer  22M Jul 10 08:38 Image
        -rw-rw-r-- 1 customer customer 1.6M Jul 10 08:35 boot-firmware.bin
        -rw-rw-r-- 1 customer customer 2.8K Jul 10 08:38 boot-pins.scr
-       -rw-rw-r-- 1 customer customer  16M Jul 10 08:39 core-image-minimal-antelope.rootfs.cpio.gz.u-boot
+       -rw-rw-r-- 1 customer customer  16M Jul 10 08:39 antelope-minimal-image-antelope.rootfs.cpio.gz.u-boot
        -rw-rw-r-- 1 customer customer  37K Jul 10 08:38 system.dtb
 
-   .. note:: Exact file size might differ a bit but they should be in the same range (for example ``core-image-minimal-antelope.rootfs.cpio.gz.u-boot`` shall be about ~20MB)
+   .. note:: Exact file size might differ a bit but they should be in the same range (for example ``antelope-minimal-image-antelope.rootfs.cpio.gz.u-boot`` shall be about ~15MB)
 
-2. Power on Antelope
+#. Power on Antelope
 
    .. code-block:: shell-session
 
-       customer@egse-367mwbwfg5wy2:~$ sml power on
+       customer@egse-host:~$ sml power on
        Powering on...Success
 
-3. Power on DPU
+#. Power on DPU
 
    .. code-block:: shell-session
 
-       customer@egse-367mwbwfg5wy2:~$ sml dpu power on
+       customer@egse-host:~$ sml dpu power on
        Powering on...Success
 
-4. Write boot firmware to DPU boot flash
+#. Write boot firmware to DPU boot flash
 
    .. code-block:: shell-session
 
-       customer@egse-367mwbwfg5wy2:~$ sml dpu boot-flash write 0 /var/tftp/tutorial/boot-firmware.bin
+       customer@egse-host:~$ sml dpu boot-flash write 0 /var/tftp/tutorial/boot-firmware.bin
        Uploading   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00 43.1 MB/s
        Erasing     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00 383.9 kB/s
        Programming ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00 13.1 kB/s
 
-5. Write U-Boot boot script to DPU boot flash
+#. Write U-Boot boot script to DPU boot flash
 
    .. code-block:: shell-session
 
-       customer@egse-367mwbwfg5wy2:~$ sml dpu boot-flash write 0x4E0000 /var/tftp/tutorial/boot-pins.scr
+       customer@egse-host:~$ sml dpu boot-flash write 0x4E0000 /var/tftp/tutorial/boot-pins.scr
        Uploading   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00 ?
        Erasing     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00 ?
-       Programming ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00 63.9 MB/s
+       Programming ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00 55.9 MB/s
 
-6. Prepare U-Boot script for booting from network by writing following content to :file:`/var/tftp/antelope-boot.cmd`
+#. Prepare U-Boot script for booting from network by writing following content to :file:`/var/tftp/antelope-boot.cmd`
 
    .. code-block:: bash
 
        dhcp ${kernel_addr_r} /tutorial/Image
-       dhcp ${ramdisk_addr_r} /tutorial/core-image-minimal-antelope.rootfs.cpio.gz.u-boot
+       dhcp ${ramdisk_addr_r} /tutorial/antelope-minimal-image-antelope.rootfs.cpio.gz.u-boot
        dhcp ${fdt_addr_r} /tutorial/system.dtb
        booti ${kernel_addr_r} ${ramdisk_addr_r} ${fdt_addr_r}
 
-7. Compile U-Boot script
+#. Compile U-Boot script
 
    .. code-block:: shell-session
 
@@ -277,13 +296,13 @@ Booting Linux on DPU :tutorial-machine:`EGSE Host`
        Image Name:
        Created:      Wed Jul 10 08:50:54 2024
        Image Type:   AArch64 U-Boot Script (uncompressed)
-       Data Size:    216 Bytes = 0.21 KiB = 0.00 MiB
+       Data Size:    216 Bytes = #.21 KiB = #.00 MiB
        Load Address: 00000000
        Entry Point:  00000000
        Contents:
-           Image 0: 208 Bytes = 0.20 KiB = 0.00 MiB
+           Image 0: 208 Bytes = #.20 KiB = #.00 MiB
 
-8. Open second SSH connection to EGSE Host and start ``minicom`` to observe boot process
+#. Open second SSH connection to EGSE Host and start ``minicom`` to observe boot process
 
    .. code-block:: shell-session
 
@@ -291,19 +310,19 @@ Booting Linux on DPU :tutorial-machine:`EGSE Host`
 
    Leave this terminal open and get back to SSH connection used in previous steps.
 
-9. Release DPU from reset
+#. Release DPU from reset
 
    .. code-block:: shell-session
 
       customer@egse-host:~$ sml dpu reset off 7
 
-10. DPU boot process should be visible in ``minicom`` terminal
+#. DPU boot process should be visible in ``minicom`` terminal
 
-    .. include:: ./minimalist_linux_distro/boot.txt
+   .. include:: ./minimalist_linux_distro/boot.txt
 
-11. Log in to DPU using ``root`` user
+#. Log in to DPU using ``root`` user
 
-    .. code-block:: shell-session
+   .. code-block:: shell-session
 
       antelope login: root
       root@antelope:~#

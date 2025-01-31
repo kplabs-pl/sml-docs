@@ -17,6 +17,19 @@ Prerequisites
 * Preset with Processing System configuration from :doc:`/tutorials/leopard/zero_to_hero/enable_pl_support`
 * Yocto project with Programmable Logic support from :doc:`/tutorials/leopard/zero_to_hero/enable_pl_support`
 
+Provided outputs
+----------------
+Following files (:ref:`tutorial_files`) are associated with this tutorial:
+
+* :file:`Leopard/Zero-to-hero/04 Deep learning Processor Unit/arch.json` - DPU fingerprint
+* :file:`Leopard/Zero-to-hero/04 Deep learning Processor Unit/leopard-dpu-bd.xsa` - DPU IP bitstream
+* :file:`Leopard/Zero-to-hero/04 Deep learning Processor Unit/boot-common.bin` - Boot firmware for Leopard
+* :file:`Leopard/Zero-to-hero/04 Deep learning Processor Unit/dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot` - Root filesystem for Leopard
+* :file:`Leopard/Zero-to-hero/04 Deep learning Processor Unit/Image` - Linux kernel
+* :file:`Leopard/Zero-to-hero/04 Deep learning Processor Unit/system.dtb` - Device tree
+
+Use these files if you want to skip building bitstream or Yocto distribution by yourself.
+
 Download Deep-learning Processor Unit repository :tutorial-machine:`Vivado`
 ---------------------------------------------------------------------------
 #. On machine with Vivado create :file:`dpu-ip-repo` directory.
@@ -217,30 +230,28 @@ Add Deep-learning Processor Unit bitstream to Linux image :tutorial-machine:`Yoc
    .. code-block:: bitbake
 
         IMAGE_INSTALL += "\
-            fpga-manager-script \
-            double-uart \
-            dpu \
-            vart \
-            xir \
-            vitis-ai-library \
-            kernel-module-xlnx-dpu \
+           fpga-manager-script \
+           double-uart \
+           dpu \
+           vitis-ai-library \
+           kernel-module-xlnx-dpu \
         "
 
 #. Build firmware and image
 
    .. code-block:: shell-session
 
-       machine:~/leopard-linux-1$ bitbake leopard-all
+       machine:~/leopard-linux-1/build$ bitbake leopard-all
 
 #. Prepare build artifacts for transfer to EGSE Host
 
    .. code-block:: shell-session
 
-        machine:~/leopard-linux-1$ mkdir -p ./egse-host-transfer
-        machine:~/leopard-linux-1$ cp build/tmp/deploy/images/leopard-dpu/bootbins/boot-common.bin ./egse-host-transfer
-        machine:~/leopard-linux-1$ cp build/tmp/deploy/images/leopard-dpu/system.dtb  ./egse-host-transfer
-        machine:~/leopard-linux-1$ cp build/tmp/deploy/images/leopard-dpu/dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot ./egse-host-transfer
-        machine:~/leopard-linux-1$ cp build/tmp/deploy/images/leopard-dpu/Image ./egse-host-transfer
+        machine:~/leopard-linux-1/build$ mkdir -p ../egse-host-transfer
+        machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/bootbins/boot-common.bin ../egse-host-transfer
+        machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/system.dtb ../egse-host-transfer
+        machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot ../egse-host-transfer
+        machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/Image ../egse-host-transfer
 
 #. Transfer content of :file:`egse-host-transfer` directory to EGSE Host and place it in :file:`/var/tftp/tutorial` directory
 
@@ -258,7 +269,7 @@ Run model on Deep-learning Processor Unit :tutorial-machine:`EGSE Host`
        -rw-rw-r-- 1 customer customer  93M Jan 23 09:37 dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot
        -rw-rw-r-- 1 customer customer  39K Jan 23 09:37 system.dtb
 
-   .. note:: Exact file size might differ a bit but they should be in the same range (for example ``core-image-minimal-leopard.rootfs.cpio.gz.u-boot`` shall be about ~100MB)
+   .. note:: Exact file size might differ a bit but they should be in the same range (for example ``dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot`` shall be about ~100MB)
 
 
 #. Open second SSH connection to EGSE Host and start ``minicom`` to observe boot process
@@ -273,15 +284,17 @@ Run model on Deep-learning Processor Unit :tutorial-machine:`EGSE Host`
 
    .. code-block:: shell-session
 
-       customer@egse-367mwbwfg5wy2:~$ sml power on
+       customer@egse-host:~$ sml power on
        Powering on...Success
 
 #. Power on DPU Processing Node 1
 
    .. code-block:: shell-session
 
-       customer@egse-367mwbwfg5wy2:~$ sml pn1 power on --nor-memory nor1
+       customer@egse-host:~$ sml pn1 power on --nor-memory nor1
        Powering on processing node Node1...Success
+
+   .. note:: Boot firmware is the same as in :doc:`enable_pl_support`.
 
 #. DPU boot process should be visible in ``minicom`` terminal
 
@@ -329,7 +342,7 @@ Run model on Deep-learning Processor Unit :tutorial-machine:`EGSE Host`
       }
 
 
-#. Follow :doc:`/tutorials/ml_deployment/index` tutorials to train, compile and deploy model to Deep-learning Processor Unit.
+#. Follow :doc:`/tutorials/ml_deployment/index` tutorials to train and compile for Deep-learning Processor Unit. Go to :doc:`dpu_inference` to see how to run inference on DPU.
 
 Summary
 -------
