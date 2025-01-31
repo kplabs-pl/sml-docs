@@ -8,3 +8,4 @@ Zero to hero
     minimalist_linux_distro
     enable_pl_support
     dpu
+    dpu_inference

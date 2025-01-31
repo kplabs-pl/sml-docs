@@ -78,7 +78,7 @@
    DHCP client bound to address 172.20.200.100 (48 ms)
    Using ethernet@ff0e0000 device
    TFTP from server 172.20.200.1; our IP address is 172.20.200.100
-   Filename '/tutorial/core-image-minimal-antelope.rootfs.cpio.gz.u-boot'.
+   Filename '/tutorial/antelope-minimal-image-antelope.rootfs.cpio.gz.u-boot'.
    Load address: 0x2100000
    Loading: #################################################################
    ...
@@ -96,7 +96,7 @@
    done
    Bytes transferred = 37194 (914a hex)
    ## Loading init Ramdisk from Legacy Image at 02100000 ...
-   Image Name:   core-image-minimal-antelope.root
+   Image Name:   antelope-minimal-image-antelope.
    Created:      2011-04-05  23:00:00 UTC
    Image Type:   AArch64 Linux RAMDisk Image (uncompressed)
    Data Size:    16286784 Bytes = 15.5 MiB
