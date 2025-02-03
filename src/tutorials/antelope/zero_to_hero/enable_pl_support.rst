@@ -116,7 +116,7 @@ Create double UART bitstream :tutorial-machine:`Vivado`
    * ``saxihpc1_fpd_aclk`` to ``pl0_clk``
    * ``saxi_lpd_aclk`` to ``pl0_clk``
 
-6. Place two AXI Uartlite IPs on block design
+6. Place two ``AXI Uartlite`` IPs on block design
 7. Cross-connect UARTs by connecting ``axu_uartlite1`` TX to ``axu_uartlite0`` RX and vice versa.
 8. Click ``Run connection automation`` and let Vivado instantiate necessary interconnects and resets.
 9. Add ``Concat`` IP block
