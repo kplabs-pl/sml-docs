@@ -10,7 +10,7 @@ In this tutorial you will
 A bit of background
 -------------------
 
-Deep-learning Processor Unit is an IP Core provided by AMD that accelerates deep-learning inference on Xilinx FPGAs. It's part of Vitis AI library and facilities running models created with TensorFlow or PyTorch on FPGA. Integration of Deep-learning Processor Unit into Linux distribution follows similar steps as integration of other IP blocks (like double UART from :doc:`/tutorials/leopard/zero_to_hero/enable_pl_support`).
+Deep-learning Processor Unit is an IP Core provided by AMD that accelerates deep-learning inference on Xilinx FPGA devices. It's part of Vitis AI library and facilities running models created with TensorFlow or PyTorch on FPGA. Integration of Deep-learning Processor Unit into Linux distribution follows similar steps as integration of other IP blocks (like double UART from :doc:`/tutorials/leopard/zero_to_hero/enable_pl_support`).
 
 Prerequisites
 -------------
@@ -81,10 +81,10 @@ Create bitstream with Deep-learning Processor Unit :tutorial-machine:`Vivado`
    1. In Clocking Options, set :menuselection:`Primitve` to "Auto"
    2. On Output Clocks:
 
-      * Set :menuselection:`Port Name` of 'clk_out1' to 'clk_2x_dpu'
+      * Set :menuselection:`Port Name` of ``clk_out1`` to ``clk_2x_dpu``
       * Set :menuselection:`clk_out1` to '200.000 MHz'
       * Enable :menuselection:`clk_out2`
-      * Set :menuselection:`Port Name` of 'clk_out2' to 'clk_dpu'
+      * Set :menuselection:`Port Name` of ``clk_out2`` to ``clk_dpu``
       * Set :menuselection:`clk_out2` to '100.000 MHz'
       * Enable :menuselection:`Matched Routing` for both clocks
       * Enable :menuselection:`reset` input
@@ -101,7 +101,7 @@ Create bitstream with Deep-learning Processor Unit :tutorial-machine:`Vivado`
    1. Connect ``slowest_sync_clk`` to ``clk_2x_dpu`` output port of Clocking Wizard IP block.
    2. Connect ``ext_reset_in`` to ``peripheral_aresetn[0:0]`` output port of :menuselection:`rst_gen_pl_clk0` IP block.
 
-#. Add another "Processor System Reset" IP block to block design. In Block properties name it rst_gen_dpu_clk.
+#. Add another "Processor System Reset" IP block to block design. In Block properties name it ``rst_gen_dpu_clk``.
 #. Connect :menuselection:`rst_gen_dpu_clk` IP block inputs:
 
    1. Connect ``slowest_sync_clk`` to ``clk_dpu`` output port of Clocking Wizard IP block.

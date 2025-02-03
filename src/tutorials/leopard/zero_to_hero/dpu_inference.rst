@@ -3,7 +3,7 @@ Onboard inference
 
 Goal
 ----
-This tutorial shows how to run ground segementation on Leopard using previously prepared model and Deep learning Processor Unit accelerator.
+This tutorial shows how to run ground segmentation on Leopard using previously prepared model and Deep learning Processor Unit accelerator.
 
 A bit of background
 -------------------
@@ -235,4 +235,4 @@ Run inference on DPU :tutorial-machine:`EGSE Host`
 
 Summary
 -------
-In this tutorial you've put together all pieces created in Zero to hero tutorial series. Using DPU accelerator and small Python script you've managed to run ground segementation on series of images. That involved trained, quantized and compiled model for specific architecture, Linux distribution with DPU support and Python script to run inference. You can use inference results to generate images or other processing.
+In this tutorial you've put together all pieces created in Zero to hero tutorial series. Using DPU accelerator and small Python script you've managed to run ground segmentation on series of images. That involved trained, quantized and compiled model for specific architecture, Linux distribution with DPU support and Python script to run inference. You can use inference results to generate images or other processing.

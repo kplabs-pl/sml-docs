@@ -6,7 +6,7 @@ VPN
 SML
 OpenVPN
 Smart Mission Lab
-DPU
+DPUs?
 SPI
 EGSE
 Vivado Lab Edition
@@ -29,8 +29,8 @@ GEM
 DDR
 DRAM
 ECC
-[bB]itstream
-UART
+[bB]itstreams?
+UARTs?
 GPIO
 RTL
 MBits
@@ -90,3 +90,4 @@ mountpoint
 Ubuntu
 FTP
 VART
+subgraph
