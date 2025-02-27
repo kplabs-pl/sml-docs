@@ -247,6 +247,13 @@ Booting Linux on DPU :tutorial-machine:`EGSE Host`
 
    .. note:: Exact file size might differ a bit but they should be in the same range (for example ``antelope-minimal-image-antelope.rootfs.cpio.gz.u-boot`` shall be about ~15MB)
 
+#. Ensure that Antelope is powered off
+
+   .. code-block:: shell-session
+
+       customer@egse-host:~$ sml power off
+       Powering off...Success
+
 #. Power on Antelope
 
    .. code-block:: shell-session

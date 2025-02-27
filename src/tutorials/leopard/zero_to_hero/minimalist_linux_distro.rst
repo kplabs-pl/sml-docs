@@ -252,6 +252,12 @@ Booting Linux on DPU :tutorial-machine:`EGSE Host`
 
    .. note:: Exact file size might differ a bit but they should be in the same range (for example ``dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot`` shall be about ~40MB)
 
+#. Ensure that Leopard is powered off
+
+   .. code-block:: shell-session
+
+       customer@egse-host:~$ sml power off
+       Powering off...Success
 
 #. Prepare U-Boot script for booting from network by writing following content to :file:`/var/tftp/leopard-boot.cmd`
 

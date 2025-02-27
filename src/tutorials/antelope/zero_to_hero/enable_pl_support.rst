@@ -94,7 +94,7 @@ Enable programmable logic support :tutorial-machine:`Vivado`
 Create double UART bitstream :tutorial-machine:`Vivado`
 -------------------------------------------------------
 
-1. Start Vivado and create new project. In new project wizard select following options:
+#. Start Vivado and create new project. In new project wizard select following options:
 
    * Project type: RTL Project
 
@@ -103,41 +103,41 @@ Create double UART bitstream :tutorial-machine:`Vivado`
 
    * Part: ``xczu4cg-sfvc784-1L-i``
 
-2. Create top-level block design by using :menuselection:`Create Block Design` in Flow Navigator. Use ``double_uart_bd`` as name.
-3. In block design diagram editor add Zynq UltraScale+ MPSoC IP block.
-4. Start customization of Zynq UltraScale+ MPSoC IP block by double-clicking on it.
+#. Create top-level block design by using :menuselection:`Create Block Design` in Flow Navigator. Use ``double_uart_bd`` as name.
+#. In block design diagram editor add Zynq UltraScale+ MPSoC IP block.
+#. Start customization of Zynq UltraScale+ MPSoC IP block by double-clicking on it.
 
    1. Apply previously exported preset by selecting :menuselection:`Presets --> Apply configuration` and select :file:`antelope-minimalistic-with-pl.tcl` file.
 
-5. In ``double_uart_bd`` block design connect
+#. In ``double_uart_bd`` block design connect
 
    * ``maxihpm0_fpd_aclk`` to ``pl0_clk``
    * ``saxihpc0_fpd_aclk`` to ``pl0_clk``
    * ``saxihpc1_fpd_aclk`` to ``pl0_clk``
    * ``saxi_lpd_aclk`` to ``pl0_clk``
 
-6. Place two ``AXI Uartlite`` IPs on block design
-7. Cross-connect UARTs by connecting ``axu_uartlite1`` TX to ``axu_uartlite0`` RX and vice versa.
-8. Click ``Run connection automation`` and let Vivado instantiate necessary interconnects and resets.
-9. Add ``Concat`` IP block
-10. Connect ``dout`` pin of ``Concat`` block to ``pl_ps_irq`` pin of Zynq UltraScale+ block
-11. Connect ``interrupt`` pin of ``axi_uartlite0`` to ``In0`` of ``Concat`` block
-12. Connect ``interrupt`` pin of ``axi_uartlite1`` to ``In1`` of ``Concat`` block
-13. Final block design should look like this:
+#. Place two ``AXI Uartlite`` IPs on block design
+#. Cross-connect UARTs by connecting ``axu_uartlite1`` TX to ``axu_uartlite0`` RX and vice versa.
+#. Click ``Run connection automation`` and let Vivado instantiate necessary interconnects and resets.
+#. Add ``Concat`` IP block
+#. Connect ``dout`` pin of ``Concat`` block to ``pl_ps_irq`` pin of Zynq UltraScale+ block
+#. Connect ``interrupt`` pin of ``axi_uartlite0`` to ``In0`` of ``Concat`` block
+#. Connect ``interrupt`` pin of ``axi_uartlite1`` to ``In1`` of ``Concat`` block
+#. Final block design should look like this:
 
     .. figure:: ./enable_pl_support/double_uart_bd.png
        :align: center
 
        Block design with double UARTs connected together and available to Processing System
 
-14. In Sources view select :menuselection:`Design Sources --> double_uart_bd` and click :menuselection:`Create HDL Wrapper` in context menu. Use :menuselection:`Let Vivado manage wrapper and auto-update` option.
-15. Generate bitstream
-16. Export hardware including bitstream to file ``antelope-double-uart.xsa``
+#. In Sources view select :menuselection:`Design Sources --> double_uart_bd` and click :menuselection:`Create HDL Wrapper` in context menu. Use :menuselection:`Let Vivado manage wrapper and auto-update` option.
+#. Generate bitstream
+#. Export hardware including bitstream to file ``antelope-double-uart.xsa``
 
 Enable programmable logic support in boot firmware :tutorial-machine:`Yocto`
 ----------------------------------------------------------------------------
-1. Add :file:`antelope-minimalistic-pl-base.xsa` to :file:`sources/meta-local/recipes-bsp/hdf/external-hdf/` directory.
-2. Modify :file:`sources/meta-local/recipes-bsp/hdf/external-hdf_%.bbappend` to use new XSA file.
+#. Add :file:`antelope-minimalistic-pl-base.xsa` to :file:`sources/meta-local/recipes-bsp/hdf/external-hdf/` directory.
+#. Modify :file:`sources/meta-local/recipes-bsp/hdf/external-hdf_%.bbappend` to use new XSA file.
 
    .. code-block:: bitbake
 
@@ -147,8 +147,8 @@ Enable programmable logic support in boot firmware :tutorial-machine:`Yocto`
 
 Add double UART bitstream to Linux distribution :tutorial-machine:`Yocto`
 -------------------------------------------------------------------------
-1. Create directory :file:`sources/meta-local/recipes-example/bitstreams/double-uart/` and copy :file:`antelope-double-uart.xsa` to it.
-2. Create new recipe :file:`sources/meta-local/recipes-example/bitstreams/double-uart.bb` that will install bitstream with double UART.
+#. Create directory :file:`sources/meta-local/recipes-example/bitstreams/double-uart/` and copy :file:`antelope-double-uart.xsa` to it.
+#. Create new recipe :file:`sources/meta-local/recipes-example/bitstreams/double-uart.bb` that will install bitstream with double UART.
 
    .. code-block:: bitbake
 
@@ -159,7 +159,7 @@ Add double UART bitstream to Linux distribution :tutorial-machine:`Yocto`
         SRC_URI += "file://antelope-double-uart.xsa"
         BITSTREAM_HDF_FILE = "${WORKDIR}/antelope-double-uart.xsa"
 
-3. Create append for ``antelope-minimal-image`` recipe
+#. Create append for ``antelope-minimal-image`` recipe
 
    .. code-block:: shell-session
 
@@ -174,7 +174,7 @@ Add double UART bitstream to Linux distribution :tutorial-machine:`Yocto`
 
         Summary: There was 1 WARNING message.
         ~/antelope-linux-1/sources/meta-local/recipes-antelope/images/antelope-minimal-image.bbappend created
-4. Add new packages into Linux image by editing :file:`sources/meta-local/recipes-antelope/images/antelope-minimal-image.bbappend`
+#. Add new packages into Linux image by editing :file:`sources/meta-local/recipes-antelope/images/antelope-minimal-image.bbappend`
 
    .. code-block:: bitbake
 
@@ -183,13 +183,13 @@ Add double UART bitstream to Linux distribution :tutorial-machine:`Yocto`
             double-uart \
         "
 
-5. Build firmware and image
+#. Build firmware and image
 
    .. code-block:: shell-session
 
        machine:~/antelope-linux-1/build$ bitbake antelope-all
 
-6. Prepare build artifacts for transfer to EGSE Host
+#. Prepare build artifacts for transfer to EGSE Host
 
    .. code-block:: shell-session
 
@@ -200,12 +200,12 @@ Add double UART bitstream to Linux distribution :tutorial-machine:`Yocto`
         machine:~/antelope-linux-1/build$ cp build/tmp/deploy/images/antelope/Image ../egse-host-transfer
         machine:~/antelope-linux-1/build$ cp build/tmp/deploy/images/antelope/antelope-minimal-image-antelope.rootfs.cpio.gz.u-boot ../egse-host-transfer
 
-7. Transfer content of :file:`egse-host-transfer` directory to EGSE Host and place it in :file:`/var/tftp/tutorial` directory
+#. Transfer content of :file:`egse-host-transfer` directory to EGSE Host and place it in :file:`/var/tftp/tutorial` directory
 
 Loading double UART bitstream on DPU :tutorial-machine:`EGSE Host`
 ------------------------------------------------------------------
 
-1. Verify that all necessary artifacts are present on EGSE Host:
+#. Verify that all necessary artifacts are present on EGSE Host:
 
    .. code-block:: shell-session
 
@@ -219,21 +219,28 @@ Loading double UART bitstream on DPU :tutorial-machine:`EGSE Host`
 
    .. note:: Exact file size might differ a bit but they should be in the same range (for example ``antelope-minimal-image-antelope.rootfs.cpio.gz.u-boot`` shall be about ~16MB)
 
-2. Power on Antelope
+#. Ensure that Antelope is powered off
+
+   .. code-block:: shell-session
+
+       customer@egse-host:~$ sml power off
+       Powering off...Success
+
+#. Power on Antelope
 
    .. code-block:: shell-session
 
        customer@egse-host:~$ sml power on
        Powering on...Success
 
-3. Power on DPU
+#. Power on DPU
 
    .. code-block:: shell-session
 
        customer@egse-host:~$ sml dpu power on
        Powering on...Success
 
-4. Write boot firmware to DPU boot flash
+#. Write boot firmware to DPU boot flash
 
    .. code-block:: shell-session
 
@@ -242,7 +249,7 @@ Loading double UART bitstream on DPU :tutorial-machine:`EGSE Host`
        Erasing     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00 383.9 kB/s
        Programming ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00 13.1 kB/s
 
-5. Write U-Boot boot script to DPU boot flash
+#. Write U-Boot boot script to DPU boot flash
 
    .. code-block:: shell-session
 
@@ -251,7 +258,7 @@ Loading double UART bitstream on DPU :tutorial-machine:`EGSE Host`
        Erasing     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00 ?
        Programming ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00 63.9 MB/s
 
-8. Open second SSH connection to EGSE Host and start ``minicom`` to observe boot process
+#. Open second SSH connection to EGSE Host and start ``minicom`` to observe boot process
 
    .. code-block:: shell-session
 
@@ -259,21 +266,21 @@ Loading double UART bitstream on DPU :tutorial-machine:`EGSE Host`
 
     Leave this terminal open and get back to SSH connection used in previous steps.
 
-9. Release DPU from reset
+#. Release DPU from reset
 
    .. code-block:: shell-session
 
       customer@egse-host:~$ sml dpu reset off 7
 
-10. DPU boot process should be visible in ``minicom`` terminal
-11. Log in to DPU using ``root`` user
+#. DPU boot process should be visible in ``minicom`` terminal
+#. Log in to DPU using ``root`` user
 
     .. code-block:: shell-session
 
       antelope login: root
       root@antelope:~#
 
-12. Load double UART bitstream
+#. Load double UART bitstream
 
     .. code-block:: shell-session
 
@@ -292,7 +299,7 @@ Loading double UART bitstream on DPU :tutorial-machine:`EGSE Host`
 
     .. note:: Despite warnings UARTs in bitstream will still function correctly
 
-13. Verify presence of two new UART devices
+#. Verify presence of two new UART devices
 
     .. code-block:: shell-session
 
@@ -300,7 +307,7 @@ Loading double UART bitstream on DPU :tutorial-machine:`EGSE Host`
         crw-rw----    1 root     dialout   204, 187 Sep 20 11:23 /dev/ttyUL0
         crw-rw----    1 root     dialout   204, 188 Sep 20 11:23 /dev/ttyUL1
 
-14. Start receiving data from ``/dev/ttyUL0`` in background
+#. Start receiving data from ``/dev/ttyUL0`` in background
 
     .. code-block:: shell-session
 
@@ -308,7 +315,7 @@ Loading double UART bitstream on DPU :tutorial-machine:`EGSE Host`
 
     ``cat`` process will be running in background allowing you to enter another command in the same terminal. Output from ``cat`` (data received from UART) and your commands will mix in terminal.
 
-15. Write something to second UART:
+#. Write something to second UART:
 
     .. code-block:: shell-session
 
