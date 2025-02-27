@@ -114,6 +114,13 @@ Run inference on DPU :tutorial-machine:`EGSE Host`
 
    .. note:: You can choose different images to run inference on.
 
+#. Ensure that Leopard is powered off
+
+   .. code-block:: shell-session
+
+       customer@egse-host:~$ sml power off
+       Powering off...Success
+
 #. Open second SSH connection to EGSE Host and start ``minicom`` to observe boot process
 
    .. code-block:: shell-session

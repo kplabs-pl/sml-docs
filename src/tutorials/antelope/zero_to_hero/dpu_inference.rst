@@ -117,6 +117,13 @@ Run inference on DPU :tutorial-machine:`EGSE Host`
 
    .. note:: You can choose different images to run inference on.
 
+#. Ensure that Antelope is powered off
+
+   .. code-block:: shell-session
+
+       customer@egse-host:~$ sml power off
+       Powering off...Success
+
 #. Power on Antelope
 
    .. code-block:: shell-session

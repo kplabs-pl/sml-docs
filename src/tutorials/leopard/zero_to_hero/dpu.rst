@@ -271,6 +271,12 @@ Run model on Deep-learning Processor Unit :tutorial-machine:`EGSE Host`
 
    .. note:: Exact file size might differ a bit but they should be in the same range (for example ``dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot`` shall be about ~100MB)
 
+#. Ensure that Leopard is powered off
+
+   .. code-block:: shell-session
+
+       customer@egse-host:~$ sml power off
+       Powering off...Success
 
 #. Open second SSH connection to EGSE Host and start ``minicom`` to observe boot process
 
