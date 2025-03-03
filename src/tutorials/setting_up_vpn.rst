@@ -42,6 +42,66 @@ Windows with OpenVPN GUI
 
 3. OpenVPN GUI status window will be visible while connecting to SML server and close automatically after success.
 
+Linux with NetworkManager (command line)
+++++++++++++++++++++++++++++++++++++++++
+Follow this steps if you are using Linux distribution with NetworkManager and don't want to use desktop environment.
+
+1. Import VPN connection profile (downloaded from Smart Mission Lab website) as NetworkManager connection
+
+   .. code-block:: shell-session
+
+      my-machine:~$ nmcli connection import type openvpn file sml.ovpn
+
+2. Disable using VPN connection as default gateway
+
+   .. code-block:: shell-session
+
+      my-machine:~$ nmcli connection modify sml ipv4.never-default true
+
+   .. note:: This is required due to unfixed issue in NetworkManager: https://gitlab.gnome.org/GNOME/NetworkManager-openvpn/-/issues/48
+
+3. Activate VPN connection
+
+   .. code-block:: shell-session
+
+      my-machine:~$ nmcli connection up sml
+      Connection successfully activated (D-Bus active path: /org/freedesktop/NetworkManager/ActiveConnection/3)
+
+4. Verify that connection is active and DNS settings are in-place
+
+   .. vale off
+
+   .. code-block:: shell-session
+      :emphasize-lines: 16-18
+
+      my-machine:~$ nmcli
+      ...
+      tun0: connected (externally) to tun0
+        "tun0"
+        tun, sw, mtu 1500
+        inet4 10.100.0.17/32
+        route4 10.100.0.18/32 metric 50
+        route4 10.80.4.40/29 via 10.100.0.18 metric 50
+        route4 10.80.4.16/29 via 10.100.0.18 metric 50
+        route4 10.80.4.56/29 via 10.100.0.18 metric 50
+        route4 10.80.16.128/27 via 10.100.0.18 metric 50
+        route4 default via 10.100.0.18 metric 50
+        inet6 fe80::6c70:f243:eda3:7dc3/64
+        route6 fe80::/64 metric 256
+
+      DNS configuration:
+        servers: 10.80.4.42
+        domains: vpn.sml.kplabs.space
+        interface: tun0
+        type: vpn
+
+        servers: 10.72.0.1
+        interface: ens18
+
+   .. vale on
+
+   Highlighted lines indicate NetworkManager correctly configured DNS settings.
+
 Linux with systemd-resolved
 +++++++++++++++++++++++++++
 Follow this steps if you are using Linux distribution with systemd-resolved
