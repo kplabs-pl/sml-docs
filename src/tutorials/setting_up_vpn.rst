@@ -42,6 +42,28 @@ Windows with OpenVPN GUI
 
 3. OpenVPN GUI status window will be visible while connecting to SML server and close automatically after success.
 
+Ubuntu
+++++++
+Follow this steps if you are using Ubuntu or other distribution with similar network management settings.
+
+1. Open :menuselection:`Setting --> Network`
+
+   .. figure:: ./setting_up_vpn/Ubuntu/1-settings-network.png
+
+2. Click :menuselection:`+` sign in :menuselection:`VPN` section
+
+   .. figure:: ./setting_up_vpn/Ubuntu/2-import.png
+
+3. Use :menuselection:`Import from file...` option and select VPN connection profile file (downloaded from Smart Mission Lab website).
+4. After importing file, connection settings file window will appear. Go to :menuselection:`IPv4` tab and make sure :menuselection:`Use this connection only for resources on its network` is checked.
+
+   .. figure:: ./setting_up_vpn/Ubuntu/3-never-default.png
+
+5. Confirm import by clicking :menuselection:`Add` button.
+6. Enable VPN connection using toggle button
+
+   .. figure:: ./setting_up_vpn/Ubuntu/4-activate.png
+
 Linux with NetworkManager (command line)
 ++++++++++++++++++++++++++++++++++++++++
 Follow this steps if you are using Linux distribution with NetworkManager and don't want to use desktop environment.
