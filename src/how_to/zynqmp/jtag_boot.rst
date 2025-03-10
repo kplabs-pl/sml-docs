@@ -24,7 +24,7 @@ Steps
 
    .. code-block:: shell-session
 
-        my-machine:~$ ssh customer@egse-my-egse.egse.sml.lan
+        my-machine:~$ ssh customer@egse-my-egse.egse.vpn.sml.kplabs.space
         customer@egse-my-egse:~$
 
 2. Start Xilinx System Debugger (``xsdb``)

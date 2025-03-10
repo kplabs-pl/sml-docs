@@ -14,7 +14,7 @@ Steps
 1. Connect to EGSE Host with Antelope board
     .. code-block:: shell-session
 
-        my-machine$ ssh customer@egse-my-egse.egse.sml.lan
+        my-machine$ ssh customer@egse-my-egse.egse.vpn.sml.kplabs.space
         customer@egse-my-egse:~$
 
 2. Power on Antelope board

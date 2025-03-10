@@ -27,7 +27,7 @@ Generate telemetry data
 
    .. code-block:: shell-session
 
-       user@my-machine:~$ ssh customer@egse-my-egse.egse.sml.lan
+       user@my-machine:~$ ssh customer@egse-my-egse.egse.vpn.sml.kplabs.space
        customer@egse-my-egse:~$
 
 2. Power on board

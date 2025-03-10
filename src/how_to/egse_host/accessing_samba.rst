@@ -13,7 +13,7 @@ Set-up password
 
    .. code-block:: shell-session
 
-        my-machine$ ssh customer@egse-my-egse.egse.sml.lan
+        my-machine$ ssh customer@egse-my-egse.egse.vpn.sml.kplabs.space
         customer@egse-my-egse:~$
 
 #. Run ``sudo smbpasswd -a customer`` to set password
@@ -55,8 +55,8 @@ Access shares (Linux terminal)
 
    .. code-block:: shell-session
 
-      local-machine:~$ sudo mount -t cifs -o username=customer //egse-<id>-customer.egse.sml.lan/<share> /media/smb
-      Password for customer@//egse-<id>-customer.egse.sml.lan/<share>:
+      local-machine:~$ sudo mount -t cifs -o username=customer //egse-<id>-customer.egse.vpn.sml.kplabs.space/<share> /media/smb
+      Password for customer@//egse-<id>-customer.egse.vpn.sml.kplabs.space/<share>:
 
 #. Transfer files between share and local machine
 

@@ -12,13 +12,13 @@ Steps
 
    .. code-block:: shell-session
 
-       my-machine:~$ scp Vivado_Lab_Lin_....tar.gz customer@egse-my-egse.egse.sml.lan:~/
+       my-machine:~$ scp Vivado_Lab_Lin_....tar.gz customer@egse-my-egse.egse.vpn.sml.kplabs.space:~/
 
 3. Log in to EGSE Host
 
    .. code-block:: shell-session
 
-        my-machine:~$ ssh customer@egse-my-egse.egse.sml.lan
+        my-machine:~$ ssh customer@egse-my-egse.egse.vpn.sml.kplabs.space
         customer@egse-my-egse:~$
 
 4. Run ``sml install-vivado-lab`` command to automatically install Vivado Lab.

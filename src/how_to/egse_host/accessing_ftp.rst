@@ -12,5 +12,5 @@ Prerequisites
 Accessing FTP
 -------------
 #. Open your favorite FTP client
-#. Connect to ``egse-<id>.egse.sml.lan`` using ``customer`` as username and password you've set up
+#. Connect to ``egse-<id>.egse.vpn.sml.kplabs.space`` using ``customer`` as username and password you've set up
 #. Transfer files as needed
