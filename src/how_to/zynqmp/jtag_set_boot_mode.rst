@@ -46,7 +46,7 @@ Steps
 
    .. code-block:: shell-session
 
-        xsdb% xsdb% targets
+        xsdb% targets
         1  PS TAP
             2  PMU
             3  PL

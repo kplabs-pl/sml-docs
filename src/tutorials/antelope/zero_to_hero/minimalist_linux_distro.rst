@@ -23,7 +23,7 @@ After building all required artifacts you can use Antelope DPU boot capabilities
 Prerequisites
 -------------
 * ``.xsa`` file with platform configuration from :doc:`./minimalist_vivado_project`
-* Machine with Linux edition supported by Yocto
+* Machine with Linux edition supported by Yocto (https://docs.yoctoproject.org/4.3/ref-manual/system-requirements.html#supported-linux-distributions)
 * Tools installed on machine:
 
   * ``libtinfo5`` (required by Xilinx layers)
@@ -223,11 +223,11 @@ Build project :tutorial-machine:`Yocto`
    .. code-block:: shell-session
 
         machine:~/antelope-linux-1/build$ mkdir -p ../egse-host-transfer
-        machine:~/antelope-linux-1/build$ cp tmp/deploy/images/antelope/bootbins/boot-firmware.bin ../build/egse-host-transfer/
-        machine:~/antelope-linux-1/build$ cp tmp/deploy/images/antelope/u-boot-scripts/boot-script-pins/boot-pins.scr ../build/egse-host-transfer/
-        machine:~/antelope-linux-1/build$ cp tmp/deploy/images/antelope/system.dtb ../build/egse-host-transfer/
-        machine:~/antelope-linux-1/build$ cp tmp/deploy/images/antelope/Image ../build/egse-host-transfer/
-        machine:~/antelope-linux-1/build$ cp tmp/deploy/images/antelope/antelope-minimal-image-antelope.rootfs.cpio.gz.u-boot ../build/egse-host-transfer/
+        machine:~/antelope-linux-1/build$ cp tmp/deploy/images/antelope/bootbins/boot-firmware.bin ../egse-host-transfer/
+        machine:~/antelope-linux-1/build$ cp tmp/deploy/images/antelope/u-boot-scripts/boot-script-pins/boot-pins.scr ../egse-host-transfer/
+        machine:~/antelope-linux-1/build$ cp tmp/deploy/images/antelope/system.dtb ../egse-host-transfer/
+        machine:~/antelope-linux-1/build$ cp tmp/deploy/images/antelope/Image ../egse-host-transfer/
+        machine:~/antelope-linux-1/build$ cp tmp/deploy/images/antelope/antelope-minimal-image-antelope.rootfs.cpio.gz.u-boot ../egse-host-transfer/
 
 #. Transfer content of :file:`~/antelope-linux-1/egse-host-transfer` directory to EGSE Host and place it in :file:`/var/tftp/tutorial` directory
 

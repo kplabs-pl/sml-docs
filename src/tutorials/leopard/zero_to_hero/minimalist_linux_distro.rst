@@ -23,7 +23,7 @@ After building all required artifacts you can use Leopard DPU boot capabilities 
 Prerequisites
 -------------
 * ``.xsa`` file with platform configuration from :doc:`./minimalist_vivado_project`
-* Machine with Linux edition supported by Yocto
+* Machine with Linux edition supported by Yocto (https://docs.yoctoproject.org/4.3/ref-manual/system-requirements.html#supported-linux-distributions)
 * Tools installed on machine:
 
   * ``libtinfo5`` (required by Xilinx layers)
@@ -228,11 +228,11 @@ Build project :tutorial-machine:`Yocto`
 
    .. code-block:: shell-session
 
-        machine:~/leopard-linux-1/build$ mkdir -p ../build/egse-host-transfer/
-        machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/bootbins/boot-common.bin ../build/egse-host-transfer/
-        machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/system.dtb ../build/egse-host-transfer/
-        machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot ../build/egse-host-transfer/
-        machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/Image ../build/egse-host-transfer/
+        machine:~/leopard-linux-1/build$ mkdir -p ../egse-host-transfer/
+        machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/bootbins/boot-common.bin ../egse-host-transfer/
+        machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/system.dtb ../egse-host-transfer/
+        machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot ../egse-host-transfer/
+        machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/Image ../egse-host-transfer/
 
 #. Transfer content of :file:`~/leopard-linux-1/egse-host-transfer` directory to EGSE Host and place it in :file:`/var/tftp/tutorial` directory
 

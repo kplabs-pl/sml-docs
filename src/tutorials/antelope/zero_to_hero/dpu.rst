@@ -155,6 +155,13 @@ Create bitstream with Deep-learning Processor Unit :tutorial-machine:`Vivado`
 
 Add Vitis layers to Yocto Project :tutorial-machine:`Yocto`
 -----------------------------------------------------------
+
+.. note:: If necessary, re-enable Yocto environment using
+
+   .. code-block:: shell-session
+
+      machine:~/antelope-linux-1$ source sources/poky/oe-init-build-env ./build
+
 #. Clone ``meta-oe`` layer
 
    .. code-block:: shell-session
@@ -177,6 +184,7 @@ Add Vitis layers to Yocto Project :tutorial-machine:`Yocto`
 
    .. code-block:: shell-session
 
+       machine:~/antelope-linux-1/build$ cd ../sources/meta-vitis
        machine:~/antelope-linux-1/sources/meta-vitis$ git am ../meta-kp-vitis-ai/patches/*.patch
        Applying: Switch to nanbield
        Applying: bbappend to any glog version

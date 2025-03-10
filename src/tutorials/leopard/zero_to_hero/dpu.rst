@@ -154,6 +154,12 @@ Create bitstream with Deep-learning Processor Unit :tutorial-machine:`Vivado`
 Add Vitis layers to Yocto Project :tutorial-machine:`Yocto`
 -----------------------------------------------------------
 
+.. note:: If necessary, re-enable Yocto environment using
+
+   .. code-block:: shell-session
+
+      machine:~/leopard-linux-1$ source sources/poky/oe-init-build-env ./build
+
 #. Clone Xilinx ``meta-vitis`` layer:
 
    .. code-block:: shell-session
@@ -170,6 +176,7 @@ Add Vitis layers to Yocto Project :tutorial-machine:`Yocto`
 
    .. code-block:: shell-session
 
+       machine:~/leopard-linux-1/build$ cd ../sources/meta-vitis
        machine:~/leopard-linux-1/sources/meta-vitis$ git am ../meta-kp-vitis-ai/patches/*.patch
        Applying: Switch to nanbield
        Applying: bbappend to any glog version

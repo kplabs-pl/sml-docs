@@ -8,6 +8,9 @@ Vivado Lab Edition enables debug access to DPUs connected to EGSE Host. Due to l
 Steps
 -----
 1. Download Vivado Lab for Linux from AMD website.
+
+   Use Vivado Lab version 2024.1 or newer. In case of problems with automatic installation with recently released version, please contact Smart Mission Lab support.
+
 2. Transfer downloaded file to EGSE Host.
 
    .. code-block:: shell-session

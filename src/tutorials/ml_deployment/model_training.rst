@@ -20,6 +20,7 @@ Prerequisites
 * SML ML Deployment tutorial files (https://github.com/kplabs-pl/sml-ml-tutorial.git)
 * Python with virtual environment support installed.
 * An environment with Jupyter Notebook support (for example Visual Studio Code or Jupyter Lab).
+* Python 3.11 or later
 
 Provided outputs
 ----------------
@@ -102,7 +103,7 @@ Train the model :tutorial-machine:`Machine learning workstation`
 
        .. code-block:: shell-session
 
-           customer@ml-workstation:~/sml-tutorials/ml-deployment/tools$ SML_DEMO_NO_PROGRESS=1 nohup jupyter execute --inplace model_training.ipynb
+           customer@ml-workstation:~/sml-tutorials/ml-deployment/tools$ SML_DEMO_NO_PROGRESS=1 nohup jupyter execute --inplace 02-train/model_training.ipynb
 
        Enabling SML_DEMO_NO_PROGRESS variable will disable progress bars polluting the notebook while it's running in the background. You can investigate the training by observing metrics log in the :file:`~/sml-tutorials/ml-deployment/tools/training_logs` directory.
 

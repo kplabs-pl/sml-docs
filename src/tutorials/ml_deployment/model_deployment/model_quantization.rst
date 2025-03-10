@@ -79,7 +79,7 @@ Run the following commands in the container environment.
             --state-dict ../output/03-quantize/state_dict.pt \
             --quantization-samples ../output/03-quantize/quantization_samples.h5 \
             --test-samples ../output/03-quantize/quantization_test_preds.h5 \
-            --output-dir ../output/03-quantize/ \
+            --output-dir ../output/03-quantize/
 
    The quantized model will appear in :file:`~/sml-tutorials/ml-deployment/output/03-quantize/`.
 

@@ -15,5 +15,5 @@ ML Datasets
 -----------
 Release https://github.com/kplabs-pl/sml-docs/releases/tag/ml-datasets-2025.1 contains:
 
-* :file:`DeepGlobe.zip` - DeepGlobe dataset used in ML tutorials.
-* :file:`DeepGlobe_patched.zip` - DeepGlobe dataset used in ML tutorials transformed into 512x512 images.
+* :file:`deep_globe.zip` - DeepGlobe dataset used in ML tutorials.
+* :file:`deep_globe_patched.zip` - DeepGlobe dataset used in ML tutorials transformed into 512x512 images.

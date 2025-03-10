@@ -4,7 +4,7 @@ Forwarding TCP/UDP ports to board
 A bit of background
 -------------------
 
-Board isn't connected directly to Smart Mission Lab network which means that you can't access any network services (for example: Web server) on it from your workstation. EGSE Host supports forwarding TCP and UDP ports to Board allowing almost-drect to services exposed by Board. System uses `nftables <https://wiki.nftables.org/wiki-nftables/index.php/Main_Page>`_ to configure port forwarding.
+Board isn't connected directly to Smart Mission Lab network which means that you can't access any network services (for example: Web server) on it from your workstation. EGSE Host supports forwarding TCP and UDP ports to Board allowing almost-direct to services exposed by Board. System uses `nftables <https://wiki.nftables.org/wiki-nftables/index.php/Main_Page>`_ to configure port forwarding.
 
 Steps
 -----
@@ -27,7 +27,7 @@ Steps
       .. md-tab-item:: Antelope
 
          .. code-block::
-            :emphasize-lines: 4,5,6, 12,13,14
+            :emphasize-lines: 4-7, 14-17
 
             map tcp_redirects {
                 type inet_service : inet_service
@@ -35,6 +35,7 @@ Steps
                     # One element = one port
                     # <port on egse-host>: <port on dpu>
                     122 : 22,
+                    # Add your port redirects here, remember to have trailing comma on previous non-comment line
                 }
             }
 
@@ -44,6 +45,7 @@ Steps
                     # One element = one port
                     # <port on egse-host>: <port on dpu>
                     # e.g. 123 : 456,
+                    # Add your port redirects here, remember to have trailing comma on previous non-comment line
                 }
             }
 
@@ -52,7 +54,7 @@ Steps
       .. md-tab-item:: Leopard
 
           .. code-block::
-            :emphasize-lines: 4,5,6,7, 13,14,15
+            :emphasize-lines: 4-8, 15-18
 
             map tcp_redirects {
                 type inet_service : inet_service
@@ -61,6 +63,7 @@ Steps
                     # <port on egse-host>: <node1/node2>:<port on dpu>
                     122 : node1:22,
                     222 : node2:22,
+                    # Add your port redirects here, remember to have trailing comma on previous non-comment line
                 }
             }
 
@@ -70,6 +73,7 @@ Steps
                     # One element = one port
                     # <port on egse-host>: <node1/node2>:<port on dpu>
                     # e.g. 123 : 456,
+                    # Add your port redirects here, remember to have trailing comma on previous non-comment line
                 }
             }
 
