@@ -18,11 +18,11 @@ Table below lists IP addresses assigned by DHCP server
       - IP address
 
     * - Antelope
-      - * 172.20.200.10
+      - * 172.20.200.100
 
     * - Leopard
-      - * 172.20.200.10 (processing node 1)
-        * 172.20.201.10 (processing node 2, if present)
+      - * 172.20.200.100 (processing node 1)
+        * 172.20.201.100 (processing node 2, if present)
 
 systemd services
 ----------------

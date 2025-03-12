@@ -136,10 +136,19 @@ Create double UART bitstream :tutorial-machine:`Vivado`
 
 Enable programmable logic support in boot firmware :tutorial-machine:`Yocto`
 ----------------------------------------------------------------------------
+
+.. note:: If necessary, re-enable Yocto environment using
+
+   .. code-block:: shell-session
+
+      machine:~/antelope-linux-1$ source sources/poky/oe-init-build-env ./build
+
 #. Add :file:`antelope-minimalistic-pl-base.xsa` to :file:`sources/meta-local/recipes-bsp/hdf/external-hdf/` directory.
 #. Modify :file:`sources/meta-local/recipes-bsp/hdf/external-hdf_%.bbappend` to use new XSA file.
 
    .. code-block:: bitbake
+
+        FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
         HDF_BASE = "file://"
         HDF_PATH = "antelope-minimalistic-pl-base.xsa"

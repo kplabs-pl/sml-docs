@@ -30,6 +30,13 @@ Use these files if you don't want to build Yocto distribution by yourself.
 
 Add inference tools to Yocto project :tutorial-machine:`Yocto`
 --------------------------------------------------------------
+
+.. note:: If necessary, re-enable Yocto environment using
+
+   .. code-block:: shell-session
+
+      machine:~/leopard-linux-1$ source sources/poky/oe-init-build-env ./build
+
 #. Create directory :file:`~/leopard-linux-1/sources/meta-local/recipes-example/inference/inference/`
 #. Copy ``model_runner.py`` to :file:`~/leopard-linux-1/sources/meta-local/recipes-example/inference/inference/`
 #. Copy ``deep_globe_segmentation_unet_512_512.xmodel`` to :file:`~/leopard-linux-1/sources/meta-local/recipes-example/inference/inference/`

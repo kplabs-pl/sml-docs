@@ -135,12 +135,21 @@ Enable programmable logic support in boot firmware :tutorial-machine:`Yocto`
 
    .. code-block:: bitbake
 
+        FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
+
         HDF_BASE = "file://"
         HDF_PATH = "leopard-minimalistic-pl-base.xsa"
 
 
 Add double UART bitstream to Linux distribution :tutorial-machine:`Yocto`
 -------------------------------------------------------------------------
+
+.. note:: If necessary, re-enable Yocto environment using
+
+   .. code-block:: shell-session
+
+      machine:~/leopard-linux-1$ source sources/poky/oe-init-build-env ./build
+
 #. Create directory :file:`sources/meta-local/recipes-example/bitstreams/double-uart/` and copy :file:`leopard-double-uart.xsa` to it.
 #. Create new recipe :file:`sources/meta-local/recipes-example/bitstreams/double-uart.bb` that will install bitstream with double UART.
 
