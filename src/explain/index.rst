@@ -7,4 +7,5 @@ Explain
     network
     egse_host
     grafana
+    security
     glossary
