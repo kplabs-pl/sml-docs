@@ -221,7 +221,7 @@ Run inference on DPU :tutorial-machine:`EGSE Host`
 
    .. code-block:: shell-session
 
-      customer@egse-host:~$ scp -r pn1:/tmp/inference-output/* ~/inference-output/
+      customer@egse-host:~$ scp -r pn1:/tmp/inference-output/* /var/www/html/inference-output
       Warning: Permanently added '172.20.200.100' (ED25519) to the list of known hosts.
       207743_04_02_sat.jpg                         100%   71KB  16.2MB/s   00:00
       207743_04_02_sat.npy                         100% 7168KB  53.3MB/s   00:00
@@ -230,7 +230,7 @@ Run inference on DPU :tutorial-machine:`EGSE Host`
       21717_04_02_sat.jpg                          100%   76KB  32.9MB/s   00:00
       21717_04_02_sat.npy                          100% 7168KB  53.4MB/s   00:00
 
-#. Download inference results from EGSE Host and review rendered images.
+#. Open ``http://egse-<id>.egse.vpn.sml.kplabs.space/inference-output`` in your Web browser and review rendered images.
 
    .. figure:: dpu_inference/results/21717_04_02_sat.jpg
       :width: 300px
