@@ -232,20 +232,30 @@ Run inference on DPU :tutorial-machine:`EGSE Host`
 
 #. Open ``http://egse-<id>.egse.vpn.sml.kplabs.space/inference-output`` in your Web browser and review rendered images.
 
-   .. figure:: dpu_inference/results/21717_04_02_sat.jpg
-      :width: 300px
+.. list-table::
+   :align: center
 
-      21717_04_02_sat.jpg
+   * -
+       .. figure:: dpu_inference/results/21717_04_02_sat.jpg
+          :width: 300px
 
-   .. figure:: dpu_inference/results/207743_04_02_sat.jpg
-      :width: 300px
+          21717_04_02_sat.jpg
+     -
+       .. figure:: dpu_inference/results/207743_04_02_sat.jpg
+          :width: 300px
 
-      207743_04_02_sat.jpg
+          207743_04_02_sat.jpg
+   * -
+       .. figure:: dpu_inference/results/207743_04_03_sat.jpg
+          :width: 300px
 
-   .. figure:: dpu_inference/results/207743_04_03_sat.jpg
-      :width: 300px
+          207743_04_03_sat.jpg
+     -
+       .. figure:: dpu_inference/legend.jpg
+          :width: 300px
 
-      207743_04_03_sat.jpg
+          Legend
+
 
 Summary
 -------
