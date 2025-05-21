@@ -9,5 +9,6 @@ Tutorials
     tutorial_files
     antelope/index
     leopard/index
+    lion/index
     ml_deployment/index
     accessing_historical_telemetry
