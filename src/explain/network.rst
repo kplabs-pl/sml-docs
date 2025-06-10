@@ -7,7 +7,8 @@ Smart Mission Lab network provides access to three kinds of resources:
 * Grafana
 
 .. _customer-network:
-.. figure:: ./images/customer-network.drawio.png
+.. figure:: ./images/customer-network.png
+    :width: 800px
 
     View of Smart Mission Lab from customer's perspective
 
