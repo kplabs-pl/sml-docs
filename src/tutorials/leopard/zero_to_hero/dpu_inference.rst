@@ -181,7 +181,9 @@ Run inference on DPU :tutorial-machine:`EGSE Host`
 
    .. code-block:: shell-session
 
-       root@leopard-dpu:~# python3 /dpu-inference/model_runner.py --input-dir /tmp/inference-input/ --output-dir /tmp/inference-output
+       root@leopard-dpu:~# python3 /dpu-inference/model_runner.py \
+            --input-dir /tmp/inference-input/ \
+            --output-dir /tmp/inference-output
        Input tensors shape: [[1, 512, 512, 3]]
        Output tensors shape: [[1, 512, 512, 7]]
        Input tensors dtype: ['xint8']
