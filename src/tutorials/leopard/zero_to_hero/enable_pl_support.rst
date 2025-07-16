@@ -40,7 +40,7 @@ Following files (:ref:`tutorial_files`) are associated with this tutorial:
 * :file:`Leopard/Zero-to-hero/03 Enable programmable logic support/leopard-minimalistic-pl-base.xsa` - Base XSA file with enabled PL support
 * :file:`Leopard/Zero-to-hero/03 Enable programmable logic support/leopard-double-uart.xsa` - Double UART XSA file
 * :file:`Leopard/Zero-to-hero/03 Enable programmable logic support/boot-common.bin` - Boot firmware for Leopard
-* :file:`Leopard/Zero-to-hero/03 Enable programmable logic support/dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot` - Root filesystem for Leopard
+* :file:`Leopard/Zero-to-hero/03 Enable programmable logic support/nominal-image-leopard-dpu.rootfs.cpio.gz.u-boot` - Root filesystem for Leopard
 * :file:`Leopard/Zero-to-hero/03 Enable programmable logic support/Image` - Linux kernel
 * :file:`Leopard/Zero-to-hero/03 Enable programmable logic support/system.dtb` - Device tree
 
@@ -166,7 +166,7 @@ Add double UART bitstream to Linux distribution :tutorial-machine:`Yocto`
 
    .. code-block:: shell-session
 
-        machine:~/leopard-linux-1/build$ recipetool newappend ../sources/meta-local/ dpu-leopard
+        machine:~/leopard-linux-1/build$ recipetool newappend ../sources/meta-local/ nominal-image
         NOTE: Starting bitbake server...
         WARNING: The ZynqMP pmu-rom is not enabled, qemu may not be able to emulate a ZynqMP system without it. To enable this you must add 'xilinx' to the LICENSE_FLAGS_ACCEPTED to indicate you accept the software license.
         Loading cache: 100% |#############################################################################################################################################################################| Time: 0:00:00
@@ -176,9 +176,9 @@ Add double UART bitstream to Linux distribution :tutorial-machine:`Yocto`
         WARNING: No bb files in default matched BBFILE_PATTERN_meta-kp-classes '^~/leopard-linux-1/sources/meta-kp-classes/meta-kp-classes/'
 
         Summary: There was 1 WARNING message.
-        ~/leopard-linux-1/sources/meta-local/recipes-leopard/images/dpu-leopard.bbappend
+        ~/leopard-linux-1/sources/meta-local/recipes-leopard/images/nominal-image.bbappend
 
-#. Add new packages into Linux image by editing :file:`sources/meta-local/recipes-leopard/images/dpu-leopard.bbappend`
+#. Add new packages into Linux image by editing :file:`sources/meta-local/recipes-leopard/images/nominal-image.bbappend`
 
    .. code-block:: bitbake
 
@@ -200,7 +200,7 @@ Add double UART bitstream to Linux distribution :tutorial-machine:`Yocto`
         machine:~/leopard-linux-1/build$ mkdir -p ../egse-host-transfer
         machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/bootbins/boot-common.bin ../egse-host-transfer
         machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/system.dtb ../egse-host-transfer
-        machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot ../egse-host-transfer
+        machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/nominal-image-leopard-dpu.rootfs.cpio.gz.u-boot ../egse-host-transfer
         machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/Image ../egse-host-transfer
 
 
@@ -214,13 +214,13 @@ Loading double UART bitstream on DPU :tutorial-machine:`EGSE Host`
    .. code-block:: shell-session
 
        customer@egse-host:~$ ls -lh /var/tftp/tutorial
-       total 48M
-       -rw-rw-r-- 1 customer customer  21M Jan 22 13:30 Image
-       -rw-rw-r-- 1 customer customer 1.6M Jan 22 13:30 boot-common.bin
-       -rw-rw-r-- 1 customer customer  35M Jan 22 13:30 dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot
-       -rw-rw-r-- 1 customer customer  39K Jan 22 13:30 system.dtb
+       total 54M
+       -rw-rw-r-- 1 customer customer  21M Jul 16 07:35 Image
+       -rw-rw-r-- 1 customer customer 1.6M Jul 16 07:35 boot-common.bin
+       -rw-rw-r-- 1 customer customer  41M Jul 16 07:35 nominal-image-leopard-dpu.rootfs.cpio.gz.u-boot
+       -rw-rw-r-- 1 customer customer  39K Jul 16 07:35 system.dtb
 
-   .. note:: Exact file size might differ a bit but they should be in the same range (for example ``dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot`` shall be about ~40MB)
+   .. note:: Exact file size might differ a bit but they should be in the same range (for example ``nominal-image-leopard-dpu.rootfs.cpio.gz.u-boot`` shall be about ~40MB)
 
 #. Ensure that Leopard is powered off
 
@@ -244,13 +244,6 @@ Loading double UART bitstream on DPU :tutorial-machine:`EGSE Host`
 
        customer@egse-host:~$ sml power on
        Powering on...Success
-
-#. Power on DPU Processing Node 1
-
-   .. code-block:: shell-session
-
-       customer@egse-host:~$ sml pn1 power on --nor-memory nor1
-       Powering on processing node Node1...Success
 
 #. Write boot firmware to DPU boot flash
 

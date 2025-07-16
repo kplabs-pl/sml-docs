@@ -35,7 +35,7 @@ Provided outputs
 Following files (:ref:`tutorial_files`) are associated with this tutorial:
 
 * :file:`Leopard/Zero-to-hero/02 Minimalist Linux distribution/boot-common.bin` - Boot firmware for Leopard
-* :file:`Leopard/Zero-to-hero/02 Minimalist Linux distribution/dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot` - Root filesystem for Leopard
+* :file:`Leopard/Zero-to-hero/02 Minimalist Linux distribution/nominal-image-leopard-dpu.rootfs.cpio.gz.u-boot` - Root filesystem for Leopard
 * :file:`Leopard/Zero-to-hero/02 Minimalist Linux distribution/Image` - Linux kernel
 * :file:`Leopard/Zero-to-hero/02 Minimalist Linux distribution/system.dtb` - Device tree
 
@@ -231,7 +231,7 @@ Build project :tutorial-machine:`Yocto`
         machine:~/leopard-linux-1/build$ mkdir -p ../egse-host-transfer/
         machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/bootbins/boot-common.bin ../egse-host-transfer/
         machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/system.dtb ../egse-host-transfer/
-        machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot ../egse-host-transfer/
+        machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/nominal-image-leopard-dpu.rootfs.cpio.gz.u-boot ../egse-host-transfer/
         machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/Image ../egse-host-transfer/
 
 #. Transfer content of :file:`~/leopard-linux-1/egse-host-transfer` directory to EGSE Host and place it in :file:`/var/tftp/tutorial` directory
@@ -245,12 +245,12 @@ Booting Linux on DPU :tutorial-machine:`EGSE Host`
 
         customer@egse-host:~$ ls -lh /var/tftp/tutorial
         total 48M
-        -rw-rw-r-- 1 customer customer  21M Jan 22 07:55 Image
-        -rw-rw-r-- 1 customer customer 1.6M Jan 22 07:55 boot-common.bin
-        -rw-rw-r-- 1 customer customer  35M Jan 22 07:55 dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot
-        -rw-rw-r-- 1 customer customer  39K Jan 22 07:55 system.dtb
+        -rw-rw-r-- 1 customer customer  21M Jul 16 07:15 Image
+        -rw-rw-r-- 1 customer customer 1.6M Jul 16 07:15 boot-common.bin
+        -rw-rw-r-- 1 customer customer  41M Jul 16 07:15 nominal-image-leopard-dpu.rootfs.cpio.gz.u-boot
+        -rw-rw-r-- 1 customer customer  39K Jul 16 07:15 system.dtb
 
-   .. note:: Exact file size might differ a bit but they should be in the same range (for example ``dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot`` shall be about ~40MB)
+   .. note:: Exact file size might differ a bit but they should be in the same range (for example ``nominal-image-leopard-dpu.rootfs.cpio.gz.u-boot`` shall be about ~40MB)
 
 #. Ensure that Leopard is powered off
 
@@ -267,7 +267,7 @@ Booting Linux on DPU :tutorial-machine:`EGSE Host`
 
         tftpboot ${kernel_addr_r} /tutorial/Image
         tftpboot ${fdt_addr_r} /tutorial/system.dtb
-        tftpboot ${ramdisk_addr_r} /tutorial/dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot
+        tftpboot ${ramdisk_addr_r} /tutorial/nominal-image-leopard-dpu.rootfs.cpio.gz.u-boot
 
         booti ${kernel_addr_r} ${ramdisk_addr_r} ${fdt_addr_r}
 
