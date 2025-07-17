@@ -21,7 +21,7 @@ Provided outputs
 Following files (:ref:`tutorial_files`) are associated with this tutorial:
 
 * :file:`Leopard/Zero-to-hero/05 Onboard inference/boot-common.bin` - Boot firmware for Leopard
-* :file:`Leopard/Zero-to-hero/05 Onboard inference/dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot` - Root filesystem for Leopard
+* :file:`Leopard/Zero-to-hero/05 Onboard inference/nominal-image-leopard-dpu.rootfs.cpio.gz.u-boot` - Root filesystem for Leopard
 * :file:`Leopard/Zero-to-hero/05 Onboard inference/Image` - Linux kernel
 * :file:`Leopard/Zero-to-hero/05 Onboard inference/system.dtb` - Device tree
 
@@ -65,7 +65,7 @@ Add inference tools to Yocto project :tutorial-machine:`Yocto`
 
       FILES:${PN} += "/dpu-inference/*"
 
-#. Add new packages into Linux image by editing :file:`~/leopard-linux-1/sources/meta-local/recipes-leopard/images/dpu-leopard.bbappend`
+#. Add new packages into Linux image by editing :file:`~/leopard-linux-1/sources/meta-local/recipes-leopard/images/nominal-image.bbappend`
 
    .. code-block:: bitbake
 
@@ -91,7 +91,7 @@ Add inference tools to Yocto project :tutorial-machine:`Yocto`
         machine:~/leopard-linux-1/build$ mkdir -p ../egse-host-transfer
         machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/bootbins/boot-common.bin ../egse-host-transfer
         machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/system.dtb  ../egse-host-transfer
-        machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot ../egse-host-transfer
+        machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/nominal-image-leopard-dpu.rootfs.cpio.gz.u-boot ../egse-host-transfer
         machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/Image ../egse-host-transfer
 
 #. Transfer content of :file:`egse-host-transfer` directory to EGSE Host and place it in :file:`/var/tftp/tutorial` directory
@@ -106,10 +106,10 @@ Run inference on DPU :tutorial-machine:`EGSE Host`
 
        customer@egse-host:~$ ls -lh /var/tftp/tutorial
        total 134M
-       -rw-rw-r-- 1 customer customer  21M Jan 23 13:59 Image
-       -rw-rw-r-- 1 customer customer 1.6M Jan 23 13:59 boot-common.bin
-       -rw-rw-r-- 1 customer customer 121M Jan 23 13:59 dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot
-       -rw-rw-r-- 1 customer customer  39K Jan 23 13:59 system.dtb
+       -rw-rw-r-- 1 customer customer  21M Jul 16 11:15 Image
+       -rw-rw-r-- 1 customer customer 1.6M Jul 16 11:15 boot-common.bin
+       -rw-rw-r-- 1 customer customer 121M Jul 16 11:15 nominal-image-leopard-dpu.rootfs.cpio.gz.u-boot
+       -rw-rw-r-- 1 customer customer  39K Jul 16 11:15 system.dtb
 
        customer@egse-host:~$ ls -lh ~/inference-input
        total 225K
@@ -117,7 +117,7 @@ Run inference on DPU :tutorial-machine:`EGSE Host`
        -rw-rw-r-- 1 customer customer 77K Jan 30 07:58 207743_04_03_sat.jpg
        -rw-rw-r-- 1 customer customer 76K Jan 30 07:58 21717_04_02_sat.jpg
 
-   .. note:: Exact file size might differ a bit but they should be in the same range (for example ``dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot`` shall be about ~120MB)
+   .. note:: Exact file size might differ a bit but they should be in the same range (for example ``nominal-image-leopard-dpu.rootfs.cpio.gz.u-boot`` shall be about ~120MB)
 
    .. note:: You can choose different images to run inference on.
 

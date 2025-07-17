@@ -24,7 +24,7 @@ Following files (:ref:`tutorial_files`) are associated with this tutorial:
 * :file:`Leopard/Zero-to-hero/04 Deep learning Processor Unit/arch.json` - DPU fingerprint
 * :file:`Leopard/Zero-to-hero/04 Deep learning Processor Unit/leopard-dpu-bd.xsa` - DPU IP bitstream
 * :file:`Leopard/Zero-to-hero/04 Deep learning Processor Unit/boot-common.bin` - Boot firmware for Leopard
-* :file:`Leopard/Zero-to-hero/04 Deep learning Processor Unit/dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot` - Root filesystem for Leopard
+* :file:`Leopard/Zero-to-hero/04 Deep learning Processor Unit/nominal-image-leopard-dpu.rootfs.cpio.gz.u-boot` - Root filesystem for Leopard
 * :file:`Leopard/Zero-to-hero/04 Deep learning Processor Unit/Image` - Linux kernel
 * :file:`Leopard/Zero-to-hero/04 Deep learning Processor Unit/system.dtb` - Device tree
 
@@ -232,7 +232,7 @@ Add Deep-learning Processor Unit bitstream to Linux image :tutorial-machine:`Yoc
 
       SRC_URI += "file://xlnx-dpu.cfg"
 
-#. Add new packages into Linux image by editing :file:`~/leopard-linux-1/sources/meta-local/recipes-leopard/images/dpu-leopard.bbappend`
+#. Add new packages into Linux image by editing :file:`~/leopard-linux-1/sources/meta-local/recipes-leopard/images/nominal-image.bbappend`
 
    .. code-block:: bitbake
 
@@ -257,7 +257,7 @@ Add Deep-learning Processor Unit bitstream to Linux image :tutorial-machine:`Yoc
         machine:~/leopard-linux-1/build$ mkdir -p ../egse-host-transfer
         machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/bootbins/boot-common.bin ../egse-host-transfer
         machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/system.dtb ../egse-host-transfer
-        machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot ../egse-host-transfer
+        machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/nominal-image-leopard-dpu.rootfs.cpio.gz.u-boot ../egse-host-transfer
         machine:~/leopard-linux-1/build$ cp tmp/deploy/images/leopard-dpu/Image ../egse-host-transfer
 
 #. Transfer content of :file:`egse-host-transfer` directory to EGSE Host and place it in :file:`/var/tftp/tutorial` directory
@@ -271,12 +271,12 @@ Run model on Deep-learning Processor Unit :tutorial-machine:`EGSE Host`
 
        customer@egse-host:~$ ls -lh /var/tftp/tutorial
        total 106M
-       -rw-rw-r-- 1 customer customer  21M Jan 23 09:37 Image
-       -rw-rw-r-- 1 customer customer 1.6M Jan 23 09:37 boot-common.bin
-       -rw-rw-r-- 1 customer customer  93M Jan 23 09:37 dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot
-       -rw-rw-r-- 1 customer customer  39K Jan 23 09:37 system.dtb
+       -rw-rw-r-- 1 customer customer  21M Jul 16 10:51 Image
+       -rw-rw-r-- 1 customer customer 1.6M Jul 16 10:51 boot-common.bin
+       -rw-rw-r-- 1 customer customer  93M Jul 16 10:51 nominal-image-leopard-dpu.rootfs.cpio.gz.u-boot
+       -rw-rw-r-- 1 customer customer  39K Jul 16 10:51 system.dtb
 
-   .. note:: Exact file size might differ a bit but they should be in the same range (for example ``dpu-leopard-leopard-dpu.rootfs.cpio.gz.u-boot`` shall be about ~100MB)
+   .. note:: Exact file size might differ a bit but they should be in the same range (for example ``nominal-image-leopard-dpu.rootfs.cpio.gz.u-boot`` shall be about ~90MB)
 
 #. Ensure that Leopard is powered off
 
