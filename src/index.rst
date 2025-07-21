@@ -75,3 +75,27 @@ In this documentation
             </ul>
         </div>
     </div>
+
+Explore our platform
+--------------------
+
+.. raw:: html
+
+    <div class="md-typeset">
+        <div class="grid cards">
+            <ul>
+                <li>
+                    <strong><a href="https://sml.kplabs.space/">Smart Mission Lab</a></strong>
+                    <div>
+                        <strong>Start</strong> using Smart Mission Lab.
+                    </div>
+
+                    <ul>
+                        <li><a href="https://sml.kplabs.space/product-categories">Products</a></li>
+                        <li><a href="https://sml.kplabs.space/compare">Comparator</a></li>
+                        <li><a href="https://sml.kplabs.space/subscriptions">My account</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
