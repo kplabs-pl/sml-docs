@@ -90,6 +90,7 @@ Steps
         xsdb% rwr crl_apb boot_mode_user use_alt 0
         xsdb% rst -system
 
+.. warning:: JTAG allows you to set boot mode to value that might be unusable (for example USB boot)
 
 References
 ----------

@@ -6,7 +6,7 @@ GitHub releases for SML documentation repository (https://github.com/kplabs-pl/s
 
 Output files
 ------------
-Release https://github.com/kplabs-pl/sml-docs/releases/tag/tutorial-files-2025.1 contains:
+Release https://github.com/kplabs-pl/sml-docs/releases/tag/tutorial-files-2025.2 contains:
 
 * :file:`SML Tutorials Outputs.zip` - output files from each tutorial in Zero-to-Hero series and ML tutorials.
 * :file:`quantization_samples.h5.xz` - HDF5 file with quantization samples for :doc:`/tutorials/ml_deployment/model_deployment/model_quantization`.
