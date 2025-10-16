@@ -10,7 +10,7 @@ pipeline {
         stage('Check quality') {
             steps {
                 dir('src') {
-                    withPipxInstalled('3.12', ['hatch==1.14.2']) {
+                    withPipxInstalled('3.12', ['hatch==1.15.0']) {
                         runCommand('hatch env prune')
                         runCommand('hatch run dev:check')
                     }
@@ -23,7 +23,7 @@ pipeline {
                     deleteDir()
                 }
                 dir('src') {
-                    withPipxInstalled('3.12', ['hatch==1.14.2']) {
+                    withPipxInstalled('3.12', ['hatch==1.15.0']) {
                         runCommand('hatch run dev:build -W -a -E')
                     }
                 }
