@@ -41,7 +41,7 @@ Setup the project environment :tutorial-machine:`Machine learning workstation`
 
       customer@ml-workstation:~/sml-tutorials/ml-deployment$ git clone https://github.com/kplabs-pl/sml-ml-tutorial.git tools
 
-#. Create folder for output files: :file:`~/sml-tutorials/ml-deployment/output``
+#. Create folder for output files: :file:`~/sml-tutorials/ml-deployment/output`
 
 #. Create Python virtual environment:
 
