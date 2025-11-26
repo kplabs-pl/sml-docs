@@ -14,6 +14,35 @@ Smart Mission Lab
 
 **Smart Mission Lab (SML)** provides real-time access to KP Labs' high-performance Data Processing Units, allowing users to remotely test and develop satellite mission technologies. This eliminates long hardware wait times by offering immediate access for testing and algorithm development in secured, isolated environments.
 
+Explore our platform
+--------------------
+
+.. raw:: html
+
+    <div class="md-typeset">
+        <div class="grid cards">
+            <ul>
+                <li>
+                    <div>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/FyrCmbszosQ?si=V39FrcsXgK2ERDc-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                </li>
+                <li>
+                    <strong><a href="https://sml.kplabs.space/">Smart Mission Lab</a></strong>
+                    <div>
+                        <strong>Start</strong> using Smart Mission Lab.
+                    </div>
+
+                    <ul>
+                        <li><a href="https://sml.kplabs.space/product-categories">Products</a></li>
+                        <li><a href="https://sml.kplabs.space/compare">Comparator</a></li>
+                        <li><a href="https://sml.kplabs.space/subscriptions">My account</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
 
 In this documentation
 ---------------------
@@ -76,26 +105,3 @@ In this documentation
         </div>
     </div>
 
-Explore our platform
---------------------
-
-.. raw:: html
-
-    <div class="md-typeset">
-        <div class="grid cards">
-            <ul>
-                <li>
-                    <strong><a href="https://sml.kplabs.space/">Smart Mission Lab</a></strong>
-                    <div>
-                        <strong>Start</strong> using Smart Mission Lab.
-                    </div>
-
-                    <ul>
-                        <li><a href="https://sml.kplabs.space/product-categories">Products</a></li>
-                        <li><a href="https://sml.kplabs.space/compare">Comparator</a></li>
-                        <li><a href="https://sml.kplabs.space/subscriptions">My account</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
