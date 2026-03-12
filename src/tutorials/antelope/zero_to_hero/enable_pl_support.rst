@@ -125,7 +125,7 @@ Create double UART bitstream :tutorial-machine:`Vivado`
 #. Connect ``interrupt`` pin of ``axi_uartlite1`` to ``In1`` of ``Concat`` block
 #. Final block design should look like this:
 
-    .. figure:: ./enable_pl_support/double_uart_bd.png
+   .. figure:: ./enable_pl_support/double_uart_bd.png
        :align: center
 
        Block design with double UARTs connected together and available to Processing System
@@ -284,14 +284,14 @@ Loading double UART bitstream on DPU :tutorial-machine:`EGSE Host`
 #. DPU boot process should be visible in ``minicom`` terminal
 #. Log in to DPU using ``root`` user
 
-    .. code-block:: shell-session
+   .. code-block:: shell-session
 
       antelope login: root
       root@antelope:~#
 
 #. Load double UART bitstream
 
-    .. code-block:: shell-session
+   .. code-block:: shell-session
 
         root@antelope:~# fpgautil -o /lib/firmware/double-uart/overlay.dtbo
         [   17.334051] fpga_manager fpga0: writing double-uart/bitstream.bit.bin to Xilinx ZynqMP FPGA Manager
@@ -310,7 +310,7 @@ Loading double UART bitstream on DPU :tutorial-machine:`EGSE Host`
 
 #. Verify presence of two new UART devices
 
-    .. code-block:: shell-session
+   .. code-block:: shell-session
 
         root@antelope:~# ls -l /dev/ttyUL*
         crw-rw----    1 root     dialout   204, 187 Sep 20 11:23 /dev/ttyUL0
@@ -318,7 +318,7 @@ Loading double UART bitstream on DPU :tutorial-machine:`EGSE Host`
 
 #. Start receiving data from ``/dev/ttyUL0`` in background
 
-    .. code-block:: shell-session
+   .. code-block:: shell-session
 
         root@antelope:~# cat /dev/ttyUL0 &
 
@@ -326,7 +326,7 @@ Loading double UART bitstream on DPU :tutorial-machine:`EGSE Host`
 
 #. Write something to second UART:
 
-    .. code-block:: shell-session
+   .. code-block:: shell-session
 
         root@antelope:~# echo "Hello from UART1" > /dev/ttyUL1
         Hello from UART1
