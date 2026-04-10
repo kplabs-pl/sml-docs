@@ -9,7 +9,7 @@ jobs:
       - name: Install pipx
         run: sudo apt-get install -y pipx
       - name: Install hatch
-        run: pipx install hatch==1.9.4
+        run: pipx install hatch==1.16.5
       - uses: actions/checkout@v4
       - name: Build documentation
         run: hatch run dev:build
